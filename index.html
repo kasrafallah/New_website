@@ -60,7 +60,7 @@
       </div>
     </section>
 
-    <section id="control" class="research observed-section" data-payload="controller" data-target="-0.55">
+    <section id="control" class="research observed-section" data-payload="controller" data-target="-0.55" data-multitask="true">
       <div class="section-number">01</div>
       <div class="section-copy">
         <p class="eyebrow">FOUNDATIONS</p>
@@ -70,32 +70,56 @@
           and remain reliable under uncertainty or adversarial corruption?
         </p>
 
-        <div class="paper-grid">
-          <article class="paper-card">
-            <span class="tag">Policy gradient · LQG</span>
-            <h3>On the Gradient Domination of the LQG Problem</h3>
-            <p>
-              History-based controller parameterizations reveal a benign optimization
-              landscape for partially observed LQG and enable global convergence guarantees.
-            </p>
+        <div class="publication-list">
+          <article class="publication-entry">
+            <div class="publication-index">[1]</div>
+            <div class="publication-body">
+              <span class="tag">Policy gradient · LQG</span>
+              <h3>On the Gradient Domination of the LQG Problem</h3>
+              <p class="authors"><strong>Kasra Fallah</strong>, Leonardo F. Toso, James Anderson</p>
+              <p class="venue">arXiv preprint, 2025</p>
+              <p class="contribution">
+                Establishes gradient domination for partially observed LQG through a finite-history
+                input/output controller parameterization, with model-based and model-free convergence guarantees.
+              </p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2507.09026" target="_blank" rel="noreferrer">arXiv ↗</a>
+              </div>
+            </div>
           </article>
 
-          <article class="paper-card">
-            <span class="tag">Multitask control</span>
-            <h3>Multitask LQG Control: Performance and Generalization Bounds</h3>
-            <p>
-              A common lifted controller across heterogeneous tasks, with performance and
-              generalization characterized through task similarity.
-            </p>
+          <article class="publication-entry">
+            <div class="publication-index">[2]</div>
+            <div class="publication-body">
+              <span class="tag">Multitask control</span>
+              <h3>Multitask LQG Control: Performance and Generalization Bounds</h3>
+              <p class="authors">Leonardo F. Toso*, <strong>Kasra Fallah*</strong>, Charis Stamouli*, George J. Pappas, James Anderson</p>
+              <p class="venue">IEEE Conference on Decision and Control (CDC), 2026</p>
+              <p class="contribution">
+                Learns a shared lifted controller across heterogeneous LQG tasks and relates
+                transfer performance and generalization to task similarity.
+              </p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2604.16730" target="_blank" rel="noreferrer">arXiv ↗</a>
+              </div>
+            </div>
           </article>
 
-          <article class="paper-card">
-            <span class="tag">Adaptive · Robust</span>
-            <h3>Adversarially Robust Multitask Adaptive Linear Quadratic Control</h3>
-            <p>
-              Multitask adaptive control under system heterogeneity and corrupted model
-              updates, combining identification, clustering, and resilient aggregation.
-            </p>
+          <article class="publication-entry">
+            <div class="publication-index">[3]</div>
+            <div class="publication-body">
+              <span class="tag">Adaptive · Robust</span>
+              <h3>Adversarially Robust Multitask Adaptive Linear Quadratic Control</h3>
+              <p class="authors"><strong>Kasra Fallah*</strong>, Leonardo F. Toso*, James Anderson</p>
+              <p class="venue">Learning for Dynamics &amp; Control (L4DC), 2026</p>
+              <p class="contribution">
+                Combines local identification, clustering, resilient aggregation, and certainty-equivalent
+                control to obtain multitask adaptive guarantees under heterogeneity and adversarial corruption.
+              </p>
+              <div class="paper-links">
+                <a href="https://proceedings.mlr.press/v331/fallah26a.html" target="_blank" rel="noreferrer">Proceedings ↗</a>
+              </div>
+            </div>
           </article>
         </div>
       </div>
