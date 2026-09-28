@@ -7,7 +7,7 @@
   const palette = {
     none: "#102033",
     controller: "#2457d6",
-    transformer: "#7857c6",
+    latent: "#7857c6",
     brain: "#168a86",
     motor: "#d47b2e",
     papers: "#56616d"
@@ -16,7 +16,7 @@
   const labels = {
     none: "NOMINAL",
     controller: "CONTROL",
-    transformer: "LARGE LEARNED",
+    latent: "LARGE LEARNED",
     brain: "NEURAL",
     motor: "PHYSICAL",
     papers: "PUBLICATIONS"
@@ -84,7 +84,7 @@
     const masses = {
       none: 0,
       controller: 0.05,
-      transformer: 0.1,
+      latent: 0.1,
       brain: 0.14,
       motor: 0.22,
       papers: 0.09
@@ -272,63 +272,81 @@
       ctx.fillText("K", 0, 1);
     }
 
-    if (kind === "transformer") {
-      // Learned system as a controlled latent dynamical state:
-      // z evolves along a nominal trajectory while u steers it.
+    if (kind === "latent") {
+      // A learned dynamical state z with nominal and controlled trajectories.
+      // Drawn deliberately larger than the other payloads so the concept is unmistakable.
+      ctx.save();
+      ctx.scale(1.18, 1.18);
+
+      // Outer state-space ring.
       ctx.beginPath();
-      ctx.arc(0, 0, 15, 0, Math.PI * 2);
+      ctx.arc(0, 0, 22, 0, Math.PI * 2);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.6;
       ctx.stroke();
 
-      // Latent trajectory samples.
-      const latentPoints = [
-        [-19, -10],
-        [-10, -20],
-        [7, -21],
-        [20, -10],
-        [20, 8],
-        [8, 19]
-      ];
-
+      // Nominal trajectory.
       ctx.beginPath();
-      ctx.moveTo(latentPoints[0][0], latentPoints[0][1]);
-      ctx.bezierCurveTo(-13, -18, -4, -23, 7, -21);
-      ctx.bezierCurveTo(15, -19, 21, -14, 20, -10);
+      ctx.moveTo(-27, 9);
+      ctx.bezierCurveTo(-25, -18, -8, -31, 12, -25);
+      ctx.bezierCurveTo(24, -21, 30, -12, 28, -3);
       ctx.stroke();
 
-      latentPoints.slice(0, 4).forEach(([px, py]) => {
+      // Controlled trajectory branches away from nominal.
+      ctx.beginPath();
+      ctx.moveTo(7, 18);
+      ctx.bezierCurveTo(17, 17, 24, 12, 30, 3);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.7;
+      ctx.stroke();
+
+      // Trajectory samples.
+      const points = [[-25,7],[-20,-12],[-5,-25],[13,-23],[27,-7],[28,3]];
+      points.forEach(([px,py],idx) => {
         ctx.beginPath();
-        ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+        ctx.arc(px, py, idx === points.length - 1 ? 3.5 : 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = color;
         ctx.fill();
       });
 
-      // Controlled branch of the trajectory.
+      // Latent state.
       ctx.beginPath();
-      ctx.moveTo(7, 14);
-      ctx.quadraticCurveTo(16, 15, 21, 8);
+      ctx.arc(0, 0, 13, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,.98)";
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.2;
       ctx.stroke();
 
-      ctx.beginPath();
-      ctx.arc(21, 8, 2.2, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Central latent state.
-      ctx.font = "700 14px ui-monospace, monospace";
+      ctx.fillStyle = color;
+      ctx.font = "700 16px ui-monospace, monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText("z", 0, 0);
 
-      // Control input u entering the learned dynamics.
+      // Explicit control input u -> z.
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(0, 31);
+      ctx.moveTo(0, 39);
       ctx.lineTo(0, 17);
+      ctx.stroke();
+      ctx.beginPath();
       ctx.moveTo(0, 17);
-      ctx.lineTo(-4, 22);
+      ctx.lineTo(-5, 23);
       ctx.moveTo(0, 17);
-      ctx.lineTo(4, 22);
+      ctx.lineTo(5, 23);
       ctx.stroke();
 
-      ctx.font = "700 9px ui-monospace, monospace";
-      ctx.fillText("u", 0, 37);
+      ctx.fillStyle = color;
+      ctx.font = "700 11px ui-monospace, monospace";
+      ctx.fillText("u", 0, 46);
+
+      // Tiny dynamics marker.
+      ctx.font = "600 8px ui-monospace, monospace";
+      ctx.fillText("fθ", -27, -28);
+
+      ctx.restore();
     }
 
     if (kind === "brain") {
