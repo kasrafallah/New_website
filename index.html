@@ -14,15 +14,6 @@
       <p>Ph.D. Candidate · Columbia University</p>
     </div>
 
-    <div class="control-shell">
-      <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
-      <div class="control-readout">
-        <span id="modeLabel">NOMINAL</span>
-        <span id="stateLabel">stabilizing</span>
-      </div>
-      <p class="control-hint">Click the system to perturb it.</p>
-    </div>
-
     <nav class="nav" aria-label="Primary navigation">
       <a href="#home" data-payload="none">Home</a>
       <a href="#control" data-payload="controller">Control foundations</a>
@@ -38,6 +29,18 @@
     </div>
   </aside>
 
+  <aside class="control-panel" aria-label="Interactive research control system">
+    <div class="control-shell">
+      <div class="control-kicker">INTERACTIVE CONTROL SYSTEM</div>
+      <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
+      <div class="control-readout">
+        <span id="modeLabel">NOMINAL</span>
+        <span id="stateLabel">stabilizing</span>
+      </div>
+      <p class="control-hint">The research object is the pendulum payload. Click the system to perturb it.</p>
+    </div>
+  </aside>
+
   <main>
     <section id="home" class="hero observed-section" data-payload="none" data-target="0">
       <p class="eyebrow">CONTROL · LEARNING · DYNAMICAL SYSTEMS</p>
@@ -50,8 +53,8 @@
       <div class="hero-note">
         <span>Interactive idea</span>
         <p>
-          The system at left is controlled in real time. As you move through the research
-          directions, the payload and operating point change while the controller keeps the
+          The larger system at right is controlled in real time. As you move through the research
+          directions, the research object becomes the pendulum payload and the operating point changes while the controller keeps the
           inverted pendulum upright.
         </p>
       </div>
