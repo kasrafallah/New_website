@@ -40,7 +40,20 @@
   let targetTargetX = 0;
   let payload = "none";
   let payloadMass = 0;
+  let multitaskMode = false;
   let lastTime = performance.now();
+
+  const multitaskStates = [
+    { x: -0.18, xDot: 0, theta: 0.045, thetaDot: 0 },
+    { x: 0.02, xDot: 0, theta: -0.035, thetaDot: 0 },
+    { x: 0.20, xDot: 0, theta: 0.055, thetaDot: 0 }
+  ];
+
+  const multitaskPlants = [
+    { cartMass: 0.88, poleMass: 0.14, poleHalfLength: 0.66 },
+    { cartMass: 1.00, poleMass: 0.16, poleHalfLength: 0.72 },
+    { cartMass: 1.15, poleMass: 0.19, poleHalfLength: 0.78 }
+  ];
   let canvasWidth = 0;
   let canvasHeight = 0;
   let cssWidth = 0;
@@ -81,23 +94,23 @@
     modeLabel.style.color = palette[payload] || palette.none;
 
     if (!reducedMotion) {
-      state.thetaDot += payload === "motor" ? 0.34 : 0.22;
+      state.thetaDot += kind === "motor" ? 0.34 : 0.22;
       state.xDot -= 0.08;
     }
   }
 
-  function controllerForce() {
-    const error = state.x - targetX;
-
-    // Stabilizing state feedback around the upright equilibrium.
-    // The payload alters the actual plant mass; the controller stays fixed.
+  function feedbackForce(s, reference = targetX) {
+    const error = s.x - reference;
     const force =
-      43.0 * state.theta +
-      8.5 * state.thetaDot -
+      43.0 * s.theta +
+      8.5 * s.thetaDot -
       2.25 * error -
-      3.4 * state.xDot;
-
+      3.4 * s.xDot;
     return Math.max(-28, Math.min(28, force));
+  }
+
+  function controllerForce() {
+    return feedbackForce(state, targetX);
   }
 
   function dynamics(dt) {
@@ -146,6 +159,54 @@
     stateLabel.textContent = effort > 18 ? "recovering" : effort > 7 ? "tracking" : "stabilized";
   }
 
+  function multitaskDynamics(dt) {
+    targetX += (targetTargetX - targetX) * Math.min(1, dt * 2.6);
+
+    let maxEffort = 0;
+
+    multitaskStates.forEach((s, i) => {
+      const p = multitaskPlants[i];
+      const force = feedbackForce(s, targetX);
+      const totalMass = p.cartMass + p.poleMass;
+      const sin = Math.sin(s.theta);
+      const cos = Math.cos(s.theta);
+      const poleMassLength = p.poleMass * p.poleHalfLength;
+
+      const temp =
+        (force + poleMassLength * s.thetaDot * s.thetaDot * sin) /
+        totalMass;
+
+      const thetaAcc =
+        (plant.gravity * sin - cos * temp) /
+        (p.poleHalfLength * (4 / 3 - (p.poleMass * cos * cos) / totalMass));
+
+      const xAcc =
+        temp - (poleMassLength * thetaAcc * cos) / totalMass;
+
+      s.x += dt * s.xDot;
+      s.xDot += dt * xAcc;
+      s.theta += dt * s.thetaDot;
+      s.thetaDot += dt * thetaAcc;
+
+      s.xDot *= 0.999;
+      s.thetaDot *= 0.9992;
+
+      if (Math.abs(s.theta) > 0.8 || Math.abs(s.x) > 2.2) {
+        s.x = Math.max(-0.6, Math.min(0.6, targetX));
+        s.xDot = 0;
+        s.theta = (i - 1) * 0.04;
+        s.thetaDot = 0;
+      }
+
+      maxEffort = Math.max(maxEffort, Math.abs(force));
+    });
+
+    stateLabel.textContent =
+      maxEffort > 18 ? "shared K · recovering" :
+      maxEffort > 7 ? "shared K · tracking" :
+      "shared K · stable";
+  }
+
   function roundRect(x, y, w, h, r, fill, stroke) {
     ctx.beginPath();
     ctx.roundRect(x, y, w, h, r);
@@ -159,16 +220,17 @@
     }
   }
 
-  function drawPayload(cx, cy, color) {
+  function drawPayload(cx, cy, color, kind = payload, scale = 1) {
     ctx.save();
     ctx.translate(cx, cy);
+    ctx.scale(scale, scale);
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    if (payload === "none") {
+    if (kind === "none") {
       ctx.beginPath();
       ctx.arc(0, 0, 10, 0, Math.PI * 2);
       ctx.fill();
@@ -189,7 +251,7 @@
     ctx.fillStyle = color;
     ctx.lineWidth = 2.1;
 
-    if (payload === "controller") {
+    if (kind === "controller") {
       roundRect(-21, -14, 42, 28, 6, "rgba(255,255,255,.98)", color);
       ctx.font = "700 15px ui-monospace, monospace";
       ctx.textAlign = "center";
@@ -197,13 +259,13 @@
       ctx.fillText("K", 0, 1);
     }
 
-    if (payload === "transformer") {
+    if (kind === "transformer") {
       for (let i = 0; i < 3; i++) {
         roundRect(-20 + i * 3, -16 + i * 7, 40, 10, 3, "rgba(255,255,255,.98)", color);
       }
     }
 
-    if (payload === "brain") {
+    if (kind === "brain") {
       ctx.beginPath();
       ctx.moveTo(-19, 5);
       ctx.bezierCurveTo(-26, -9, -17, -23, -5, -19);
@@ -223,7 +285,7 @@
       ctx.stroke();
     }
 
-    if (payload === "motor") {
+    if (kind === "motor") {
       ctx.beginPath();
       ctx.arc(0, 0, 19, 0, Math.PI * 2);
       ctx.stroke();
@@ -238,7 +300,7 @@
       }
     }
 
-    if (payload === "papers") {
+    if (kind === "papers") {
       for (let i = 0; i < 3; i++) {
         roundRect(-20 + i * 3, -15 + i * 5, 40, 24, 4, "rgba(255,255,255,.98)", color);
       }
@@ -247,7 +309,104 @@
     ctx.restore();
   }
 
+  function drawSingleCartPole(s, rowTop, rowHeight, taskIndex) {
+    const w = cssWidth;
+    const color = palette.controller;
+    const railY = rowTop + rowHeight * 0.72;
+    const usable = w * 0.66;
+    const centerX = w * 0.5;
+    const cartX = centerX + (s.x / 1.25) * (usable * 0.5);
+    const targetPx = centerX + (targetX / 1.25) * (usable * 0.5);
+
+    ctx.strokeStyle = "#d3dae1";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath();
+    ctx.moveTo(targetPx, rowTop + 20);
+    ctx.lineTo(targetPx, railY + 15);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.strokeStyle = "#bac4ce";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.16, railY + 7);
+    ctx.lineTo(w * 0.84, railY + 7);
+    ctx.stroke();
+
+    const cartW = 48;
+    const cartH = 20;
+    const cartTop = railY - cartH;
+
+    ctx.fillStyle = "#26384b";
+    ctx.beginPath();
+    ctx.arc(cartX - 15, railY + 2, 3.6, 0, Math.PI * 2);
+    ctx.arc(cartX + 15, railY + 2, 3.6, 0, Math.PI * 2);
+    ctx.fill();
+
+    roundRect(cartX - cartW / 2, cartTop, cartW, cartH, 5, "#ffffff", "#8d99a6");
+    ctx.fillStyle = color;
+    ctx.fillRect(cartX - cartW / 2 + 6, cartTop + cartH - 4, cartW - 12, 2);
+
+    const poleLengthPx = Math.min(78, rowHeight * 0.48);
+    const pivotX = cartX;
+    const pivotY = cartTop + 1;
+    const tipX = pivotX + Math.sin(s.theta) * poleLengthPx;
+    const tipY = pivotY - Math.cos(s.theta) * poleLengthPx;
+
+    ctx.strokeStyle = "#172a3d";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(pivotX, pivotY);
+    ctx.lineTo(tipX, tipY);
+    ctx.stroke();
+
+    drawPayload(tipX, tipY, color, "controller", 0.62);
+
+    ctx.fillStyle = "#172a3d";
+    ctx.beginPath();
+    ctx.arc(pivotX, pivotY, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = "600 9px ui-monospace, monospace";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#8e99a5";
+    ctx.fillText("task " + (taskIndex + 1), w * 0.07, rowTop + 18);
+  }
+
+  function drawMultitask() {
+    resizeCanvas();
+    const w = cssWidth;
+    const h = cssHeight;
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.font = "700 10px ui-monospace, monospace";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#2457d6";
+    ctx.fillText("M = 3 HETEROGENEOUS TASKS · SHARED K", w * 0.07, 18);
+
+    const top = 28;
+    const rowHeight = (h - top - 4) / 3;
+
+    multitaskStates.forEach((s, i) => {
+      if (i > 0) {
+        ctx.strokeStyle = "#edf0f3";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.06, top + i * rowHeight);
+        ctx.lineTo(w * 0.94, top + i * rowHeight);
+        ctx.stroke();
+      }
+      drawSingleCartPole(s, top + i * rowHeight, rowHeight, i);
+    });
+  }
+
   function draw() {
+    if (multitaskMode) {
+      drawMultitask();
+      return;
+    }
+
     resizeCanvas();
 
     const w = cssWidth;
@@ -341,14 +500,27 @@
 
     if (!reducedMotion) {
       const steps = 2;
-      for (let i = 0; i < steps; i++) dynamics(dt / steps);
+      for (let i = 0; i < steps; i++) {
+        if (multitaskMode) multitaskDynamics(dt / steps);
+        else dynamics(dt / steps);
+      }
     } else {
       targetX = targetTargetX;
-      state.x = targetX;
-      state.xDot = 0;
-      state.theta = 0;
-      state.thetaDot = 0;
-      stateLabel.textContent = "stabilized";
+      if (multitaskMode) {
+        multitaskStates.forEach((s) => {
+          s.x = targetX;
+          s.xDot = 0;
+          s.theta = 0;
+          s.thetaDot = 0;
+        });
+        stateLabel.textContent = "shared K · stable";
+      } else {
+        state.x = targetX;
+        state.xDot = 0;
+        state.theta = 0;
+        state.thetaDot = 0;
+        stateLabel.textContent = "stabilized";
+      }
     }
 
     draw();
@@ -359,9 +531,17 @@
     if (reducedMotion) return;
     const rect = canvas.getBoundingClientRect();
     const normalized = (event.clientX - rect.left) / rect.width - 0.5;
-    state.thetaDot += normalized >= 0 ? 0.95 : -0.95;
-    state.xDot += normalized * 0.55;
-    stateLabel.textContent = "disturbed";
+    if (multitaskMode) {
+      multitaskStates.forEach((s, i) => {
+        s.thetaDot += (normalized >= 0 ? 0.72 : -0.72) * (0.82 + i * 0.16);
+        s.xDot += normalized * (0.34 + i * 0.06);
+      });
+      stateLabel.textContent = "shared K · disturbed";
+    } else {
+      state.thetaDot += normalized >= 0 ? 0.95 : -0.95;
+      state.xDot += normalized * 0.55;
+      stateLabel.textContent = "disturbed";
+    }
   });
 
   const sections = [...document.querySelectorAll(".observed-section")];
@@ -370,7 +550,13 @@
   function activate(section) {
     const nextPayload = section.dataset.payload || "none";
     const nextTarget = section.dataset.target || "0";
+    multitaskMode = section.dataset.multitask === "true";
     setPayload(nextPayload, nextTarget);
+
+    if (multitaskMode) {
+      modeLabel.textContent = "MULTITASK CONTROL";
+      modeLabel.style.color = palette.controller;
+    }
 
     navLinks.forEach((link) => {
       const active = link.getAttribute("href") === "#" + section.id;
