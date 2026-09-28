@@ -16,7 +16,7 @@
   const labels = {
     none: "NOMINAL",
     controller: "CONTROL",
-    transformer: "LEARNED",
+    transformer: "LARGE LEARNED",
     brain: "NEURAL",
     motor: "PHYSICAL",
     papers: "PUBLICATIONS"
@@ -273,9 +273,62 @@
     }
 
     if (kind === "transformer") {
-      for (let i = 0; i < 3; i++) {
-        roundRect(-20 + i * 3, -16 + i * 7, 40, 10, 3, "rgba(255,255,255,.98)", color);
-      }
+      // Learned system as a controlled latent dynamical state:
+      // z evolves along a nominal trajectory while u steers it.
+      ctx.beginPath();
+      ctx.arc(0, 0, 15, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Latent trajectory samples.
+      const latentPoints = [
+        [-19, -10],
+        [-10, -20],
+        [7, -21],
+        [20, -10],
+        [20, 8],
+        [8, 19]
+      ];
+
+      ctx.beginPath();
+      ctx.moveTo(latentPoints[0][0], latentPoints[0][1]);
+      ctx.bezierCurveTo(-13, -18, -4, -23, 7, -21);
+      ctx.bezierCurveTo(15, -19, 21, -14, 20, -10);
+      ctx.stroke();
+
+      latentPoints.slice(0, 4).forEach(([px, py]) => {
+        ctx.beginPath();
+        ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Controlled branch of the trajectory.
+      ctx.beginPath();
+      ctx.moveTo(7, 14);
+      ctx.quadraticCurveTo(16, 15, 21, 8);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(21, 8, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Central latent state.
+      ctx.font = "700 14px ui-monospace, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("z", 0, 0);
+
+      // Control input u entering the learned dynamics.
+      ctx.beginPath();
+      ctx.moveTo(0, 31);
+      ctx.lineTo(0, 17);
+      ctx.moveTo(0, 17);
+      ctx.lineTo(-4, 22);
+      ctx.moveTo(0, 17);
+      ctx.lineTo(4, 22);
+      ctx.stroke();
+
+      ctx.font = "700 9px ui-monospace, monospace";
+      ctx.fillText("u", 0, 37);
     }
 
     if (kind === "brain") {
