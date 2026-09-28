@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
+  <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="identity">
+      <a class="name" href="#home">Kasra Fallah</a>
+      <p>Ph.D. Candidate · Columbia University</p>
+    </div>
+
+    <div class="control-shell">
+      <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
+      <div class="control-readout">
+        <span id="modeLabel">NOMINAL</span>
+        <span id="stateLabel">stabilizing</span>
+      </div>
+      <p class="control-hint">Click the system to perturb it.</p>
+    </div>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#home" data-payload="none">Home</a>
+      <a href="#control" data-payload="controller">Control foundations</a>
+      <a href="#learned" data-payload="transformer">Learned dynamics</a>
+      <a href="#neural" data-payload="brain">Neural dynamics</a>
+      <a href="#physical" data-payload="motor">Physical systems</a>
+      <a href="#publications" data-payload="papers">Publications</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="https://github.com/kasrafallah" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </aside>
+
+  <main>
+    <section id="home" class="hero observed-section" data-payload="none" data-target="0">
+      <p class="eyebrow">CONTROL · LEARNING · DYNAMICAL SYSTEMS</p>
+      <h1>Learning, understanding, and controlling complex dynamical systems.</h1>
+      <p class="lede">
+        I develop theory and algorithms for reliable intervention in dynamical systems —
+        from partially observed and heterogeneous control problems to learned models,
+        neural representations, and physical systems.
+      </p>
+      <div class="hero-note">
+        <span>Interactive idea</span>
+        <p>
+          The system at left is controlled in real time. As you move through the research
+          directions, the payload and operating point change while the controller keeps the
+          inverted pendulum upright.
+        </p>
+      </div>
+    </section>
+
+    <section id="control" class="research observed-section" data-payload="controller" data-target="-0.55">
+      <div class="section-number">01</div>
+      <div class="section-copy">
+        <p class="eyebrow">FOUNDATIONS</p>
+        <h2>Learning, Generalization & Robustness in Control</h2>
+        <p class="question">
+          When can controllers be learned efficiently, generalized across systems,
+          and remain reliable under uncertainty or adversarial corruption?
+        </p>
+
+        <div class="paper-grid">
+          <article class="paper-card">
+            <span class="tag">Policy gradient · LQG</span>
+            <h3>On the Gradient Domination of the LQG Problem</h3>
+            <p>
+              History-based controller parameterizations reveal a benign optimization
+              landscape for partially observed LQG and enable global convergence guarantees.
+            </p>
+          </article>
+
+          <article class="paper-card">
+            <span class="tag">Multitask control</span>
+            <h3>Multitask LQG Control: Performance and Generalization Bounds</h3>
+            <p>
+              A common lifted controller across heterogeneous tasks, with performance and
+              generalization characterized through task similarity.
+            </p>
+          </article>
+
+          <article class="paper-card">
+            <span class="tag">Adaptive · Robust</span>
+            <h3>Adversarially Robust Multitask Adaptive Linear Quadratic Control</h3>
+            <p>
+              Multitask adaptive control under system heterogeneity and corrupted model
+              updates, combining identification, clustering, and resilient aggregation.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="learned" class="research observed-section" data-payload="transformer" data-target="0.45">
+      <div class="section-number">02</div>
+      <div class="section-copy">
+        <p class="eyebrow">INFERENCE-TIME CONTROL</p>
+        <h2>Control of Learned Dynamics</h2>
+        <p class="question">
+          How can pretrained models be treated as dynamical systems and reliably steered
+          at inference time without retraining them?
+        </p>
+
+        <div class="dual-path">
+          <article class="path-card">
+            <span class="tag">Generative dynamics</span>
+            <h3>CONIC-FLOW</h3>
+            <p>
+              Cast constrained flow-matching inference as optimal control and use
+              receding-horizon primal–dual optimization to trade trajectory deviation
+              against reward while enforcing terminal constraints.
+            </p>
+            <div class="mini-flow" aria-hidden="true">
+              <span>pretrained flow</span><b>→</b><span>RH control</span><b>→</b><span>feasible sample</span>
+            </div>
+          </article>
+
+          <article class="path-card">
+            <span class="tag">Representation dynamics</span>
+            <h3>Robust Steerability of Language Models</h3>
+            <p>
+              Model transformer depth as a finite dynamical process and use robust feedback
+              control to characterize and improve steering reliability under distribution shift.
+            </p>
+            <div class="mini-flow" aria-hidden="true">
+              <span>representations</span><b>→</b><span>robust feedback</span><b>→</b><span>reliable steering</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="neural" class="research observed-section" data-payload="brain" data-target="-0.25">
+      <div class="section-number">03</div>
+      <div class="section-copy">
+        <p class="eyebrow">GEOMETRY · NEURAL COMPUTATION</p>
+        <h2>Geometry & Control of Neural Dynamics</h2>
+        <p class="question">
+          What low-dimensional structure organizes neural dynamics, and how can that
+          structure be used to understand or shape neural computation?
+        </p>
+
+        <div class="dual-path">
+          <article class="path-card">
+            <span class="tag">Manifold geometry</span>
+            <h3>NeuralFieldManifold</h3>
+            <p>
+              Use lag embeddings and topological structure to connect oscillatory field
+              potentials with low-dimensional toroidal geometry.
+            </p>
+            <div class="mini-flow" aria-hidden="true">
+              <span>LFP</span><b>→</b><span>lag embedding</span><b>→</b><span>latent topology</span>
+            </div>
+          </article>
+
+          <article class="path-card">
+            <span class="tag">Neural sampling</span>
+            <h3>Accelerated Inference in Continuous Attractor Networks</h3>
+            <p>
+              Study feedback mechanisms that accelerate sampling and concurrent model-evidence
+              computation in structured neural state spaces.
+            </p>
+            <div class="mini-flow" aria-hidden="true">
+              <span>attractor</span><b>→</b><span>feedback</span><b>→</b><span>faster inference</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="physical" class="research observed-section" data-payload="motor" data-target="0.6">
+      <div class="section-number">04</div>
+      <div class="section-copy">
+        <p class="eyebrow">PHYSICAL SYSTEMS</p>
+        <h2>Optimization & Predictive Control of Physical Systems</h2>
+        <p class="question">
+          How can physical structure be exploited to make nonlinear optimization and
+          predictive control tractable and efficient?
+        </p>
+
+        <div class="dual-path">
+          <article class="path-card">
+            <span class="tag">Optimal operation</span>
+            <h3>Optimal Current Reference Theory for WRSMs</h3>
+            <p>
+              Unify operating regimes for wound-rotor synchronous machines through
+              structure-aware optimal current-reference design.
+            </p>
+          </article>
+
+          <article class="path-card">
+            <span class="tag">Model predictive control</span>
+            <h3>LPV Model Predictive Current Control</h3>
+            <p>
+              Use an enhanced machine model inside predictive current control to handle
+              nonlinear magnetic behavior and operating constraints.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications" class="publications observed-section" data-payload="papers" data-target="0">
+      <p class="eyebrow">SELECTED WORK</p>
+      <h2>Publications as research trajectories</h2>
+      <p class="question">
+        The final version will turn this into a figure-first publication explorer:
+        each line of work will have a conceptual visual, followed by the papers that
+        build that research thread.
+      </p>
+      <div class="placeholder-panel">
+        <span>Next build</span>
+        <strong>Interactive publication explorer</strong>
+        <p>Research-line filters · conceptual figures · paper cards · arXiv / proceedings links</p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact observed-section" data-payload="none" data-target="0">
+      <p class="eyebrow">CONTACT</p>
+      <h2>Let’s talk about control, learning, or dynamical systems.</h2>
+      <p>
+        This prototype intentionally keeps contact details minimal while we design the final
+        information architecture.
+      </p>
+    </section>
+
+    <footer>
+      <span>Kasra Fallah</span>
+      <span>Built around a controlled dynamical system.</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
