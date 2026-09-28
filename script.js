@@ -94,19 +94,31 @@
     modeLabel.style.color = palette[payload] || palette.none;
 
     if (!reducedMotion) {
-      state.thetaDot += payload === "motor" ? 0.34 : 0.22;
-      state.xDot -= 0.08;
+      // Section changes should be visible, but small enough that the feedback
+      // controller remains close to the upright equilibrium.
+      state.thetaDot += payload === "motor" ? 0.14 : 0.09;
+      state.xDot -= 0.035;
     }
   }
 
   function feedbackForce(s, reference = targetX) {
     const error = s.x - reference;
+
+    // LQR-style state feedback around the upright equilibrium.
+    // The same gain K is used for every research section and for all
+    // heterogeneous plants in multitask mode.
+    const kTheta = 62.0;
+    const kThetaDot = 13.5;
+    const kX = 3.8;
+    const kXDot = 5.4;
+
     const force =
-      43.0 * s.theta +
-      8.5 * s.thetaDot -
-      2.25 * error -
-      3.4 * s.xDot;
-    return Math.max(-28, Math.min(28, force));
+      kTheta * s.theta +
+      kThetaDot * s.thetaDot -
+      kX * error -
+      kXDot * s.xDot;
+
+    return Math.max(-42, Math.min(42, force));
   }
 
   function controllerForce() {
@@ -114,7 +126,7 @@
   }
 
   function dynamics(dt) {
-    targetX += (targetTargetX - targetX) * Math.min(1, dt * 2.6);
+    targetX += (targetTargetX - targetX) * Math.min(1, dt * 1.65);
 
     const force = controllerForce();
     const mCart = plant.cartMass + payloadMass;
@@ -142,9 +154,10 @@
     state.theta += dt * state.thetaDot;
     state.thetaDot += dt * thetaAcc;
 
-    // A tiny amount of damping keeps the website animation visually calm.
-    state.xDot *= 0.999;
-    state.thetaDot *= 0.9992;
+    // Light physical/numerical damping keeps the visualization calm without
+    // replacing the feedback controller.
+    state.xDot *= 0.9988;
+    state.thetaDot *= 0.9989;
 
     if (Math.abs(state.theta) > 0.8 || Math.abs(state.x) > 2.2) {
       state = {
@@ -160,7 +173,7 @@
   }
 
   function multitaskDynamics(dt) {
-    targetX += (targetTargetX - targetX) * Math.min(1, dt * 2.6);
+    targetX += (targetTargetX - targetX) * Math.min(1, dt * 1.65);
 
     let maxEffort = 0;
 
@@ -188,8 +201,8 @@
       s.theta += dt * s.thetaDot;
       s.thetaDot += dt * thetaAcc;
 
-      s.xDot *= 0.999;
-      s.thetaDot *= 0.9992;
+      s.xDot *= 0.9988;
+      s.thetaDot *= 0.9989;
 
       if (Math.abs(s.theta) > 0.8 || Math.abs(s.x) > 2.2) {
         s.x = Math.max(-0.6, Math.min(0.6, targetX));
@@ -499,7 +512,7 @@
     const dt = Math.min(0.02, Math.max(0.001, rawDt));
 
     if (!reducedMotion) {
-      const steps = 2;
+      const steps = 5;
       for (let i = 0; i < steps; i++) {
         if (multitaskMode) multitaskDynamics(dt / steps);
         else dynamics(dt / steps);
