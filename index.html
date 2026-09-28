@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
   <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20260928b" />
 </head>
 <body>
   <aside class="sidebar">
@@ -17,7 +17,7 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="#home" data-payload="none">Home</a>
       <a href="#control" data-payload="controller">Control foundations</a>
-      <a href="#learned" data-payload="transformer">Learned systems</a>
+      <a href="#learned" data-payload="latent">Learned systems</a>
       <a href="#neural" data-payload="brain">Neural dynamics</a>
       <a href="#physical" data-payload="motor">Physical systems</a>
       <a href="#publications" data-payload="papers">Publications</a>
@@ -129,7 +129,7 @@
       </div>
     </section>
 
-    <section id="learned" class="research observed-section" data-payload="transformer" data-target="0.45">
+    <section id="learned" class="research observed-section" data-payload="latent" data-target="0.45">
       <div class="section-number">02</div>
       <div class="section-copy">
         <p class="eyebrow">INFERENCE-TIME CONTROL</p>
@@ -139,29 +139,32 @@
           at inference time under constraints, uncertainty, and distribution shift?
         </p>
 
-        <div class="dual-path">
-          <article class="path-card">
-            <span class="tag">Generative dynamics</span>
-            <h3>CONIC-FLOW</h3>
-            <p>
-              Cast constrained flow-matching inference as optimal control and use
-              receding-horizon primal–dual optimization to trade trajectory deviation
-              against reward while enforcing terminal constraints.
-            </p>
-            <div class="mini-flow" aria-hidden="true">
-              <span>pretrained flow</span><b>→</b><span>RH control</span><b>→</b><span>feasible sample</span>
+        <div class="publication-list">
+          <article class="publication-entry">
+            <div class="publication-index">[4]</div>
+            <div class="publication-body">
+              <span class="tag">Generative models · Optimal control</span>
+              <h3>CONIC-FLOW: Constrained Inference-Time Optimal Control for Flow Matching Models</h3>
+              <p class="authors">Shervin Khalafi*, <strong>Kasra Fallah*</strong>, Sung Cho, Dongsheng Ding, James Anderson, Alejandro Ribeiro</p>
+              <p class="venue">Under review at ICLR 2027</p>
+              <p class="contribution">
+                Casts constrained flow-matching inference as an optimal-control problem and develops
+                receding-horizon primal–dual methods with finite-horizon guarantees.
+              </p>
             </div>
           </article>
 
-          <article class="path-card">
-            <span class="tag">Representation dynamics</span>
-            <h3>Robust Steerability of Language Models</h3>
-            <p>
-              Model transformer depth as a finite dynamical process and use robust feedback
-              control to characterize and improve steering reliability under distribution shift.
-            </p>
-            <div class="mini-flow" aria-hidden="true">
-              <span>representations</span><b>→</b><span>robust feedback</span><b>→</b><span>reliable steering</span>
+          <article class="publication-entry">
+            <div class="publication-index">[5]</div>
+            <div class="publication-body">
+              <span class="tag">Language models · Robust control</span>
+              <h3>When Are Language Models Reliably Steerable? Robust Control of Representation Dynamics Under Distribution Shift</h3>
+              <p class="authors"><strong>Kasra Fallah*</strong>, Rudramani Singha*, Hannah Ghanei, Paul Sajda, James Anderson, Erfan Zabeh</p>
+              <p class="venue">Under review at ICLR 2027</p>
+              <p class="contribution">
+                Models transformer representations as a finite dynamical system and develops a robust-control
+                notion of steerability for reliable interventions under distribution shift.
+              </p>
             </div>
           </article>
         </div>
@@ -268,6 +271,6 @@
     </footer>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260928b"></script>
 </body>
 </html>
