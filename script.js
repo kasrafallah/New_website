@@ -159,62 +159,88 @@
     }
   }
 
-  function drawPayload(cx, cartTop, color) {
+  function drawPayload(cx, cy, color) {
     ctx.save();
-    ctx.translate(cx, cartTop - 9);
+    ctx.translate(cx, cy);
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
-    ctx.lineWidth = 1.8;
+    ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
+    if (payload === "none") {
+      ctx.beginPath();
+      ctx.arc(0, 0, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      return;
+    }
+
+    // White halo keeps each research payload legible while it moves with the pole.
+    ctx.beginPath();
+    ctx.arc(0, 0, 31, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,.96)";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(160,174,188,.45)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.1;
+
     if (payload === "controller") {
-      roundRect(-19, -26, 38, 20, 5, "rgba(255,255,255,.94)", color);
-      ctx.font = "700 12px ui-monospace, monospace";
+      roundRect(-21, -14, 42, 28, 6, "rgba(255,255,255,.98)", color);
+      ctx.font = "700 15px ui-monospace, monospace";
       ctx.textAlign = "center";
-      ctx.fillText("K", 0, -12);
+      ctx.textBaseline = "middle";
+      ctx.fillText("K", 0, 1);
     }
 
     if (payload === "transformer") {
       for (let i = 0; i < 3; i++) {
-        roundRect(-18 + i * 3, -31 + i * 6, 36, 8, 3, "rgba(255,255,255,.96)", color);
+        roundRect(-20 + i * 3, -16 + i * 7, 40, 10, 3, "rgba(255,255,255,.98)", color);
       }
     }
 
     if (payload === "brain") {
       ctx.beginPath();
-      ctx.moveTo(-17, -11);
-      ctx.bezierCurveTo(-23, -26, -10, -35, 0, -27);
-      ctx.bezierCurveTo(8, -36, 24, -27, 18, -13);
-      ctx.bezierCurveTo(14, -4, 4, -4, 0, -8);
-      ctx.bezierCurveTo(-6, -3, -14, -4, -17, -11);
+      ctx.moveTo(-19, 5);
+      ctx.bezierCurveTo(-26, -9, -17, -23, -5, -19);
+      ctx.bezierCurveTo(2, -27, 15, -23, 18, -13);
+      ctx.bezierCurveTo(27, -7, 22, 8, 12, 11);
+      ctx.bezierCurveTo(7, 19, -5, 18, -9, 11);
+      ctx.bezierCurveTo(-15, 14, -22, 11, -19, 5);
       ctx.stroke();
+
       ctx.beginPath();
-      ctx.moveTo(-7, -24);
-      ctx.bezierCurveTo(-1, -18, -9, -13, -2, -9);
-      ctx.moveTo(6, -26);
-      ctx.bezierCurveTo(2, -20, 11, -16, 4, -10);
+      ctx.moveTo(-8, -16);
+      ctx.bezierCurveTo(-1, -11, -10, -4, -2, 1);
+      ctx.moveTo(5, -19);
+      ctx.bezierCurveTo(1, -12, 11, -7, 3, 0);
+      ctx.moveTo(-12, 7);
+      ctx.bezierCurveTo(-5, 3, 0, 8, 2, 14);
       ctx.stroke();
     }
 
     if (payload === "motor") {
       ctx.beginPath();
-      ctx.arc(0, -18, 14, 0, Math.PI * 2);
+      ctx.arc(0, 0, 19, 0, Math.PI * 2);
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(0, -18, 5, 0, Math.PI * 2);
+      ctx.arc(0, 0, 7, 0, Math.PI * 2);
       ctx.stroke();
       for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
         ctx.beginPath();
-        ctx.moveTo(Math.cos(a) * 7, -18 + Math.sin(a) * 7);
-        ctx.lineTo(Math.cos(a) * 12, -18 + Math.sin(a) * 12);
+        ctx.moveTo(Math.cos(a) * 9, Math.sin(a) * 9);
+        ctx.lineTo(Math.cos(a) * 16, Math.sin(a) * 16);
         ctx.stroke();
       }
     }
 
     if (payload === "papers") {
       for (let i = 0; i < 3; i++) {
-        roundRect(-18 + i * 2, -28 + i * 5, 36, 18, 3, "rgba(255,255,255,.96)", color);
+        roundRect(-20 + i * 3, -15 + i * 5, 40, 24, 4, "rgba(255,255,255,.98)", color);
       }
     }
 
@@ -279,11 +305,8 @@
     ctx.fillStyle = color;
     ctx.fillRect(cartX - cartW / 2 + 8, cartTop + cartH - 5, cartW - 16, 2);
 
-    // Payload.
-    drawPayload(cartX, cartTop, color);
-
     // Pendulum.
-    const poleLengthPx = Math.min(90, h * 0.42);
+    const poleLengthPx = Math.min(190, h * 0.46);
     const pivotX = cartX;
     const pivotY = cartTop + 2;
     const tipX = pivotX + Math.sin(state.theta) * poleLengthPx;
@@ -296,10 +319,8 @@
     ctx.lineTo(tipX, tipY);
     ctx.stroke();
 
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(tipX, tipY, 8, 0, Math.PI * 2);
-    ctx.fill();
+    // The active research object is the pendulum payload.
+    drawPayload(tipX, tipY, color);
 
     ctx.fillStyle = "#172a3d";
     ctx.beginPath();
