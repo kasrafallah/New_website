@@ -94,7 +94,7 @@
     modeLabel.style.color = palette[payload] || palette.none;
 
     if (!reducedMotion) {
-      state.thetaDot += kind === "motor" ? 0.34 : 0.22;
+      state.thetaDot += payload === "motor" ? 0.34 : 0.22;
       state.xDot -= 0.08;
     }
   }
