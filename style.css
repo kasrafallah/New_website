@@ -631,3 +631,28 @@ footer {
     gap: 8px;
   }
 }
+
+
+.controller-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #edf0f3;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+}
+
+.controller-label span {
+  color: #9aa5b1;
+  text-transform: uppercase;
+}
+
+.controller-label strong {
+  color: #4d5b69;
+  font-weight: 650;
+  text-align: right;
+}
