@@ -350,23 +350,66 @@
     }
 
     if (kind === "brain") {
-      ctx.beginPath();
-      ctx.moveTo(-19, 5);
-      ctx.bezierCurveTo(-26, -9, -17, -23, -5, -19);
-      ctx.bezierCurveTo(2, -27, 15, -23, 18, -13);
-      ctx.bezierCurveTo(27, -7, 22, 8, 12, 11);
-      ctx.bezierCurveTo(7, 19, -5, 18, -9, 11);
-      ctx.bezierCurveTo(-15, 14, -22, 11, -19, 5);
-      ctx.stroke();
+      ctx.save();
+      ctx.scale(1.28, 1.28);
+
+      // Filled two-hemisphere brain silhouette.
+      ctx.fillStyle = "#e7f4f2";
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.2;
 
       ctx.beginPath();
-      ctx.moveTo(-8, -16);
-      ctx.bezierCurveTo(-1, -11, -10, -4, -2, 1);
-      ctx.moveTo(5, -19);
-      ctx.bezierCurveTo(1, -12, 11, -7, 3, 0);
-      ctx.moveTo(-12, 7);
-      ctx.bezierCurveTo(-5, 3, 0, 8, 2, 14);
+      ctx.moveTo(-2, 20);
+      ctx.bezierCurveTo(-9, 23, -16, 18, -16, 12);
+      ctx.bezierCurveTo(-25, 10, -29, 2, -25, -5);
+      ctx.bezierCurveTo(-29, -14, -22, -22, -14, -22);
+      ctx.bezierCurveTo(-11, -29, -2, -30, 3, -24);
+      ctx.bezierCurveTo(9, -29, 18, -26, 19, -19);
+      ctx.bezierCurveTo(27, -17, 30, -8, 25, -2);
+      ctx.bezierCurveTo(29, 7, 22, 14, 15, 14);
+      ctx.bezierCurveTo(12, 21, 5, 23, -2, 20);
+      ctx.closePath();
+      ctx.fill();
       ctx.stroke();
+
+      // Central fissure.
+      ctx.beginPath();
+      ctx.moveTo(2, -23);
+      ctx.bezierCurveTo(-1, -15, 4, -9, 0, -2);
+      ctx.bezierCurveTo(-3, 4, 2, 10, -1, 18);
+      ctx.stroke();
+
+      // Left hemisphere gyri.
+      ctx.beginPath();
+      ctx.moveTo(-15, -18);
+      ctx.bezierCurveTo(-8, -15, -15, -10, -8, -7);
+      ctx.bezierCurveTo(-3, -5, -8, 0, -14, 0);
+      ctx.moveTo(-21, -8);
+      ctx.bezierCurveTo(-14, -6, -17, 2, -9, 4);
+      ctx.bezierCurveTo(-5, 6, -8, 11, -13, 12);
+      ctx.stroke();
+
+      // Right hemisphere gyri.
+      ctx.beginPath();
+      ctx.moveTo(10, -20);
+      ctx.bezierCurveTo(17, -17, 10, -12, 16, -9);
+      ctx.bezierCurveTo(22, -6, 15, -1, 9, -3);
+      ctx.moveTo(18, 1);
+      ctx.bezierCurveTo(11, 2, 15, 8, 9, 11);
+      ctx.bezierCurveTo(6, 13, 8, 17, 12, 17);
+      ctx.stroke();
+
+      // Brain stem makes the silhouette immediately recognizable.
+      ctx.beginPath();
+      ctx.moveTo(3, 18);
+      ctx.bezierCurveTo(3, 24, 7, 27, 10, 29);
+      ctx.lineTo(4, 30);
+      ctx.bezierCurveTo(0, 27, -1, 23, -1, 20);
+      ctx.fillStyle = "#e7f4f2";
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore();
     }
 
     if (kind === "motor") {
