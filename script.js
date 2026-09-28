@@ -413,18 +413,62 @@
     }
 
     if (kind === "motor") {
+      ctx.save();
+      ctx.scale(1.22, 1.22);
+
+      // Stator housing.
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.3;
       ctx.beginPath();
-      ctx.arc(0, 0, 19, 0, Math.PI * 2);
+      ctx.arc(0, 0, 24, 0, Math.PI * 2);
       ctx.stroke();
+
+      // Air gap / stator bore.
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.arc(0, 0, 7, 0, Math.PI * 2);
+      ctx.arc(0, 0, 18, 0, Math.PI * 2);
       ctx.stroke();
-      for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
+
+      // Twelve stator teeth make the payload read as an electric machine,
+      // rather than a generic gear.
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
+        const c = Math.cos(a);
+        const s = Math.sin(a);
+        ctx.lineWidth = 2.2;
         ctx.beginPath();
-        ctx.moveTo(Math.cos(a) * 9, Math.sin(a) * 9);
-        ctx.lineTo(Math.cos(a) * 16, Math.sin(a) * 16);
+        ctx.moveTo(c * 18, s * 18);
+        ctx.lineTo(c * 23, s * 23);
         ctx.stroke();
       }
+
+      // Rotor and four salient poles.
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.arc(0, 0, 10, 0, Math.PI * 2);
+      ctx.stroke();
+
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 2) {
+        const c = Math.cos(a);
+        const s = Math.sin(a);
+        ctx.beginPath();
+        ctx.moveTo(c * 4, s * 4);
+        ctx.lineTo(c * 10, s * 10);
+        ctx.stroke();
+      }
+
+      // Rotor shaft.
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(0, 0, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Tiny current-reference cue.
+      ctx.font = "700 8px ui-monospace, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("i*", 0, 31);
+
+      ctx.restore();
     }
 
     if (kind === "papers") {
