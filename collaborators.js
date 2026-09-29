@@ -88,7 +88,7 @@
   ];
 
   let countries = null;
-  let yaw = -0.5;
+  let yaw = -0.42;
   let pitch = -0.2;
   let zoom = 1;
   let dragging = false;
@@ -106,13 +106,18 @@
   function rotate(lat, lon) {
     const p = lat * Math.PI / 180;
     const l = lon * Math.PI / 180;
-    const x = Math.cos(p) * Math.cos(l);
-    const y = Math.sin(p);
-    const z = Math.cos(p) * Math.sin(l);
 
+    // Conventional geographic orientation:
+    // longitude increases eastward and therefore appears to the right
+    // when viewed with the prime meridian facing the camera.
+    const x = Math.cos(p) * Math.sin(l);
+    const y = Math.sin(p);
+    const z = Math.cos(p) * Math.cos(l);
+
+    // yaw is the longitude at the center of the view.
     const cy = Math.cos(yaw), sy = Math.sin(yaw);
-    const x1 = cy * x + sy * z;
-    const z1 = -sy * x + cy * z;
+    const x1 = cy * x - sy * z;
+    const z1 = sy * x + cy * z;
 
     const cp = Math.cos(pitch), sp = Math.sin(pitch);
     return {x:x1, y:cp*y-sp*z1, z:sp*y+cp*z1};
@@ -416,12 +421,12 @@
   });
 
   function focusJourney() {
-    yaw = 0.37;
+    yaw = -0.16;
     pitch = -0.34;
     updateZoom(1.08);
   }
 
-  resetButton.addEventListener("click",()=>{yaw=-.5;pitch=-.2;updateZoom(1);});
+  resetButton.addEventListener("click",()=>{yaw=-.42;pitch=-.2;updateZoom(1);});
   if (zoomInButton) zoomInButton.addEventListener("click",()=>updateZoom(zoom*1.18));
   if (zoomOutButton) zoomOutButton.addEventListener("click",()=>updateZoom(zoom/1.18));
   if (journeyButton) journeyButton.addEventListener("click",focusJourney);
