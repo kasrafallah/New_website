@@ -1,4 +1,14 @@
 (() => {
+  const nav = document.querySelector(".nav");
+  if (nav && !nav.querySelector('a[href="collaborators.html"]')) {
+    const cvLink = nav.querySelector('a[href="cv.html"]');
+    const link = document.createElement("a");
+    link.href = "collaborators.html";
+    link.textContent = "Collaborators";
+    if (cvLink) cvLink.insertAdjacentElement("afterend", link);
+    else nav.appendChild(link);
+  }
+
   const canvas = document.getElementById("cartpole");
   const ctx = canvas.getContext("2d");
   const modeLabel = document.getElementById("modeLabel");
