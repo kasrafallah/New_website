@@ -1771,3 +1771,7 @@ html[data-theme="dark"] #cartpole {
     min-width: 150px;
   }
 }
+
+html[data-theme="dark"] #collabGlobe {
+  filter: brightness(.72) contrast(1.08) saturate(.9);
+}
