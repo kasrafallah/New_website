@@ -2,6 +2,10 @@
   const canvas = document.getElementById("collabGlobe");
   const ctx = canvas.getContext("2d");
   const resetButton = document.getElementById("resetGlobe");
+  const zoomInButton = document.getElementById("zoomInGlobe");
+  const zoomOutButton = document.getElementById("zoomOutGlobe");
+  const journeyButton = document.getElementById("journeyGlobe");
+  const zoomReadout = document.getElementById("zoomReadout");
   const roster = document.getElementById("collabRoster");
   const nameEl = document.getElementById("collabName");
   const affiliationEl = document.getElementById("collabAffiliation");
@@ -61,7 +65,15 @@
     {name:"New York", country:"USA", lat:40.71, lon:-74.01},
     {name:"Philadelphia", country:"USA", lat:39.95, lon:-75.17},
     {name:"Dallas", country:"USA", lat:32.78, lon:-96.80},
-    {name:"Guildford", country:"United Kingdom", lat:51.24, lon:-0.57}
+    {name:"Guildford", country:"United Kingdom", lat:51.24, lon:-0.57},
+    {name:"Waterloo", country:"Canada", lat:43.47, lon:-80.54},
+    {name:"Tehran", country:"Iran", lat:35.69, lon:51.39}
+  ];
+
+  const journey = [
+    {index:"01", city:"Tehran", institution:"Sharif University of Technology", degree:"B.Sc.", years:"2018–2022", lat:35.69, lon:51.39},
+    {index:"02", city:"Waterloo", institution:"University of Waterloo", degree:"M.A.Sc.", years:"2022–2024", lat:43.47, lon:-80.54},
+    {index:"03", city:"New York", institution:"Columbia University", degree:"Ph.D.", years:"2024–Present", lat:40.81, lon:-73.96}
   ];
 
   const countryLabels = [
@@ -78,6 +90,7 @@
   let countries = null;
   let yaw = -0.5;
   let pitch = -0.2;
+  let zoom = 1;
   let dragging = false;
   let lastX = 0;
   let lastY = 0;
@@ -163,7 +176,7 @@
     resize();
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
-    const cx = w/2, cy = h/2, r = Math.min(w,h)*.43;
+    const cx = w/2, cy = h/2, r = Math.min(w,h)*.43*zoom;
     ctx.clearRect(0,0,w,h);
 
     const g = ctx.createRadialGradient(cx-r*.3,cy-r*.3,r*.1,cx,cy,r);
@@ -230,6 +243,76 @@
       ctx.fillText(city.name+" · "+city.country,p.x+6,p.y-1);
     });
 
+
+    function toCartesian(lat, lon) {
+      const p = lat * Math.PI / 180;
+      const l = lon * Math.PI / 180;
+      return [Math.cos(p)*Math.cos(l), Math.sin(p), Math.cos(p)*Math.sin(l)];
+    }
+
+    function fromCartesian(v) {
+      const n = Math.hypot(v[0],v[1],v[2]) || 1;
+      const x=v[0]/n, y=v[1]/n, z=v[2]/n;
+      return {
+        lat: Math.asin(y) * 180 / Math.PI,
+        lon: Math.atan2(z,x) * 180 / Math.PI
+      };
+    }
+
+    function drawJourneySegment(a,b) {
+      const av=toCartesian(a.lat,a.lon);
+      const bv=toCartesian(b.lat,b.lon);
+      ctx.beginPath();
+      let open=false;
+      for(let t=0;t<=1.0001;t+=0.025){
+        const v=[
+          av[0]*(1-t)+bv[0]*t,
+          av[1]*(1-t)+bv[1]*t,
+          av[2]*(1-t)+bv[2]*t
+        ];
+        const ll=fromCartesian(v);
+        const p=project(ll.lat,ll.lon,cx,cy,r);
+        if(p.z<0.02){open=false;continue;}
+        if(!open){ctx.moveTo(p.x,p.y);open=true;} else ctx.lineTo(p.x,p.y);
+      }
+      ctx.strokeStyle="#b87333";
+      ctx.lineWidth=2.4;
+      ctx.setLineDash([7,5]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    drawJourneySegment(journey[0],journey[1]);
+    drawJourneySegment(journey[1],journey[2]);
+
+    journey.forEach(stop=>{
+      const p=project(stop.lat,stop.lon,cx,cy,r);
+      if(p.z<0.02) return;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,8.5,0,Math.PI*2);
+      ctx.fillStyle="#fff8f1";
+      ctx.fill();
+      ctx.strokeStyle="#b87333";
+      ctx.lineWidth=2.2;
+      ctx.stroke();
+
+      ctx.fillStyle="#8a4f00";
+      ctx.font='700 8px ui-monospace, SFMono-Regular, Menlo, monospace';
+      ctx.textAlign="center";
+      ctx.textBaseline="middle";
+      ctx.fillText(stop.index,p.x,p.y+.2);
+
+      ctx.textAlign="left";
+      ctx.textBaseline="alphabetic";
+      ctx.font='700 9px ui-monospace, SFMono-Regular, Menlo, monospace';
+      ctx.fillStyle="#7a4a1c";
+      ctx.fillText(stop.city,p.x+12,p.y-3);
+      ctx.font='600 7px ui-monospace, SFMono-Regular, Menlo, monospace';
+      ctx.fillStyle="rgba(122,74,28,.78)";
+      ctx.fillText(stop.degree+" · "+stop.years,p.x+12,p.y+9);
+    });
+
     pins=[];
     people.forEach((person,i)=>{
       const p=project(person.lat,person.lon,cx,cy,r);
@@ -264,15 +347,49 @@
     });
   }
 
+  const activePointers = new Map();
+  let pinchDistance = null;
+  let pinchZoomStart = 1;
+
+  function updateZoom(nextZoom) {
+    zoom = Math.max(.78, Math.min(2.8, nextZoom));
+    if (zoomReadout) zoomReadout.textContent = Math.round(zoom * 100) + "%";
+  }
+
+  canvas.addEventListener("wheel",e=>{
+    e.preventDefault();
+    const factor = Math.exp(-e.deltaY * .0012);
+    updateZoom(zoom * factor);
+  }, {passive:false});
+
   canvas.addEventListener("pointerdown",e=>{
-    dragging=true;
-    moved=0;
-    lastX=e.clientX;
-    lastY=e.clientY;
+    activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(activePointers.size===2){
+      const pts=[...activePointers.values()];
+      pinchDistance=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+      pinchZoomStart=zoom;
+      dragging=false;
+    } else {
+      dragging=true;
+      moved=0;
+      lastX=e.clientX;
+      lastY=e.clientY;
+    }
     canvas.setPointerCapture(e.pointerId);
   });
 
   canvas.addEventListener("pointermove",e=>{
+    if(activePointers.has(e.pointerId)){
+      activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    }
+
+    if(activePointers.size===2 && pinchDistance){
+      const pts=[...activePointers.values()];
+      const d=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y);
+      updateZoom(pinchZoomStart * (d/pinchDistance));
+      return;
+    }
+
     if(!dragging) return;
     const dx=e.clientX-lastX;
     const dy=e.clientY-lastY;
@@ -284,6 +401,8 @@
   });
 
   canvas.addEventListener("pointerup",e=>{
+    activePointers.delete(e.pointerId);
+    if(activePointers.size<2) pinchDistance=null;
     dragging=false;
     if(moved>7) return;
     const rect=canvas.getBoundingClientRect();
@@ -296,7 +415,16 @@
     if(hit!==null) selectPerson(hit);
   });
 
-  resetButton.addEventListener("click",()=>{yaw=-.5;pitch=-.2;});
+  function focusJourney() {
+    yaw = 0.37;
+    pitch = -0.34;
+    updateZoom(1.08);
+  }
+
+  resetButton.addEventListener("click",()=>{yaw=-.5;pitch=-.2;updateZoom(1);});
+  if (zoomInButton) zoomInButton.addEventListener("click",()=>updateZoom(zoom*1.18));
+  if (zoomOutButton) zoomOutButton.addEventListener("click",()=>updateZoom(zoom/1.18));
+  if (journeyButton) journeyButton.addEventListener("click",focusJourney);
 
   groups.forEach(group=>{
     const section=document.createElement("section");
@@ -341,6 +469,7 @@
   });
 
   selectPerson(0);
+  updateZoom(1);
   window.addEventListener("resize",resize);
   draw();
 })();
