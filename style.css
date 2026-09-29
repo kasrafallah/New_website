@@ -1394,3 +1394,90 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Globe zoom controls + academic journey */
+.globe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.globe-actions button {
+  min-width: 34px;
+  min-height: 34px;
+}
+
+#zoomReadout {
+  min-width: 46px;
+  text-align: center;
+  color: #647281;
+}
+
+.journey-strip {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);
+  gap: 12px;
+  align-items: center;
+  margin: 14px 8px 2px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+}
+
+.journey-strip > div {
+  min-width: 0;
+}
+
+.journey-strip strong {
+  display: block;
+  color: #b87333;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .65rem;
+  letter-spacing: .08em;
+}
+
+.journey-strip span {
+  display: block;
+  margin-top: 1px;
+  color: #27394c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: .92rem;
+  font-weight: 600;
+}
+
+.journey-strip small {
+  display: block;
+  margin-top: 2px;
+  color: #84909c;
+  font-size: .66rem;
+  line-height: 1.35;
+}
+
+.journey-strip i {
+  color: #c68b55;
+  font-style: normal;
+  font-size: .9rem;
+}
+
+@media (max-width: 760px) {
+  .globe-controls {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .globe-actions {
+    justify-content: flex-start;
+  }
+
+  .journey-strip {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .journey-strip i {
+    transform: rotate(90deg);
+    transform-origin: left center;
+  }
+}
