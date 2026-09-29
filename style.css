@@ -1481,3 +1481,293 @@ footer {
     transform-origin: left center;
   }
 }
+
+
+/* Site-wide dark mode */
+.theme-control {
+  margin-top: 14px;
+}
+
+.theme-toggle {
+  width: 100%;
+  min-height: 40px;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255,255,255,.5);
+  color: var(--muted);
+  font: inherit;
+  font-size: .76rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--ink);
+  background: var(--soft);
+}
+
+.theme-toggle-icon {
+  color: var(--accent);
+  font-size: .95rem;
+  line-height: 1;
+}
+
+.theme-toggle-track {
+  width: 30px;
+  height: 17px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #e9eef3;
+}
+
+.theme-toggle-track span {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #778594;
+  transform: translateX(0);
+}
+
+html[data-theme="dark"] {
+  --ink: #e8eef5;
+  --muted: #98a7b7;
+  --line: #283746;
+  --soft: #141d27;
+  --panel: rgba(17, 25, 35, .9);
+  --accent: #7d9fff;
+  color-scheme: dark;
+}
+
+html.theme-transition-ready,
+html.theme-transition-ready body,
+html.theme-transition-ready .sidebar,
+html.theme-transition-ready .control-panel,
+html.theme-transition-ready .control-shell,
+html.theme-transition-ready section,
+html.theme-transition-ready .globe-stage,
+html.theme-transition-ready .theme-toggle {
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+html[data-theme="dark"] body {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 82% 8%, rgba(82, 118, 225, .11), transparent 30rem),
+    #0b1118;
+}
+
+html[data-theme="dark"] .sidebar {
+  background: rgba(12, 18, 25, .94);
+}
+
+html[data-theme="dark"] .control-panel {
+  background:
+    linear-gradient(180deg, rgba(13, 20, 28, .96), rgba(10, 16, 23, .93));
+}
+
+html[data-theme="dark"] .control-shell {
+  background: rgba(17, 25, 35, .88);
+  box-shadow: 0 18px 60px rgba(0,0,0,.24);
+}
+
+html[data-theme="dark"] section {
+  border-bottom-color: #18232e;
+}
+
+html[data-theme="dark"] .nav a {
+  color: #9aa9b8;
+}
+
+html[data-theme="dark"] .nav a:hover,
+html[data-theme="dark"] .nav a.active,
+html[data-theme="dark"] .cv-nav-active,
+html[data-theme="dark"] .collab-nav-active {
+  color: var(--ink) !important;
+  background: #172230;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  background: rgba(18,27,37,.82);
+  color: #a8b6c5;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #172230;
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .theme-toggle-track {
+  background: #223247;
+  border-color: #34495c;
+}
+
+html[data-theme="dark"] .theme-toggle-track span {
+  background: #8fa8ff;
+  transform: translateX(13px);
+}
+
+.theme-toggle-track span {
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+html[data-theme="dark"] .academic-bio,
+html[data-theme="dark"] .lede,
+html[data-theme="dark"] .question,
+html[data-theme="dark"] .contribution,
+html[data-theme="dark"] .cv-summary,
+html[data-theme="dark"] .cv-detail,
+html[data-theme="dark"] .collab-intro,
+html[data-theme="dark"] .collab-area {
+  color: #aab7c4;
+}
+
+html[data-theme="dark"] .academic-bio strong,
+html[data-theme="dark"] .education-degree,
+html[data-theme="dark"] .cv-role,
+html[data-theme="dark"] .journey-strip span,
+html[data-theme="dark"] .collab-person-name {
+  color: #edf3f8;
+}
+
+html[data-theme="dark"] .authors {
+  color: #c2ccd6;
+}
+
+html[data-theme="dark"] .venue-detail,
+html[data-theme="dark"] .cv-meta,
+html[data-theme="dark"] .education-meta,
+html[data-theme="dark"] .collab-affiliation,
+html[data-theme="dark"] .collab-person-affiliation {
+  color: #8797a8;
+}
+
+html[data-theme="dark"] .profile-links a {
+  color: #9daebe;
+  border-bottom-color: #344453;
+}
+
+html[data-theme="dark"] .profile-links a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+html[data-theme="dark"] .interactive-caption,
+html[data-theme="dark"] .control-hint,
+html[data-theme="dark"] .control-kicker,
+html[data-theme="dark"] .section-number,
+html[data-theme="dark"] .publication-index,
+html[data-theme="dark"] footer {
+  color: #78899b;
+}
+
+html[data-theme="dark"] .controller-label {
+  border-top-color: #24313e;
+}
+
+html[data-theme="dark"] .controller-label span {
+  color: #758698;
+}
+
+html[data-theme="dark"] .controller-label strong {
+  color: #b2c0cd;
+}
+
+html[data-theme="dark"] .paper-card,
+html[data-theme="dark"] .path-card {
+  background: rgba(18, 27, 37, .72);
+  box-shadow: 0 15px 45px rgba(0,0,0,.12);
+}
+
+html[data-theme="dark"] .venue-cdc {
+  color: #a9c5ff;
+  background: #14233b;
+  border-color: #29466f;
+}
+
+html[data-theme="dark"] .venue-l4dc {
+  color: #8fd9d0;
+  background: #102c2a;
+  border-color: #26514d;
+}
+
+html[data-theme="dark"] .venue-neurips {
+  color: #c4adf1;
+  background: #251c38;
+  border-color: #473666;
+}
+
+html[data-theme="dark"] .venue-iclr {
+  color: #e7bf79;
+  background: #342913;
+  border-color: #64502a;
+}
+
+html[data-theme="dark"] .venue-preprint {
+  color: #b4c0cb;
+  background: #1c2630;
+  border-color: #36434f;
+}
+
+html[data-theme="dark"] .venue-saes {
+  color: #e4b07a;
+  background: #352416;
+  border-color: #65472e;
+}
+
+html[data-theme="dark"] .globe-stage {
+  background:
+    radial-gradient(circle at 34% 28%, rgba(125,159,255,.06), transparent 42%),
+    rgba(15,23,32,.78);
+}
+
+html[data-theme="dark"] .globe-controls button {
+  background: #151f2a;
+  color: #aebbc7;
+  border-color: #314150;
+}
+
+html[data-theme="dark"] .collab-city {
+  color: #a3b2c0;
+  border-color: #334452;
+}
+
+html[data-theme="dark"] .collab-person.selected {
+  background: rgba(125,159,255,.06);
+}
+
+html[data-theme="dark"] .journey-strip {
+  border-top-color: #2b3947;
+}
+
+html[data-theme="dark"] .journey-strip small,
+html[data-theme="dark"] .collab-person-papers {
+  color: #7e8e9e;
+}
+
+html[data-theme="dark"] .profile-photo {
+  border-color: #334452;
+  filter: saturate(.82) brightness(.9) contrast(1.03);
+}
+
+/* Cart-pole canvases are line art; this preserves contrast on a dark panel. */
+html[data-theme="dark"] #cartpole {
+  filter: invert(.9) hue-rotate(180deg) saturate(.82) brightness(1.08);
+}
+
+@media (max-width: 760px) {
+  .theme-control {
+    margin-top: 12px;
+  }
+
+  .theme-toggle {
+    width: auto;
+    min-width: 150px;
+  }
+}
