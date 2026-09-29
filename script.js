@@ -7,6 +7,7 @@
   const palette = {
     none: "#102033",
     controller: "#2457d6",
+    education: "#2457d6",
     latent: "#7857c6",
     brain: "#168a86",
     motor: "#d47b2e",
@@ -16,6 +17,7 @@
   const labels = {
     none: "NOMINAL",
     controller: "CONTROL",
+    education: "EDUCATION",
     latent: "LARGE LEARNED",
     brain: "NEURAL",
     motor: "PHYSICAL",
@@ -41,6 +43,8 @@
   let payload = "none";
   let payloadMass = 0;
   let multitaskMode = false;
+  let educationStage = "columbia";
+  const controllerText = document.getElementById("controllerText");
   let lastTime = performance.now();
 
   const multitaskStates = [
@@ -84,6 +88,7 @@
     const masses = {
       none: 0,
       controller: 0.05,
+      education: 0.02,
       latent: 0.1,
       brain: 0.14,
       motor: 0.22,
@@ -99,6 +104,30 @@
       state.thetaDot += payload === "motor" ? 0.14 : 0.09;
       state.xDot -= 0.035;
     }
+  }
+
+  function setEducationStage(stage) {
+    educationStage = stage || "columbia";
+
+    if (educationStage === "sharif") {
+      modeLabel.textContent = "FOUNDATIONS";
+      stateLabel.textContent = "full-state feedback";
+      if (controllerText) controllerText.textContent = "u = -Kx · full state";
+    } else if (educationStage === "waterloo") {
+      modeLabel.textContent = "ESTIMATION";
+      stateLabel.textContent = "partial observation";
+      if (controllerText) controllerText.textContent = "y = Cx + v · u = -Kx̂";
+    } else {
+      modeLabel.textContent = "LEARNING + ROBUSTNESS";
+      stateLabel.textContent = "uncertain dynamics";
+      if (controllerText) controllerText.textContent = "u = π(x̂, D) · robust feedback";
+    }
+
+    modeLabel.style.color = palette.education;
+  }
+
+  function resetControllerLabel() {
+    if (controllerText) controllerText.textContent = "u = -Kx · LQR-style feedback";
   }
 
   function feedbackForce(s, reference = targetX) {
@@ -349,6 +378,22 @@
       ctx.restore();
     }
 
+    if (kind === "education") {
+      ctx.beginPath();
+      ctx.arc(0, 0, 15, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,.98)";
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.font = "700 13px ui-monospace, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("x", 0, 0);
+    }
+
     if (kind === "brain") {
       ctx.save();
       ctx.scale(1.28, 1.28);
@@ -572,6 +617,128 @@
     });
   }
 
+  function drawEducationOverlay({w, h, cartX, railY, pivotX, pivotY, tipX, tipY, color}) {
+    ctx.save();
+    ctx.font = "700 9px ui-monospace, monospace";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+
+    if (educationStage === "sharif") {
+      ctx.fillStyle = color;
+      ctx.fillText("FULL STATE", w * 0.07, 28);
+
+      ctx.strokeStyle = "rgba(36,87,214,.45)";
+      ctx.lineWidth = 1.3;
+      ctx.beginPath();
+      ctx.moveTo(cartX - 38, railY - 8);
+      ctx.lineTo(cartX - 9, railY - 8);
+      ctx.stroke();
+
+      ctx.fillStyle = "#74808d";
+      ctx.font = "600 9px ui-monospace, monospace";
+      ctx.fillText("xₜ", cartX - 52, railY - 5);
+      ctx.fillText("uₜ = -Kxₜ", w * 0.07, 45);
+    }
+
+    if (educationStage === "waterloo") {
+      ctx.fillStyle = color;
+      ctx.fillText("PARTIAL OBSERVATION", w * 0.07, 28);
+
+      // Noisy measured/estimated pole, shown as a ghost beside the true state.
+      const ghostDx = 12;
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = "rgba(120,87,198,.52)";
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(pivotX, pivotY);
+      ctx.lineTo(tipX + ghostDx, tipY + 5);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = "#7857c6";
+      ctx.beginPath();
+      ctx.arc(tipX + ghostDx, tipY + 5, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Sensor / measurement cue.
+      ctx.strokeStyle = "rgba(120,87,198,.55)";
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(cartX + 38, railY - 34, 11, -0.7, 0.7);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cartX + 38, railY - 34, 17, -0.55, 0.55);
+      ctx.stroke();
+
+      ctx.fillStyle = "#74808d";
+      ctx.font = "600 9px ui-monospace, monospace";
+      ctx.fillText("yₜ = Cxₜ + vₜ", w * 0.07, 45);
+      ctx.fillText("x̂ₜ", tipX + ghostDx + 8, tipY + 8);
+    }
+
+    if (educationStage === "columbia") {
+      ctx.fillStyle = color;
+      ctx.fillText("LEARNING · UNCERTAINTY · ROBUSTNESS", w * 0.07, 28);
+
+      // Disturbance input.
+      const wx = tipX + 56;
+      const wy = tipY - 22;
+      ctx.strokeStyle = "#b27330";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(wx, wy);
+      ctx.lineTo(tipX + 13, tipY - 3);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(tipX + 13, tipY - 3);
+      ctx.lineTo(tipX + 20, tipY - 10);
+      ctx.moveTo(tipX + 13, tipY - 3);
+      ctx.lineTo(tipX + 23, tipY);
+      ctx.stroke();
+
+      ctx.fillStyle = "#9a6328";
+      ctx.font = "700 9px ui-monospace, monospace";
+      ctx.fillText("wₜ", wx + 2, wy - 3);
+
+      // Uncertainty set around the state.
+      ctx.strokeStyle = "rgba(36,87,214,.23)";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([3,4]);
+      ctx.beginPath();
+      ctx.ellipse(tipX, tipY, 31, 20, -0.25, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(tipX, tipY, 42, 27, -0.25, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = "#74808d";
+      ctx.font = "600 9px ui-monospace, monospace";
+      ctx.fillText("x̂ₜ , θ̂ , D", w * 0.07, 45);
+    }
+
+    // Three-stage intellectual trajectory.
+    const labels = [
+      ["FOUNDATIONS", "sharif"],
+      ["INFERENCE", "waterloo"],
+      ["ROBUST CONTROL", "columbia"]
+    ];
+    const baseY = h - 12;
+    const startX = w * 0.08;
+    const step = (w * 0.84) / 3;
+
+    labels.forEach(([label, key], i) => {
+      const x = startX + step * i;
+      ctx.fillStyle = key === educationStage ? color : "#b3bcc6";
+      ctx.font = key === educationStage
+        ? "700 8px ui-monospace, monospace"
+        : "600 8px ui-monospace, monospace";
+      ctx.fillText(label, x, baseY);
+    });
+
+    ctx.restore();
+  }
+
   function draw() {
     if (multitaskMode) {
       drawMultitask();
@@ -652,6 +819,10 @@
     // The active research object is the pendulum payload.
     drawPayload(tipX, tipY, color);
 
+    if (payload === "education") {
+      drawEducationOverlay({ w, h, cartX, railY, pivotX, pivotY, tipX, tipY, color });
+    }
+
     ctx.fillStyle = "#172a3d";
     ctx.beginPath();
     ctx.arc(pivotX, pivotY, 4, 0, Math.PI * 2);
@@ -724,6 +895,12 @@
     multitaskMode = section.dataset.multitask === "true";
     setPayload(nextPayload, nextTarget);
 
+    if (section.id === "education") {
+      setEducationStage(educationStage);
+    } else {
+      resetControllerLabel();
+    }
+
     if (multitaskMode) {
       modeLabel.textContent = "MULTITASK CONTROL";
       modeLabel.style.color = palette.controller;
@@ -734,6 +911,31 @@
       link.classList.toggle("active", active);
     });
   }
+
+  const educationEntries = [...document.querySelectorAll(".education-entry[data-education-stage]")];
+  const educationObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visible[0]) {
+        const stage = visible[0].target.dataset.educationStage;
+        setPayload("education", "0");
+        setEducationStage(stage);
+
+        navLinks.forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === "#education");
+        });
+      }
+    },
+    {
+      threshold: [0.25, 0.45, 0.7],
+      rootMargin: "-27% 0px -27% 0px"
+    }
+  );
+
+  educationEntries.forEach((entry) => educationObserver.observe(entry));
 
   const observer = new IntersectionObserver(
     (entries) => {
