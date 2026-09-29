@@ -1324,3 +1324,73 @@ footer {
     padding-right: 0;
   }
 }
+
+
+/* Collaborator grouping + globe labels */
+.collab-roster {
+  display: block;
+  max-width: 1050px;
+  border-top: 0;
+}
+
+.collab-group {
+  margin: 0 0 38px;
+}
+
+.collab-group-title {
+  margin: 0 0 12px;
+  color: #536171;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.collab-group-list {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  border-top: 1px solid var(--line);
+}
+
+.collab-group-list .collab-person {
+  align-items: start;
+}
+
+.collab-person.selected {
+  background: rgba(36,87,214,.035);
+}
+
+.collab-person-name,
+.collab-person-affiliation,
+.collab-person-papers {
+  display: block;
+}
+
+.collab-person-name {
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.collab-person-affiliation {
+  margin-top: 3px;
+  color: #74808d;
+  font-size: .76rem;
+  line-height: 1.45;
+}
+
+.collab-person-papers {
+  margin-top: 5px;
+  color: #9aa5b1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .66rem;
+}
+
+@media (max-width: 760px) {
+  .collab-group-list {
+    grid-template-columns: 1fr;
+  }
+}
