@@ -400,86 +400,137 @@
 
     if (kind === "brain") {
       ctx.save();
-      ctx.translate(1, 0);
-      ctx.scale(1.32, 1.32);
 
-      // Side-profile brain silhouette: frontal lobe faces right,
-      // cerebellum and brain stem sit at the lower rear.
+      // Anatomical lateral profile inspired by a sagittal/lateral brain view:
+      // frontal pole faces right; cerebellum and brain stem sit posterior-inferior.
+      ctx.translate(1, 0);
+      ctx.scale(1.42, 1.18);
+
       ctx.fillStyle = "#e7f4f2";
       ctx.strokeStyle = color;
-      ctx.lineWidth = 2.15;
+      ctx.lineWidth = 2.0;
 
+      // Cerebral hemisphere — elongated, asymmetric side silhouette.
       ctx.beginPath();
-      ctx.moveTo(-21, 3);
-      ctx.bezierCurveTo(-24, -6, -21, -16, -14, -21);
-      ctx.bezierCurveTo(-9, -27, 0, -29, 8, -26);
-      ctx.bezierCurveTo(17, -24, 24, -18, 27, -10);
-      ctx.bezierCurveTo(31, -2, 29, 7, 24, 12);
-      ctx.bezierCurveTo(20, 17, 14, 19, 8, 19);
-      ctx.bezierCurveTo(3, 19, -1, 17, -5, 15);
-      ctx.bezierCurveTo(-8, 12, -9, 9, -8, 6);
-      ctx.bezierCurveTo(-12, 8, -17, 8, -21, 3);
+      ctx.moveTo(-23, 1);
+      ctx.bezierCurveTo(-27, -8, -23, -17, -16, -22);
+      ctx.bezierCurveTo(-9, -28, 2, -30, 12, -27);
+      ctx.bezierCurveTo(21, -25, 29, -19, 33, -11);
+      ctx.bezierCurveTo(37, -4, 37, 4, 33, 10);
+      ctx.bezierCurveTo(29, 16, 22, 18, 15, 18);
+      ctx.bezierCurveTo(9, 18, 4, 16, 0, 13);
+      ctx.bezierCurveTo(-4, 11, -8, 11, -12, 13);
+      ctx.bezierCurveTo(-16, 14, -20, 12, -22, 8);
+      ctx.bezierCurveTo(-24, 6, -24, 3, -23, 1);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
-      // Cerebellum: distinct posterior-lower lobe.
+      // Temporal lobe — lower lateral bulge.
       ctx.beginPath();
-      ctx.moveTo(-9, 7);
-      ctx.bezierCurveTo(-14, 5, -20, 7, -22, 11);
-      ctx.bezierCurveTo(-25, 16, -20, 21, -15, 21);
-      ctx.bezierCurveTo(-10, 21, -6, 18, -5, 14);
-      ctx.bezierCurveTo(-4, 11, -6, 9, -9, 7);
+      ctx.moveTo(-3, 8);
+      ctx.bezierCurveTo(2, 6, 10, 6, 16, 8);
+      ctx.bezierCurveTo(21, 10, 22, 14, 19, 17);
+      ctx.bezierCurveTo(15, 21, 7, 21, 1, 18);
+      ctx.bezierCurveTo(-4, 16, -7, 12, -3, 8);
       ctx.closePath();
       ctx.fillStyle = "#e7f4f2";
       ctx.fill();
+      ctx.stroke();
+
+      // Sylvian fissure — the strong lateral landmark.
+      ctx.beginPath();
+      ctx.moveTo(-5, 3);
+      ctx.bezierCurveTo(3, 0, 10, 0, 18, 2);
+      ctx.bezierCurveTo(23, 4, 26, 6, 28, 9);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.75;
+      ctx.stroke();
+
+      // Superior cortical gyri.
+      ctx.lineWidth = 1.35;
+      ctx.beginPath();
+      ctx.moveTo(-14, -19);
+      ctx.bezierCurveTo(-7, -22, -1, -18, 4, -20);
+      ctx.bezierCurveTo(10, -22, 15, -18, 18, -14);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-18, -12);
+      ctx.bezierCurveTo(-11, -15, -5, -11, 1, -13);
+      ctx.bezierCurveTo(7, -15, 14, -10, 20, -9);
+      ctx.bezierCurveTo(25, -8, 28, -5, 29, -1);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-18, -5);
+      ctx.bezierCurveTo(-10, -8, -4, -4, 2, -6);
+      ctx.bezierCurveTo(8, -8, 13, -4, 18, -3);
+      ctx.stroke();
+
+      // Frontal / parietal folds.
+      ctx.beginPath();
+      ctx.moveTo(5, -24);
+      ctx.bezierCurveTo(7, -18, 4, -14, 8, -11);
+      ctx.bezierCurveTo(12, -8, 15, -6, 13, -2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(20, -18);
+      ctx.bezierCurveTo(24, -15, 22, -10, 26, -8);
+      ctx.bezierCurveTo(30, -6, 31, -1, 29, 3);
+      ctx.stroke();
+
+      // Inferior temporal folds.
+      ctx.beginPath();
+      ctx.moveTo(1, 11);
+      ctx.bezierCurveTo(6, 9, 10, 10, 14, 12);
+      ctx.bezierCurveTo(17, 13, 17, 15, 15, 17);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-8, 7);
+      ctx.bezierCurveTo(-4, 5, 1, 5, 5, 6);
+      ctx.stroke();
+
+      // Posterior cerebellum.
+      ctx.beginPath();
+      ctx.moveTo(-12, 12);
+      ctx.bezierCurveTo(-17, 10, -23, 11, -26, 15);
+      ctx.bezierCurveTo(-29, 19, -26, 24, -20, 25);
+      ctx.bezierCurveTo(-14, 26, -9, 23, -8, 18);
+      ctx.bezierCurveTo(-7, 15, -9, 13, -12, 12);
+      ctx.closePath();
+      ctx.fillStyle = "#e7f4f2";
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Cerebellar folia.
+      ctx.lineWidth = 1.05;
+      ctx.beginPath();
+      ctx.moveTo(-25, 16);
+      ctx.bezierCurveTo(-21, 14, -16, 14, -11, 16);
+      ctx.moveTo(-26, 19);
+      ctx.bezierCurveTo(-21, 17, -16, 18, -10, 19);
+      ctx.moveTo(-24, 22);
+      ctx.bezierCurveTo(-19, 20, -14, 21, -10, 22);
       ctx.stroke();
 
       // Brain stem.
       ctx.beginPath();
-      ctx.moveTo(-4, 14);
-      ctx.bezierCurveTo(-3, 19, 0, 23, 3, 27);
-      ctx.lineTo(-2, 30);
-      ctx.bezierCurveTo(-6, 26, -8, 21, -8, 16);
+      ctx.moveTo(-6, 16);
+      ctx.bezierCurveTo(-5, 20, -3, 24, 0, 28);
+      ctx.bezierCurveTo(1, 30, 0, 33, -3, 35);
+      ctx.lineTo(-7, 34);
+      ctx.bezierCurveTo(-8, 29, -9, 24, -9, 19);
+      ctx.bezierCurveTo(-9, 17, -8, 16, -6, 16);
       ctx.closePath();
       ctx.fillStyle = "#e7f4f2";
       ctx.fill();
-      ctx.stroke();
-
-      // Lateral cortical folds.
       ctx.strokeStyle = color;
-      ctx.lineWidth = 1.45;
-
-      ctx.beginPath();
-      ctx.moveTo(-12, -17);
-      ctx.bezierCurveTo(-4, -20, 5, -17, 10, -12);
-      ctx.bezierCurveTo(14, -9, 16, -6, 15, -2);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(-15, -10);
-      ctx.bezierCurveTo(-7, -11, 0, -8, 5, -5);
-      ctx.bezierCurveTo(10, -2, 13, 1, 12, 5);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(-14, -2);
-      ctx.bezierCurveTo(-8, -3, -2, 0, 2, 3);
-      ctx.bezierCurveTo(6, 6, 10, 8, 15, 7);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(-11, 5);
-      ctx.bezierCurveTo(-5, 4, 0, 7, 3, 10);
-      ctx.bezierCurveTo(6, 13, 11, 14, 16, 12);
-      ctx.stroke();
-
-      // Cerebellar folds.
-      ctx.beginPath();
-      ctx.moveTo(-20, 12);
-      ctx.bezierCurveTo(-17, 10, -13, 11, -10, 13);
-      ctx.moveTo(-20, 16);
-      ctx.bezierCurveTo(-16, 14, -12, 15, -9, 17);
+      ctx.lineWidth = 1.8;
       ctx.stroke();
 
       ctx.restore();
