@@ -32,14 +32,15 @@
   }
 
   function force() {
-    // Fixed full-state feedback tuned to remain visibly upright.
+    // Same verified continuous-time LQR law used on the main site.
+    // State order: [x, xDot, theta, thetaDot].
     const u =
-      78.0 * state.theta +
-      18.0 * state.thetaDot -
-      4.8 * state.x -
-      7.2 * state.xDot;
+      3.381 * state.x +
+      5.549 * state.xDot +
+      51.910 * state.theta +
+      15.874 * state.thetaDot;
 
-    return Math.max(-58, Math.min(58, u));
+    return Math.max(-55, Math.min(55, u));
   }
 
   function step(dt) {
@@ -198,8 +199,8 @@
     if (reducedMotion) return;
     const rect = canvas.getBoundingClientRect();
     const normalized = (event.clientX - rect.left) / rect.width - 0.5;
-    state.thetaDot += normalized >= 0 ? 0.62 : -0.62;
-    state.xDot += normalized * 0.32;
+    state.thetaDot += normalized >= 0 ? 0.9 : -0.9;
+    state.xDot += normalized * 0.4;
     stateLabel.textContent = "disturbed";
   });
 
