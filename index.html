@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
+  <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
+  <script src="theme.js?v=20260929h"></script>
+  <link rel="stylesheet" href="style.css?v=20260929h" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="identity">
+      <img class="profile-photo" src="assets/kasra-fallah.webp" alt="Portrait of Kasra Fallah" />
+      <a class="name" href="./index.html">Kasra Fallah</a>
+      <p>Ph.D. Candidate · Columbia University</p>
+    </div>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="./index.html" data-payload="none">Home</a>
+      <a href="cv.html">Academic CV</a>
+      <a href="#control" data-payload="controller">Control foundations</a>
+      <a href="#learned" data-payload="latent">Learned systems</a>
+      <a href="#neural" data-payload="brain">Neural dynamics</a>
+      <a href="#physical" data-payload="motor">Physical systems</a>
+      <a href="#publications" data-payload="papers">Publications</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="https://github.com/kasrafallah" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </aside>
+
+  <aside class="control-panel" aria-label="Interactive research control system">
+    <div class="control-shell">
+      <div class="control-kicker">INTERACTIVE CONTROL SYSTEM</div>
+      <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
+      <div class="control-readout">
+        <span id="modeLabel">NOMINAL</span>
+        <span id="stateLabel">stabilizing</span>
+      </div>
+      <div class="controller-label">
+        <span>controller</span>
+        <strong id="controllerText">u = -Kx · LQR-style feedback</strong>
+      </div>
+      <p class="control-hint">The active research object is the pendulum payload. Click the system to perturb it.</p>
+    </div>
+  </aside>
+
+  <main>
+    <section id="home" class="hero observed-section" data-payload="none" data-target="0">
+      <p class="eyebrow">ABOUT</p>
+      <h1>Kasra Fallah</h1>
+
+      <p class="academic-bio">
+        I am a <strong>Ph.D. candidate in Electrical Engineering</strong> at
+        <strong>Columbia University</strong>, advised by
+        <a href="https://www.columbia.edu/~ja3451/" target="_blank" rel="noreferrer">Professor James Anderson</a>.
+        Previously, I completed my <strong>Master of Applied Science</strong> at the
+        <strong>University of Waterloo</strong>, where I was supervised by
+        <a href="https://ece.uwaterloo.ca/~mazum/" target="_blank" rel="noreferrer">Professor Ravi Mazumdar</a>.
+        I was awarded both the <strong>Graduate Research Studentship (GRS)</strong> and the
+        <strong>International Master’s Award of Excellence (IMAE)</strong>. I received my
+        <strong>Bachelor’s degree in Electrical Engineering</strong> from
+        <strong>Sharif University of Technology</strong> in Tehran, Iran, graduating with distinction.
+      </p>
+
+      <div class="profile-links" aria-label="Academic and social links">
+        <a href="mailto:kasra.fallah@columbia.edu">Email</a>
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=3yPgWtQAAAAJ" target="_blank" rel="noreferrer">Google Scholar ↗</a>
+        <a href="https://www.linkedin.com/in/kasrafallah" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <a href="https://twitter.com/KasraFlh" target="_blank" rel="noreferrer">X / Twitter ↗</a>
+      </div>
+
+      <div class="home-research-interests">
+        <p class="eyebrow">RESEARCH INTERESTS</p>
+        <h2>Learning, understanding, and controlling complex dynamical systems.</h2>
+        <p class="lede">
+          My work develops theory and algorithms for reliable intervention in dynamical systems,
+          spanning stochastic and robust control, learning and optimization, inference-time control
+          of learned models, neural dynamics, and predictive control of physical systems.
+        </p>
+      </div>
+
+      <p class="interactive-caption">
+        <span>Interactive:</span> the cart-pole at right changes with each research direction while feedback keeps it upright.
+      </p>
+    </section>
+
+    <section id="control" class="research observed-section" data-payload="controller" data-target="-0.55" data-multitask="true">
+      <div class="section-number">01</div>
+      <div class="section-copy">
+        <p class="eyebrow">FOUNDATIONS</p>
+        <h2>Learning, Generalization & Robustness in Control</h2>
+        <p class="question">
+          When can controllers be learned efficiently, generalized across systems,
+          and remain reliable under uncertainty or adversarial corruption?
+        </p>
+
+        <div class="publication-list">
+          <article class="publication-entry">
+            <div class="publication-index">[1]</div>
+            <div class="publication-body">
+              <span class="tag">Policy gradient · LQG</span>
+              <h3>On the Gradient Domination of the LQG Problem</h3>
+              <p class="authors"><strong>Kasra Fallah</strong>, Leonardo F. Toso, James Anderson</p>
+              <p class="venue"><span class="venue-badge venue-preprint">arXiv</span><span class="venue-detail">Preprint · 2025</span></p>
+              <p class="contribution">
+                Establishes gradient domination for partially observed LQG through a finite-history
+                input/output controller parameterization, with model-based and model-free convergence guarantees.
+              </p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2507.09026" target="_blank" rel="noreferrer">arXiv ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication-entry">
+            <div class="publication-index">[2]</div>
+            <div class="publication-body">
+              <span class="tag">Multitask control</span>
+              <h3>Multitask LQG Control: Performance and Generalization Bounds</h3>
+              <p class="authors">Leonardo F. Toso*, <strong>Kasra Fallah*</strong>, Charis Stamouli*, George J. Pappas, James Anderson</p>
+              <p class="venue"><span class="venue-badge venue-cdc">CDC</span><span class="venue-detail">IEEE Conference on Decision and Control · 2026</span></p>
+              <p class="contribution">
+                Learns a shared lifted controller across heterogeneous LQG tasks and relates
+                transfer performance and generalization to task similarity.
+              </p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2604.16730" target="_blank" rel="noreferrer">arXiv ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication-entry">
+            <div class="publication-index">[3]</div>
+            <div class="publication-body">
+              <span class="tag">Adaptive · Robust</span>
+              <h3>Adversarially Robust Multitask Adaptive Linear Quadratic Control</h3>
+              <p class="authors"><strong>Kasra Fallah*</strong>, Leonardo F. Toso*, James Anderson</p>
+              <p class="venue"><span class="venue-badge venue-l4dc">L4DC</span><span class="venue-detail">Learning for Dynamics &amp; Control · 2026</span></p>
+              <p class="contribution">
+                Combines local identification, clustering, resilient aggregation, and certainty-equivalent
+                control to obtain multitask adaptive guarantees under heterogeneity and adversarial corruption.
+              </p>
+              <div class="paper-links">
+                <a href="https://proceedings.mlr.press/v331/fallah26a.html" target="_blank" rel="noreferrer">Proceedings ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="learned" class="research observed-section" data-payload="latent" data-target="0.45">
+      <div class="section-number">02</div>
+      <div class="section-copy">
+        <p class="eyebrow">INFERENCE-TIME CONTROL</p>
+        <h2>Steering Large Learned Systems</h2>
+        <p class="question">
+          How can pretrained generative and representation dynamics be reliably steered
+          at inference time under constraints, uncertainty, and distribution shift?
+        </p>
+
+        <div class="publication-list">
+          <article class="publication-entry">
+            <div class="publication-index">[4]</div>
+            <div class="publication-body">
+              <span class="tag">Generative models · Optimal control</span>
+              <h3>CONIC-FLOW: Constrained Inference-Time Optimal Control for Flow Matching Models</h3>
+              <p class="authors">Shervin Khalafi*, <strong>Kasra Fallah*</strong>, Sung Cho, Dongsheng Ding, James Anderson, Alejandro Ribeiro</p>
+              <p class="venue"><span class="venue-badge venue-iclr">ICLR</span><span class="venue-detail">Under review · 2027</span></p>
+              <p class="contribution">
+                Casts constrained flow-matching inference as an optimal-control problem and develops
+                receding-horizon primal–dual methods with finite-horizon guarantees.
+              </p>
+            </div>
+          </article>
+
+          <article class="publication-entry">
+            <div class="publication-index">[5]</div>
+            <div class="publication-body">
+              <span class="tag">Language models · Robust control</span>
+              <h3>Mind Control of LLMs via Closed-Loop Stimulation: Out-of-Distribution Robustness</h3>
+              <p class="authors"><strong>Kasra Fallah*</strong>, Rudramani Singha*, Hannah Ghanei, Paul Sajda, James Anderson, Erfan Zabeh</p>
+              <p class="venue"><span class="venue-badge venue-iclr">ICLR</span><span class="venue-detail">Under review · 2027</span></p>
+              <p class="contribution">
+                Models transformer representations as a finite dynamical system and develops a robust-control
+                notion of steerability for reliable interventions under distribution shift.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="neural" class="research observed-section" data-payload="brain" data-target="-0.25">
+      <div class="section-number">03</div>
+      <div class="section-copy">
+        <p class="eyebrow">GEOMETRY · NEURAL COMPUTATION</p>
+        <h2>Geometry & Control of Neural Dynamics</h2>
+        <p class="question">
+          What low-dimensional structure organizes neural dynamics, and how can that
+          structure be used to understand or shape neural computation?
+        </p>
+
+        <div class="publication-list">
+          <article class="publication-entry">
+            <div class="publication-index">[6]</div>
+            <div class="publication-body">
+              <span class="tag">Neural geometry · Topology</span>
+              <h3>NeuralFieldManifold: Reconstruction of LFP Manifolds with Lag Embedding</h3>
+              <p class="authors"><strong>Kasra Fallah*</strong>, Haoyu Novak Chen, Rudramani Singha, Eunji Kong, Gergely Turi, Attila Losonczy, Erfan Zabeh*</p>
+              <p class="venue"><span class="venue-badge venue-neurips">NeurIPS</span><span class="venue-detail">2026</span></p>
+              <p class="contribution">
+                Connects oscillatory neural field dynamics to low-dimensional manifold geometry using
+                lag embeddings, autoregressive structure, and topological signatures.
+              </p>
+            </div>
+          </article>
+
+          <article class="publication-entry">
+            <div class="publication-index">[5]</div>
+            <div class="publication-body">
+              <span class="tag">NeuroAI · Robust control · Cross-listed</span>
+              <h3>Mind Control of LLMs via Closed-Loop Stimulation: Out-of-Distribution Robustness</h3>
+              <p class="authors"><strong>Kasra Fallah*</strong>, Rudramani Singha*, Hannah Ghanei, Paul Sajda, James Anderson, Erfan Zabeh</p>
+              <p class="venue"><span class="venue-badge venue-iclr">ICLR</span><span class="venue-detail">Under review · 2027</span></p>
+              <p class="contribution">
+                Transfers closed-loop and robust-control principles from neural stimulation to language-model
+                representation dynamics, linking biological and artificial neural intervention under distribution shift.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+        <section id="physical" class="research observed-section" data-payload="motor" data-target="0.6">
+      <div class="section-number">04</div>
+      <div class="section-copy">
+        <p class="eyebrow">PHYSICAL SYSTEMS</p>
+        <h2>Optimization & Predictive Control of Physical Systems</h2>
+        <p class="question">
+          How can physical structure be exploited to make nonlinear optimization and
+          predictive control tractable and efficient?
+        </p>
+
+        <div class="publication-list">
+          <article class="publication-entry">
+            <div class="publication-index">[7]</div>
+            <div class="publication-body">
+              <span class="tag">Electric machines · Optimization</span>
+              <h3>On the Unification of Optimal Current Reference Theory for Wound Rotor Synchronous Machines</h3>
+              <p class="authors">Maxfield Parson-Scherban, <strong>Kasra Fallah</strong>, Navid Rahbariasr, Bernard Steyaert, James Anderson, Matthias Preindl</p>
+              <p class="venue"><span class="venue-badge venue-cdc">CDC</span><span class="venue-detail">IEEE Conference on Decision and Control · 2026</span></p>
+              <p class="contribution">
+                Unifies optimal current-reference design across operating regimes for wound-rotor
+                synchronous machines through a structure-aware optimization framework.
+              </p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2604.17165" target="_blank" rel="noreferrer">arXiv ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication-entry">
+            <div class="publication-index">[8]</div>
+            <div class="publication-body">
+              <span class="tag">Model predictive control · Electric machines</span>
+              <h3>Applying Linear Parameter Varying Model Predictive Current Control to an Enhanced WRSM Model</h3>
+              <p class="authors">Maxfield Parson-Scherban, <strong>Kasra Fallah</strong>, Navid Rahbariasr, Peng Wang, Bernard Steyaert, James Anderson, Matthias Preindl</p>
+              <p class="venue"><span class="venue-badge venue-saes">SAES</span><span class="venue-detail">IEEE/CCAE Small and Smart Electrical Systems · 2026</span></p>
+              <p class="contribution">
+                Embeds an enhanced WRSM model in linear-parameter-varying model predictive current
+                control to handle nonlinear machine behavior and operating constraints.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications" class="publications observed-section" data-payload="papers" data-target="0">
+      <p class="eyebrow">SELECTED PUBLICATIONS</p>
+      <h2>Publications</h2>
+      <p class="question">
+        Selected work across control theory, learned systems, neural dynamics, and predictive control.
+        An asterisk denotes equal contribution.
+      </p>
+
+      <div class="bibliography-list">
+        <article class="bibliography-entry">
+          <div class="publication-index">[1]</div>
+          <div>
+            <h3>On the Gradient Domination of the LQG Problem</h3>
+            <p class="authors"><strong>Kasra Fallah</strong>, Leonardo F. Toso, James Anderson</p>
+            <p class="venue"><span class="venue-badge venue-preprint">arXiv</span><span class="venue-detail">Preprint · 2025</span></p>
+            <div class="paper-links"><a href="https://arxiv.org/abs/2507.09026" target="_blank" rel="noreferrer">arXiv ↗</a></div>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[2]</div>
+          <div>
+            <h3>Multitask LQG Control: Performance and Generalization Bounds</h3>
+            <p class="authors">Leonardo F. Toso*, <strong>Kasra Fallah*</strong>, Charis Stamouli*, George J. Pappas, James Anderson</p>
+            <p class="venue"><span class="venue-badge venue-cdc">CDC</span><span class="venue-detail">IEEE Conference on Decision and Control · 2026</span></p>
+            <div class="paper-links"><a href="https://arxiv.org/abs/2604.16730" target="_blank" rel="noreferrer">arXiv ↗</a></div>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[3]</div>
+          <div>
+            <h3>Adversarially Robust Multitask Adaptive Linear Quadratic Control</h3>
+            <p class="authors"><strong>Kasra Fallah*</strong>, Leonardo F. Toso*, James Anderson</p>
+            <p class="venue"><span class="venue-badge venue-l4dc">L4DC</span><span class="venue-detail">Learning for Dynamics &amp; Control · 2026</span></p>
+            <div class="paper-links"><a href="https://proceedings.mlr.press/v331/fallah26a.html" target="_blank" rel="noreferrer">Proceedings ↗</a></div>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[4]</div>
+          <div>
+            <h3>CONIC-FLOW: Constrained Inference-Time Optimal Control for Flow Matching Models</h3>
+            <p class="authors">Shervin Khalafi*, <strong>Kasra Fallah*</strong>, Sung Cho, Dongsheng Ding, James Anderson, Alejandro Ribeiro</p>
+            <p class="venue"><span class="venue-badge venue-iclr">ICLR</span><span class="venue-detail">Under review · 2027</span></p>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[5]</div>
+          <div>
+            <h3>Mind Control of LLMs via Closed-Loop Stimulation: Out-of-Distribution Robustness</h3>
+            <p class="authors"><strong>Kasra Fallah*</strong>, Rudramani Singha*, Hannah Ghanei, Paul Sajda, James Anderson, Erfan Zabeh</p>
+            <p class="venue"><span class="venue-badge venue-iclr">ICLR</span><span class="venue-detail">Under review · 2027</span></p>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[6]</div>
+          <div>
+            <h3>NeuralFieldManifold: Reconstruction of LFP Manifolds with Lag Embedding</h3>
+            <p class="authors"><strong>Kasra Fallah*</strong>, Haoyu Novak Chen, Rudramani Singha, Eunji Kong, Gergely Turi, Attila Losonczy, Erfan Zabeh*</p>
+            <p class="venue"><span class="venue-badge venue-neurips">NeurIPS</span><span class="venue-detail">2026</span></p>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[7]</div>
+          <div>
+            <h3>On the Unification of Optimal Current Reference Theory for Wound Rotor Synchronous Machines</h3>
+            <p class="authors">Maxfield Parson-Scherban, <strong>Kasra Fallah</strong>, Navid Rahbariasr, Bernard Steyaert, James Anderson, Matthias Preindl</p>
+            <p class="venue"><span class="venue-badge venue-cdc">CDC</span><span class="venue-detail">IEEE Conference on Decision and Control · 2026</span></p>
+            <div class="paper-links"><a href="https://arxiv.org/abs/2604.17165" target="_blank" rel="noreferrer">arXiv ↗</a></div>
+          </div>
+        </article>
+
+        <article class="bibliography-entry">
+          <div class="publication-index">[8]</div>
+          <div>
+            <h3>Applying Linear Parameter Varying Model Predictive Current Control to an Enhanced WRSM Model</h3>
+            <p class="authors">Maxfield Parson-Scherban, <strong>Kasra Fallah</strong>, Navid Rahbariasr, Peng Wang, Bernard Steyaert, James Anderson, Matthias Preindl</p>
+            <p class="venue"><span class="venue-badge venue-saes">SAES</span><span class="venue-detail">IEEE/CCAE Small and Smart Electrical Systems · 2026</span></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+<section id="contact" class="contact observed-section" data-payload="none" data-target="0">
+      <p class="eyebrow">CONTACT</p>
+      <h2>Let’s talk about control, learning, or dynamical systems.</h2>
+      <p>
+        This prototype intentionally keeps contact details minimal while we design the final
+        information architecture.
+      </p>
+    </section>
+
+    <footer>
+      <span>Kasra Fallah</span>
+      <span>Built around a controlled dynamical system.</span>
+    </footer>
+  </main>
+
+  <script src="script.js?v=20260929d"></script>
+</body>
+</html>
