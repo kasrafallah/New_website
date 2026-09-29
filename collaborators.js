@@ -8,38 +8,94 @@
   const areaEl = document.getElementById("collabArea");
   const cityEl = document.getElementById("collabCity");
 
-  const people = [
-    {name:"James Anderson", affiliation:"Columbia University", city:"New York, USA", lat:40.8, lon:-74.0, area:"Control theory, learning, robust control, and optimization."},
-    {name:"Leonardo F. Toso", affiliation:"Columbia University", city:"New York, USA", lat:41.2, lon:-73.6, area:"LQG policy optimization, multitask control, and adaptive control."},
-    {name:"Ravi R. Mazumdar", affiliation:"University of Waterloo", city:"Waterloo, Canada", lat:43.5, lon:-80.5, area:"Information theory, stochastic systems, and channels with memory."},
-    {name:"George J. Pappas", affiliation:"University of Pennsylvania", city:"Philadelphia, USA", lat:40.0, lon:-75.2, area:"Control, learning, multitask systems, and generalization."},
-    {name:"Alejandro Ribeiro", affiliation:"University of Pennsylvania", city:"Philadelphia, USA", lat:40.3, lon:-75.0, area:"Optimization, graph learning, and constrained generative inference."},
-    {name:"Shervin Khalafi", affiliation:"University of Pennsylvania", city:"Philadelphia, USA", lat:39.7, lon:-75.0, area:"Generative models, constrained optimization, and flow-matching inference."},
-    {name:"Nikolai Matni", affiliation:"University of Pennsylvania", city:"Philadelphia, USA", lat:40.1, lon:-75.4, area:"Robust and data-driven control and system-level synthesis."},
-    {name:"Tesshu Fujinami", affiliation:"University of Pennsylvania", city:"Philadelphia, USA", lat:39.8, lon:-75.4, area:"Shared controllers, history representations, and linear control."},
-    {name:"Charis Stamouli", affiliation:"ETH Zürich", city:"Zürich, Switzerland", lat:47.4, lon:8.5, area:"Reliable control, multitask optimization, and generalization."},
-    {name:"Erfan Zabeh", affiliation:"UT Southwestern Medical Center", city:"Dallas, USA", lat:32.8, lon:-96.8, area:"Neural dynamics, robust intervention, and control-inspired neuroscience."},
-    {name:"Wenhao Zhang", affiliation:"UT Southwestern Medical Center", city:"Dallas, USA", lat:33.0, lon:-96.7, area:"Computational neuroscience, continuous attractors, and neural sampling."},
-    {name:"Rudramani Singha", affiliation:"UT Southwestern Medical Center", city:"Dallas, USA", lat:32.7, lon:-96.7, area:"Probabilistic modeling, neural dynamics, and robust representation steering."},
-    {name:"Han Bao", affiliation:"UCLA", city:"Los Angeles, USA", lat:34.1, lon:-118.2, area:"Federated learning, online learning, and inverse optimization."},
-    {name:"Shinsaku Sakaue", affiliation:"Tokyo", city:"Tokyo, Japan", lat:35.8, lon:139.8, area:"Online optimization, inverse optimization, and learning theory."},
-    {name:"Taira Tsuchiya", affiliation:"The University of Tokyo", city:"Tokyo, Japan", lat:35.7, lon:139.6, area:"Online learning, learning theory, and inverse optimization."},
-    {name:"Francis Bach", affiliation:"Inria / École Normale Supérieure", city:"Paris, France", lat:48.9, lon:2.35, area:"Optimization, statistical machine learning, and learning theory."},
-    {name:"Maxfield Parson-Scherban", affiliation:"Columbia University", city:"New York, USA", lat:40.9, lon:-73.8, area:"Wound-rotor synchronous machines and predictive control."},
-    {name:"Navid Rahbariasr", affiliation:"Columbia University", city:"New York, USA", lat:40.6, lon:-74.2, area:"Optimization, energy systems, and model predictive control."},
-    {name:"Bernard Steyaert", affiliation:"Columbia University", city:"New York, USA", lat:40.7, lon:-73.6, area:"Electric machines, power electronics, and WRSM modeling."},
-    {name:"Matthias Preindl", affiliation:"Columbia University", city:"New York, USA", lat:40.5, lon:-74.0, area:"Model predictive control, electric drives, and power electronics."}
+  const groups = [
+    {
+      label: "Professors",
+      people: [
+        {name:"James Anderson", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.81, lon:-73.96, role:"Professor", papers:"Coauthor on [2], [3], [5], [6], [7], [8], [9]"},
+        {name:"George J. Pappas", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:39.95, lon:-75.19, role:"Professor", papers:"Coauthor on [6]"},
+        {name:"Alejandro Ribeiro", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:40.05, lon:-75.10, role:"Professor", papers:"Coauthor on [9]"},
+        {name:"Matthias Preindl", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.65, lon:-73.90, role:"Professor", papers:"Coauthor on [5], [7]"},
+        {name:"Paul Sajda", affiliation:"Department of Biomedical Engineering, Columbia University", city:"New York", country:"USA", lat:40.93, lon:-74.04, role:"Professor", papers:"Coauthor on [8]"},
+        {name:"Attila Losonczy", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.81, lon:-96.84, role:"Professor", papers:"Coauthor on [4]"},
+        {name:"Gergely Turi", affiliation:"University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.94, lon:-96.73, role:"Professor", papers:"Coauthor on [4]"}
+      ]
+    },
+    {
+      label: "Postdoctoral Researchers",
+      people: [
+        {name:"Erfan Zabeh", affiliation:"Mortimer B. Zuckerman Mind Brain Behavior Institute, Columbia University", city:"New York", country:"USA", lat:40.76, lon:-74.12, role:"Postdoctoral Researcher", papers:"Coauthor on [4], [8]"},
+        {name:"Eunji Kong", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.68, lon:-96.72, role:"Postdoctoral Researcher", papers:"Coauthor on [4]"},
+        {name:"Peng Wang", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.52, lon:-73.84, role:"Postdoctoral Researcher", papers:"Coauthor on [7]"}
+      ]
+    },
+    {
+      label: "Research Scientists",
+      people: [
+        {name:"Navid Rahbariasr", affiliation:"Associate Research Scientist, Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.97, lon:-73.83, role:"Research Scientist", papers:"Coauthor on [5], [7]"}
+      ]
+    },
+    {
+      label: "PhD Students",
+      people: [
+        {name:"Leonardo F. Toso", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.70, lon:-73.72, role:"PhD Student", papers:"Coauthor on [2], [3], [6]"},
+        {name:"Shervin Khalafi", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:39.84, lon:-75.08, role:"PhD Student", papers:"Coauthor on [9]"},
+        {name:"Maxfield Parson-Scherban", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.86, lon:-73.70, role:"PhD Student", papers:"Coauthor on [5], [7]"},
+        {name:"Charis Stamouli", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:40.08, lon:-75.28, role:"PhD Student", papers:"Coauthor on [6]"},
+        {name:"Bernard Steyaert", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.58, lon:-74.08, role:"PhD Student", papers:"Coauthor on [5], [7]"}
+      ]
+    },
+    {
+      label: "Other Collaborators",
+      people: [
+        {name:"Hannah Ghanei", affiliation:"School of Computer Science and Electronic Engineering, University of Surrey", city:"Guildford", country:"United Kingdom", lat:51.24, lon:-0.59, role:"Collaborator", papers:"Coauthor on [8]"},
+        {name:"Haoyu Novak Chen", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.73, lon:-96.94, role:"Collaborator", papers:"Coauthor on [4]"},
+        {name:"Rudramani Singha", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.88, lon:-96.93, role:"Collaborator", papers:"Coauthor on [4], [8]"}
+      ]
+    }
   ];
 
-  let yaw = -0.5, pitch = -0.2, dragging = false, lastX = 0, lastY = 0, selected = 0;
+  const people = groups.flatMap(group => group.people.map(person => ({...person, group:group.label})));
+
+  const cities = [
+    {name:"New York", country:"USA", lat:40.71, lon:-74.01},
+    {name:"Philadelphia", country:"USA", lat:39.95, lon:-75.17},
+    {name:"Dallas", country:"USA", lat:32.78, lon:-96.80},
+    {name:"Guildford", country:"United Kingdom", lat:51.24, lon:-0.57}
+  ];
+
+  const countryLabels = [
+    {name:"USA",lat:39,lon:-99},{name:"Canada",lat:57,lon:-106},{name:"Mexico",lat:23,lon:-102},
+    {name:"Brazil",lat:-10,lon:-52},{name:"Argentina",lat:-38,lon:-64},{name:"United Kingdom",lat:55,lon:-3},
+    {name:"France",lat:46.5,lon:2},{name:"Spain",lat:40,lon:-4},{name:"Germany",lat:51,lon:10},
+    {name:"Italy",lat:42.5,lon:12.5},{name:"Switzerland",lat:46.8,lon:8.2},{name:"Norway",lat:64,lon:11},
+    {name:"Sweden",lat:62,lon:15},{name:"Poland",lat:52,lon:19},{name:"Turkey",lat:39,lon:35},
+    {name:"Iran",lat:32,lon:54},{name:"Egypt",lat:27,lon:30},{name:"South Africa",lat:-30,lon:24},
+    {name:"India",lat:22,lon:79},{name:"China",lat:35,lon:103},{name:"Japan",lat:37,lon:138},
+    {name:"Russia",lat:61,lon:90},{name:"Australia",lat:-25,lon:134},{name:"Indonesia",lat:-2,lon:118}
+  ];
+
+  let countries = null;
+  let yaw = -0.5;
+  let pitch = -0.2;
+  let dragging = false;
+  let lastX = 0;
+  let lastY = 0;
+  let selected = 0;
   let pins = [];
+  let moved = 0;
+
+  fetch("https://cdn.jsdelivr.net/gh/datasets/geo-countries@master/data/countries.geojson")
+    .then(response => response.ok ? response.json() : null)
+    .then(data => { countries = data; })
+    .catch(() => { countries = null; });
 
   function rotate(lat, lon) {
     const p = lat * Math.PI / 180;
     const l = lon * Math.PI / 180;
-    let x = Math.cos(p) * Math.cos(l);
-    let y = Math.sin(p);
-    let z = Math.cos(p) * Math.sin(l);
+    const x = Math.cos(p) * Math.cos(l);
+    const y = Math.sin(p);
+    const z = Math.cos(p) * Math.sin(l);
 
     const cy = Math.cos(yaw), sy = Math.sin(yaw);
     const x1 = cy * x + sy * z;
@@ -57,25 +113,69 @@
   function resize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(rect.width * dpr);
-    canvas.height = Math.round(rect.height * dpr);
+    canvas.width = Math.max(1, Math.round(rect.width * dpr));
+    canvas.height = Math.max(1, Math.round(rect.height * dpr));
     ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function drawRing(ring, cx, cy, r) {
+    ctx.beginPath();
+    let open = false;
+    for (let i=0; i<ring.length; i+=Math.max(1,Math.floor(ring.length/260))) {
+      const coord = ring[i];
+      const p = project(coord[1],coord[0],cx,cy,r);
+      if (p.z < 0.01) { open=false; continue; }
+      if (!open) { ctx.moveTo(p.x,p.y); open=true; }
+      else ctx.lineTo(p.x,p.y);
+    }
+    ctx.stroke();
+  }
+
+  function drawCountries(cx,cy,r) {
+    if (!countries) return;
+    ctx.strokeStyle = "rgba(83,104,125,.38)";
+    ctx.lineWidth = .75;
+
+    countries.features.forEach(feature => {
+      const geometry = feature.geometry;
+      if (!geometry) return;
+      if (geometry.type === "Polygon") {
+        geometry.coordinates.forEach(ring => drawRing(ring,cx,cy,r));
+      } else if (geometry.type === "MultiPolygon") {
+        geometry.coordinates.forEach(poly => poly.forEach(ring => drawRing(ring,cx,cy,r)));
+      }
+    });
+  }
+
+  function drawLabel(text, p, style) {
+    if (p.z < .08) return;
+    ctx.save();
+    ctx.globalAlpha = Math.min(1, .35 + p.z);
+    ctx.font = style.font;
+    ctx.fillStyle = style.color;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text,p.x,p.y);
+    ctx.restore();
   }
 
   function draw() {
     resize();
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    const cx = w/2, cy = h/2, r = Math.min(w,h)*0.43;
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    const cx = w/2, cy = h/2, r = Math.min(w,h)*.43;
     ctx.clearRect(0,0,w,h);
 
     const g = ctx.createRadialGradient(cx-r*.3,cy-r*.3,r*.1,cx,cy,r);
-    g.addColorStop(0,"#fff");
-    g.addColorStop(1,"#e8eef4");
+    g.addColorStop(0,"#ffffff");
+    g.addColorStop(.72,"#f5f8fb");
+    g.addColorStop(1,"#e7edf3");
     ctx.fillStyle = g;
     ctx.beginPath();
     ctx.arc(cx,cy,r,0,Math.PI*2);
     ctx.fill();
     ctx.strokeStyle = "#c8d2dc";
+    ctx.lineWidth = 1.2;
     ctx.stroke();
 
     ctx.save();
@@ -83,8 +183,8 @@
     ctx.arc(cx,cy,r,0,Math.PI*2);
     ctx.clip();
 
-    ctx.strokeStyle = "rgba(110,128,146,.18)";
-    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = "rgba(110,128,146,.13)";
+    ctx.lineWidth = .7;
     for(let lat=-60;lat<=60;lat+=30){
       ctx.beginPath();
       let open=false;
@@ -106,19 +206,44 @@
       ctx.stroke();
     }
 
-    pins = [];
-    people.forEach((person,i) => {
-      const p = project(person.lat,person.lon,cx,cy,r);
+    drawCountries(cx,cy,r);
+
+    countryLabels.forEach(country => {
+      const p = project(country.lat,country.lon,cx,cy,r);
+      drawLabel(country.name,p,{
+        font:'600 8px ui-monospace, SFMono-Regular, Menlo, monospace',
+        color:"rgba(76,94,112,.48)"
+      });
+    });
+
+    cities.forEach(city => {
+      const p = project(city.lat,city.lon,cx,cy,r);
+      if(p.z<.04) return;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,2.2,0,Math.PI*2);
+      ctx.fillStyle="#102033";
+      ctx.fill();
+      ctx.font='700 9px ui-monospace, SFMono-Regular, Menlo, monospace';
+      ctx.fillStyle="#33485d";
+      ctx.textAlign="left";
+      ctx.textBaseline="middle";
+      ctx.fillText(city.name+" · "+city.country,p.x+6,p.y-1);
+    });
+
+    pins=[];
+    people.forEach((person,i)=>{
+      const p=project(person.lat,person.lon,cx,cy,r);
       if(p.z<0) return;
       pins.push({i,x:p.x,y:p.y});
       ctx.beginPath();
-      ctx.arc(p.x,p.y,i===selected?6:4,0,Math.PI*2);
-      ctx.fillStyle = i===selected ? "#2457d6" : "#607da7";
+      ctx.arc(p.x,p.y,i===selected?5.8:3.8,0,Math.PI*2);
+      ctx.fillStyle=i===selected?"#2457d6":"#6681aa";
       ctx.fill();
       if(i===selected){
         ctx.beginPath();
-        ctx.arc(p.x,p.y,11,0,Math.PI*2);
-        ctx.strokeStyle = "rgba(36,87,214,.25)";
+        ctx.arc(p.x,p.y,10.5,0,Math.PI*2);
+        ctx.strokeStyle="rgba(36,87,214,.28)";
+        ctx.lineWidth=1.5;
         ctx.stroke();
       }
     });
@@ -128,48 +253,94 @@
   }
 
   function selectPerson(i) {
-    selected = i;
-    const p = people[i];
-    nameEl.textContent = p.name;
-    affiliationEl.textContent = p.affiliation;
-    areaEl.textContent = p.area;
-    cityEl.textContent = p.city;
+    selected=i;
+    const p=people[i];
+    nameEl.textContent=p.name;
+    affiliationEl.textContent=p.affiliation;
+    areaEl.textContent=p.role+" · "+p.papers;
+    cityEl.textContent=p.city+", "+p.country;
+    document.querySelectorAll(".collab-person").forEach((el,index)=>{
+      el.classList.toggle("selected",index===i);
+    });
   }
 
-  canvas.addEventListener("pointerdown", e => {
-    dragging = true; lastX = e.clientX; lastY = e.clientY;
+  canvas.addEventListener("pointerdown",e=>{
+    dragging=true;
+    moved=0;
+    lastX=e.clientX;
+    lastY=e.clientY;
     canvas.setPointerCapture(e.pointerId);
   });
-  canvas.addEventListener("pointermove", e => {
+
+  canvas.addEventListener("pointermove",e=>{
     if(!dragging) return;
-    yaw += (e.clientX-lastX)*0.007;
-    pitch = Math.max(-1.1, Math.min(1.1, pitch + (e.clientY-lastY)*0.006));
-    lastX = e.clientX; lastY = e.clientY;
+    const dx=e.clientX-lastX;
+    const dy=e.clientY-lastY;
+    moved+=Math.hypot(dx,dy);
+    yaw+=dx*.007;
+    pitch=Math.max(-1.1,Math.min(1.1,pitch+dy*.006));
+    lastX=e.clientX;
+    lastY=e.clientY;
   });
-  canvas.addEventListener("pointerup", e => {
-    dragging = false;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX-rect.left, y = e.clientY-rect.top;
-    let hit = null, best = 14;
-    pins.forEach(p => {
-      const d = Math.hypot(x-p.x,y-p.y);
-      if(d<best){best=d;hit=p.i;}
+
+  canvas.addEventListener("pointerup",e=>{
+    dragging=false;
+    if(moved>7) return;
+    const rect=canvas.getBoundingClientRect();
+    const x=e.clientX-rect.left, y=e.clientY-rect.top;
+    let hit=null, best=13;
+    pins.forEach(pin=>{
+      const d=Math.hypot(x-pin.x,y-pin.y);
+      if(d<best){best=d;hit=pin.i;}
     });
     if(hit!==null) selectPerson(hit);
   });
 
-  resetButton.addEventListener("click", () => { yaw=-0.5; pitch=-0.2; });
+  resetButton.addEventListener("click",()=>{yaw=-.5;pitch=-.2;});
 
-  people.forEach((p,i) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "collab-person";
-    b.innerHTML = '<span class="collab-dot"></span><span><h3>'+p.name+'</h3><p>'+p.affiliation+' · '+p.city+'</p></span>';
-    b.addEventListener("click", () => selectPerson(i));
-    roster.appendChild(b);
+  groups.forEach(group=>{
+    const section=document.createElement("section");
+    section.className="collab-group";
+
+    const title=document.createElement("h3");
+    title.className="collab-group-title";
+    title.textContent=group.label;
+    section.appendChild(title);
+
+    const list=document.createElement("div");
+    list.className="collab-group-list";
+
+    group.people.forEach(person=>{
+      const i=people.findIndex(p=>p.name===person.name);
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="collab-person";
+
+      const dot=document.createElement("span");
+      dot.className="collab-dot";
+
+      const body=document.createElement("span");
+      const name=document.createElement("strong");
+      name.className="collab-person-name";
+      name.textContent=person.name;
+      const affiliation=document.createElement("span");
+      affiliation.className="collab-person-affiliation";
+      affiliation.textContent=person.affiliation;
+      const papers=document.createElement("span");
+      papers.className="collab-person-papers";
+      papers.textContent=person.papers;
+
+      body.append(name,affiliation,papers);
+      button.append(dot,body);
+      button.addEventListener("click",()=>selectPerson(i));
+      list.appendChild(button);
+    });
+
+    section.appendChild(list);
+    roster.appendChild(section);
   });
 
   selectPerson(0);
-  window.addEventListener("resize", resize);
+  window.addEventListener("resize",resize);
   draw();
 })();
