@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kasra Fallah — Collaborators</title>
-  <link rel="stylesheet" href="style.css?v=20260929f" />
+  <link rel="stylesheet" href="style.css?v=20260929g" />
 </head>
 <body class="collab-page">
   <aside class="sidebar">
@@ -39,8 +39,21 @@
         <div class="globe-stage">
           <canvas id="collabGlobe" aria-label="Interactive globe showing collaborator locations"></canvas>
           <div class="globe-controls">
-            <span>drag to rotate · countries + cities + collaborators</span>
-            <button id="resetGlobe" type="button">reset view</button>
+            <span>drag · scroll/pinch to zoom · click a collaborator</span>
+            <div class="globe-actions" aria-label="Globe controls">
+              <button id="zoomOutGlobe" type="button" aria-label="Zoom out">−</button>
+              <span id="zoomReadout">100%</span>
+              <button id="zoomInGlobe" type="button" aria-label="Zoom in">+</button>
+              <button id="journeyGlobe" type="button">my journey</button>
+              <button id="resetGlobe" type="button">reset</button>
+            </div>
+          </div>
+          <div class="journey-strip" aria-label="Academic journey">
+            <div><strong>01</strong><span>Tehran</span><small>Sharif · B.Sc. · 2018–2022</small></div>
+            <i>→</i>
+            <div><strong>02</strong><span>Waterloo</span><small>UWaterloo · M.A.Sc. · 2022–2024</small></div>
+            <i>→</i>
+            <div><strong>03</strong><span>New York</span><small>Columbia · Ph.D. · 2024–Present</small></div>
           </div>
         </div>
         <aside class="collab-detail" aria-live="polite">
@@ -60,6 +73,6 @@
     </section>
   </main>
 
-  <script src="collaborators.js?v=20260929f"></script>
+  <script src="collaborators.js?v=20260929g"></script>
 </body>
 </html>
