@@ -125,7 +125,12 @@
 
   function project(lat, lon, cx, cy, r) {
     const p = rotate(lat, lon);
-    return {x:cx+p.x*r, y:cy-p.y*r, z:p.z};
+
+    // Canvas x-axis correction:
+    // geographic east must appear on the right side of the globe.
+    // The previous projection used the opposite screen-space handedness,
+    // which mirrored all countries and labels horizontally.
+    return {x:cx-p.x*r, y:cy-p.y*r, z:p.z};
   }
 
   function resize() {
