@@ -108,12 +108,8 @@
     modeLabel.textContent = labels[payload] || "NOMINAL";
     modeLabel.style.color = palette[payload] || palette.none;
 
-    if (!reducedMotion) {
-      // Section changes should be visible, but small enough that the feedback
-      // controller remains close to the upright equilibrium.
-      state.thetaDot += payload === "motor" ? 0.14 : 0.09;
-      state.xDot -= 0.035;
-    }
+    // Changing research sections changes only the reference/payload.
+    // Disturbances are injected explicitly by the user clicking the canvas.
   }
 
   function setEducationStage(stage) {
@@ -143,21 +139,19 @@
   function feedbackForce(s, reference = targetX) {
     const error = s.x - reference;
 
-    // LQR-style state feedback around the upright equilibrium.
-    // The same gain K is used for every research section and for all
-    // heterogeneous plants in multitask mode.
-    const kTheta = 62.0;
-    const kThetaDot = 13.5;
-    const kX = 3.8;
-    const kXDot = 5.4;
-
+    // Continuous-time LQR gain for the upright linearization.
+    // State order: [x-reference, xDot, theta, thetaDot].
+    // With this model's angle convention, the stabilizing law is
+    // u = 3.381 e + 5.549 xDot + 51.910 theta + 15.874 thetaDot.
+    // The same gain is intentionally shared across all research sections
+    // and across the three heterogeneous multitask plants.
     const force =
-      kTheta * s.theta +
-      kThetaDot * s.thetaDot -
-      kX * error -
-      kXDot * s.xDot;
+      3.381 * error +
+      5.549 * s.xDot +
+      51.910 * s.theta +
+      15.874 * s.thetaDot;
 
-    return Math.max(-42, Math.min(42, force));
+    return Math.max(-55, Math.min(55, force));
   }
 
   function controllerForce() {
@@ -885,13 +879,13 @@
     const normalized = (event.clientX - rect.left) / rect.width - 0.5;
     if (multitaskMode) {
       multitaskStates.forEach((s, i) => {
-        s.thetaDot += (normalized >= 0 ? 0.72 : -0.72) * (0.82 + i * 0.16);
-        s.xDot += normalized * (0.34 + i * 0.06);
+        s.thetaDot += (normalized >= 0 ? 0.82 : -0.82) * (0.82 + i * 0.16);
+        s.xDot += normalized * (0.38 + i * 0.06);
       });
       stateLabel.textContent = "shared K · disturbed";
     } else {
-      state.thetaDot += normalized >= 0 ? 0.95 : -0.95;
-      state.xDot += normalized * 0.55;
+      state.thetaDot += normalized >= 0 ? 1.05 : -1.05;
+      state.xDot += normalized * 0.48;
       stateLabel.textContent = "disturbed";
     }
   });
