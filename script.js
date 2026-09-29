@@ -400,62 +400,86 @@
 
     if (kind === "brain") {
       ctx.save();
-      ctx.scale(1.28, 1.28);
+      ctx.translate(1, 0);
+      ctx.scale(1.32, 1.32);
 
-      // Filled two-hemisphere brain silhouette.
+      // Side-profile brain silhouette: frontal lobe faces right,
+      // cerebellum and brain stem sit at the lower rear.
       ctx.fillStyle = "#e7f4f2";
       ctx.strokeStyle = color;
-      ctx.lineWidth = 2.2;
+      ctx.lineWidth = 2.15;
 
       ctx.beginPath();
-      ctx.moveTo(-2, 20);
-      ctx.bezierCurveTo(-9, 23, -16, 18, -16, 12);
-      ctx.bezierCurveTo(-25, 10, -29, 2, -25, -5);
-      ctx.bezierCurveTo(-29, -14, -22, -22, -14, -22);
-      ctx.bezierCurveTo(-11, -29, -2, -30, 3, -24);
-      ctx.bezierCurveTo(9, -29, 18, -26, 19, -19);
-      ctx.bezierCurveTo(27, -17, 30, -8, 25, -2);
-      ctx.bezierCurveTo(29, 7, 22, 14, 15, 14);
-      ctx.bezierCurveTo(12, 21, 5, 23, -2, 20);
+      ctx.moveTo(-21, 3);
+      ctx.bezierCurveTo(-24, -6, -21, -16, -14, -21);
+      ctx.bezierCurveTo(-9, -27, 0, -29, 8, -26);
+      ctx.bezierCurveTo(17, -24, 24, -18, 27, -10);
+      ctx.bezierCurveTo(31, -2, 29, 7, 24, 12);
+      ctx.bezierCurveTo(20, 17, 14, 19, 8, 19);
+      ctx.bezierCurveTo(3, 19, -1, 17, -5, 15);
+      ctx.bezierCurveTo(-8, 12, -9, 9, -8, 6);
+      ctx.bezierCurveTo(-12, 8, -17, 8, -21, 3);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
-      // Central fissure.
+      // Cerebellum: distinct posterior-lower lobe.
       ctx.beginPath();
-      ctx.moveTo(2, -23);
-      ctx.bezierCurveTo(-1, -15, 4, -9, 0, -2);
-      ctx.bezierCurveTo(-3, 4, 2, 10, -1, 18);
-      ctx.stroke();
-
-      // Left hemisphere gyri.
-      ctx.beginPath();
-      ctx.moveTo(-15, -18);
-      ctx.bezierCurveTo(-8, -15, -15, -10, -8, -7);
-      ctx.bezierCurveTo(-3, -5, -8, 0, -14, 0);
-      ctx.moveTo(-21, -8);
-      ctx.bezierCurveTo(-14, -6, -17, 2, -9, 4);
-      ctx.bezierCurveTo(-5, 6, -8, 11, -13, 12);
-      ctx.stroke();
-
-      // Right hemisphere gyri.
-      ctx.beginPath();
-      ctx.moveTo(10, -20);
-      ctx.bezierCurveTo(17, -17, 10, -12, 16, -9);
-      ctx.bezierCurveTo(22, -6, 15, -1, 9, -3);
-      ctx.moveTo(18, 1);
-      ctx.bezierCurveTo(11, 2, 15, 8, 9, 11);
-      ctx.bezierCurveTo(6, 13, 8, 17, 12, 17);
-      ctx.stroke();
-
-      // Brain stem makes the silhouette immediately recognizable.
-      ctx.beginPath();
-      ctx.moveTo(3, 18);
-      ctx.bezierCurveTo(3, 24, 7, 27, 10, 29);
-      ctx.lineTo(4, 30);
-      ctx.bezierCurveTo(0, 27, -1, 23, -1, 20);
+      ctx.moveTo(-9, 7);
+      ctx.bezierCurveTo(-14, 5, -20, 7, -22, 11);
+      ctx.bezierCurveTo(-25, 16, -20, 21, -15, 21);
+      ctx.bezierCurveTo(-10, 21, -6, 18, -5, 14);
+      ctx.bezierCurveTo(-4, 11, -6, 9, -9, 7);
+      ctx.closePath();
       ctx.fillStyle = "#e7f4f2";
       ctx.fill();
+      ctx.stroke();
+
+      // Brain stem.
+      ctx.beginPath();
+      ctx.moveTo(-4, 14);
+      ctx.bezierCurveTo(-3, 19, 0, 23, 3, 27);
+      ctx.lineTo(-2, 30);
+      ctx.bezierCurveTo(-6, 26, -8, 21, -8, 16);
+      ctx.closePath();
+      ctx.fillStyle = "#e7f4f2";
+      ctx.fill();
+      ctx.stroke();
+
+      // Lateral cortical folds.
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.45;
+
+      ctx.beginPath();
+      ctx.moveTo(-12, -17);
+      ctx.bezierCurveTo(-4, -20, 5, -17, 10, -12);
+      ctx.bezierCurveTo(14, -9, 16, -6, 15, -2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-15, -10);
+      ctx.bezierCurveTo(-7, -11, 0, -8, 5, -5);
+      ctx.bezierCurveTo(10, -2, 13, 1, 12, 5);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-14, -2);
+      ctx.bezierCurveTo(-8, -3, -2, 0, 2, 3);
+      ctx.bezierCurveTo(6, 6, 10, 8, 15, 7);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-11, 5);
+      ctx.bezierCurveTo(-5, 4, 0, 7, 3, 10);
+      ctx.bezierCurveTo(6, 13, 11, 14, 16, 12);
+      ctx.stroke();
+
+      // Cerebellar folds.
+      ctx.beginPath();
+      ctx.moveTo(-20, 12);
+      ctx.bezierCurveTo(-17, 10, -13, 11, -10, 13);
+      ctx.moveTo(-20, 16);
+      ctx.bezierCurveTo(-16, 14, -12, 15, -9, 17);
       ctx.stroke();
 
       ctx.restore();
