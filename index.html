@@ -6,7 +6,7 @@
   <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
   <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
   <script src="theme.js?v=20260929h"></script>
-  <link rel="stylesheet" href="style.css?v=20261012a" />
+  <link rel="stylesheet" href="style.css?v=20261012b" />
 </head>
 <body>
   <header class="topbar">
@@ -34,21 +34,7 @@
     </div>
   </header>
 
-  <aside class="news-rail" aria-label="News and interactive control system">
-    <div class="mini-control-shell">
-      <div class="control-kicker">INTERACTIVE CONTROL SYSTEM</div>
-      <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
-      <div class="control-readout">
-        <span id="modeLabel">NOMINAL</span>
-        <span id="stateLabel">stabilizing</span>
-      </div>
-      <div class="controller-label">
-        <span>controller</span>
-        <strong id="controllerText">u = -Kx</strong>
-      </div>
-      <p class="control-hint">Click to perturb. Feedback keeps the system upright.</p>
-    </div>
-
+  <aside class="news-rail" aria-label="Latest news and updates">
     <section class="news-panel" aria-labelledby="news-title">
       <div class="news-heading">
         <div>
@@ -85,6 +71,22 @@
         </article>
       </div>
     </section>
+  </aside>
+
+  <aside class="control-panel" aria-label="Interactive research control system">
+    <div class="control-shell">
+      <div class="control-kicker">INTERACTIVE CONTROL SYSTEM</div>
+      <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
+      <div class="control-readout">
+        <span id="modeLabel">NOMINAL</span>
+        <span id="stateLabel">stabilizing</span>
+      </div>
+      <div class="controller-label">
+        <span>controller</span>
+        <strong id="controllerText">u = -Kx · LQR-style feedback</strong>
+      </div>
+      <p class="control-hint">The active research object is the pendulum payload. Click the system to perturb it.</p>
+    </div>
   </aside>
 
   <main>
@@ -423,6 +425,6 @@
     </footer>
   </main>
 
-  <script src="script.js?v=20261012a"></script>
+  <script src="script.js?v=20261012b"></script>
 </body>
 </html>
