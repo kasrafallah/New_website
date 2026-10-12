@@ -6,34 +6,36 @@
   <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
   <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
   <script src="theme.js?v=20260929h"></script>
-  <link rel="stylesheet" href="style.css?v=20260929h" />
+  <link rel="stylesheet" href="style.css?v=20261012a" />
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="identity">
-      <img class="profile-photo" src="assets/kasra-fallah.webp" alt="Portrait of Kasra Fallah" />
-      <a class="name" href="./index.html">Kasra Fallah</a>
-      <p>Ph.D. Candidate · Columbia University</p>
+  <header class="topbar">
+    <div class="topbar-identity">
+      <img class="topbar-photo" src="assets/kasra-fallah.webp" alt="Portrait of Kasra Fallah" />
+      <div>
+        <a class="topbar-name" href="./index.html">Kasra Fallah</a>
+        <span>Ph.D. Candidate · Columbia University</span>
+      </div>
     </div>
 
-    <nav class="nav" aria-label="Primary navigation">
+    <nav class="topnav" aria-label="Primary navigation">
       <a href="./index.html" data-payload="none">Home</a>
-      <a href="cv.html">Academic CV</a>
-      <a href="#control" data-payload="controller">Control foundations</a>
-      <a href="#learned" data-payload="latent">Learned systems</a>
-      <a href="#neural" data-payload="brain">Neural dynamics</a>
-      <a href="#physical" data-payload="motor">Physical systems</a>
+      <a href="#control" data-payload="controller">Control</a>
+      <a href="#learned" data-payload="latent">Learned Systems</a>
+      <a href="#neural" data-payload="brain">Neural Dynamics</a>
+      <a href="#physical" data-payload="motor">Physical Systems</a>
       <a href="#publications" data-payload="papers">Publications</a>
+      <a href="cv.html">Academic CV</a>
     </nav>
 
-    <div class="sidebar-footer">
+    <div class="topbar-actions">
       <a href="https://github.com/kasrafallah" target="_blank" rel="noreferrer">GitHub ↗</a>
       <a href="#contact">Contact</a>
     </div>
-  </aside>
+  </header>
 
-  <aside class="control-panel" aria-label="Interactive research control system">
-    <div class="control-shell">
+  <aside class="news-rail" aria-label="News and interactive control system">
+    <div class="mini-control-shell">
       <div class="control-kicker">INTERACTIVE CONTROL SYSTEM</div>
       <canvas id="cartpole" aria-label="Interactive cart-pole controlled system"></canvas>
       <div class="control-readout">
@@ -42,10 +44,47 @@
       </div>
       <div class="controller-label">
         <span>controller</span>
-        <strong id="controllerText">u = -Kx · LQR-style feedback</strong>
+        <strong id="controllerText">u = -Kx</strong>
       </div>
-      <p class="control-hint">The active research object is the pendulum payload. Click the system to perturb it.</p>
+      <p class="control-hint">Click to perturb. Feedback keeps the system upright.</p>
     </div>
+
+    <section class="news-panel" aria-labelledby="news-title">
+      <div class="news-heading">
+        <div>
+          <p class="eyebrow">LATEST</p>
+          <h2 id="news-title">News</h2>
+        </div>
+        <span class="news-live-dot" aria-hidden="true"></span>
+      </div>
+
+      <div class="news-list">
+        <article class="news-item">
+          <time datetime="2026-09">Sep 2026</time>
+          <p><strong>NeuralFieldManifold</strong> accepted to <strong>NeurIPS 2026</strong>.</p>
+        </article>
+
+        <article class="news-item">
+          <time datetime="2026-09">Sep 2026</time>
+          <p>Submitted two inference-time control projects to <strong>ICLR 2027</strong>: robust LLM steerability and CONIC-FLOW.</p>
+        </article>
+
+        <article class="news-item">
+          <time datetime="2026-07">2026</time>
+          <p><strong>Multitask LQG Control</strong> accepted to <strong>CDC 2026</strong>.</p>
+        </article>
+
+        <article class="news-item">
+          <time datetime="2026-07">2026</time>
+          <p>Our work on optimal current-reference theory for <strong>WRSMs</strong> accepted to <strong>CDC 2026</strong>.</p>
+        </article>
+
+        <article class="news-item">
+          <time datetime="2026-06">2026</time>
+          <p><strong>Adversarially Robust Multitask Adaptive Linear Quadratic Control</strong> appeared at <strong>L4DC 2026</strong>.</p>
+        </article>
+      </div>
+    </section>
   </aside>
 
   <main>
@@ -384,6 +423,6 @@
     </footer>
   </main>
 
-  <script src="script.js?v=20260929d"></script>
+  <script src="script.js?v=20261012a"></script>
 </body>
 </html>
