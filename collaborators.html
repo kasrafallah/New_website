@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kasra Fallah — Collaborators</title>
+  <script src="theme.js?v=20260929h"></script>
+  <link rel="stylesheet" href="style.css?v=20260929h" />
+</head>
+<body class="collab-page">
+  <aside class="sidebar">
+    <div class="identity">
+      <img class="profile-photo" src="assets/kasra-fallah.webp" alt="Portrait of Kasra Fallah" />
+      <a class="name" href="./index.html">Kasra Fallah</a>
+      <p>Ph.D. Candidate · Columbia University</p>
+    </div>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="./index.html">Home</a>
+      <a href="./index.html#control">Research</a>
+      <a href="./index.html#publications">Publications</a>
+      <a href="cv.html">Academic CV</a>
+      <a href="collaborators.html" class="collab-nav-active">Collaborators</a>
+    </nav>
+  </aside>
+
+  <main class="collab-main">
+    <section class="collab-hero">
+      <p class="eyebrow">COLLABORATORS</p>
+      <h1>Research is a distributed system.</h1>
+      <p class="collab-intro">
+        My research focuses on decision-making over stochastic time-series data at the intersection
+        of control theory, optimization, machine learning, motor systems, and neuroscience.
+        I have been fortunate to collaborate with faculty, postdoctoral researchers, students,
+        and research scientists across these areas.
+      </p>
+    </section>
+
+    <section class="globe-section">
+      <div class="globe-layout">
+        <div class="globe-stage">
+          <canvas id="collabGlobe" aria-label="Interactive globe showing collaborator locations"></canvas>
+          <div class="globe-controls">
+            <span>drag · scroll/pinch to zoom · click a collaborator</span>
+            <div class="globe-actions" aria-label="Globe controls">
+              <button id="zoomOutGlobe" type="button" aria-label="Zoom out">−</button>
+              <span id="zoomReadout">100%</span>
+              <button id="zoomInGlobe" type="button" aria-label="Zoom in">+</button>
+              <button id="journeyGlobe" type="button">my journey</button>
+              <button id="resetGlobe" type="button">reset</button>
+            </div>
+          </div>
+          <div class="journey-strip" aria-label="Academic journey">
+            <div><strong>01</strong><span>Tehran</span><small>Sharif · B.Sc. · 2018–2022</small></div>
+            <i>→</i>
+            <div><strong>02</strong><span>Waterloo</span><small>UWaterloo · M.A.Sc. · 2022–2024</small></div>
+            <i>→</i>
+            <div><strong>03</strong><span>New York</span><small>Columbia · Ph.D. · 2024–Present</small></div>
+          </div>
+        </div>
+        <aside class="collab-detail" aria-live="polite">
+          <div class="collab-detail-kicker">Selected collaborator</div>
+          <h2 id="collabName">James Anderson</h2>
+          <p class="collab-affiliation" id="collabAffiliation">Columbia University</p>
+          <p class="collab-area" id="collabArea">Professor · Coauthor on [2], [3], [5], [6], [7], [8], [9]</p>
+          <span class="collab-city" id="collabCity">New York, USA</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="collab-roster-section">
+      <p class="eyebrow">NETWORK</p>
+      <h2>Collaborators</h2>
+      <div class="collab-roster" id="collabRoster"></div>
+    </section>
+  </main>
+
+  <script src="collaborators.js?v=20260929g"></script>
+</body>
+</html>

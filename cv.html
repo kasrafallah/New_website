@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Academic CV of Kasra Fallah — education, research experience, teaching, honors, and industry experience." />
+  <title>Kasra Fallah — Academic CV</title>
+  <script src="theme.js?v=20260929h"></script>
+  <link rel="stylesheet" href="style.css?v=20260929h" />
+</head>
+<body class="cv-page">
+  <aside class="sidebar">
+    <div class="identity">
+      <img class="profile-photo" src="assets/kasra-fallah.webp" alt="Portrait of Kasra Fallah" />
+      <a class="name" href="./index.html">Kasra Fallah</a>
+      <p>Ph.D. Candidate · Columbia University</p>
+    </div>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="./index.html">Home</a>
+      <a href="./index.html#control">Research</a>
+      <a href="./index.html#publications">Publications</a>
+      <a href="cv.html" class="cv-nav-active">Academic CV</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="https://github.com/kasrafallah" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </aside>
+
+  <aside class="control-panel" aria-label="Fixed stabilizing cart-pole controller">
+    <div class="control-shell">
+      <div class="control-kicker">FIXED STABILIZING CONTROLLER</div>
+      <canvas id="cartpole" aria-label="Cart-pole stabilized by fixed state feedback"></canvas>
+      <div class="control-readout">
+        <span id="modeLabel">LQR FEEDBACK</span>
+        <span id="stateLabel">stabilized</span>
+      </div>
+      <div class="controller-label">
+        <span>controller</span>
+        <strong>u = -Kx · fixed state feedback</strong>
+      </div>
+      <p class="control-hint">One controller for the entire CV. Click the system to perturb it; feedback returns the pole upright.</p>
+    </div>
+  </aside>
+
+  <main class="cv-main">
+    <section class="cv-hero">
+      <p class="eyebrow">ACADEMIC CV</p>
+      <h1>Education, research, teaching & experience.</h1>
+      <p class="cv-summary">
+        Ph.D. candidate in Electrical Engineering at Columbia University working on control,
+        learning, optimization, neural dynamics, and reliable intervention in complex dynamical systems.
+      </p>
+    </section>
+
+    <section class="cv-section" id="education">
+      <p class="eyebrow">EDUCATION</p>
+      <h2>Education</h2>
+      <div class="cv-list">
+        <article class="cv-entry">
+          <div class="cv-date">2024–Present</div>
+          <div>
+            <h3>Columbia University</h3>
+            <p class="cv-role">Ph.D. in Electrical Engineering</p>
+            <p class="cv-meta">New York, NY · Advisor: Prof. James Anderson · GPA: 4.05/4.0</p>
+            <p class="cv-detail">Doctoral qualifying examination passed with high distinction. Research spans stochastic and robust control, policy optimization, multitask control, inference-time control of learned systems, and neural dynamics.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2022–2024</div>
+          <div>
+            <h3>University of Waterloo</h3>
+            <p class="cv-role">M.A.Sc. in Electrical Engineering</p>
+            <p class="cv-meta">Waterloo, Canada · Advisor: Prof. Ravi R. Mazumdar · GPA: 4.0/4.0</p>
+            <p class="cv-detail">Thesis: <em>On the Calculation of Mutual Information for Channels with Gauss-Markov Noise.</em></p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2018–2022</div>
+          <div>
+            <h3>Sharif University of Technology</h3>
+            <p class="cv-role">B.Sc. in Electrical Engineering</p>
+            <p class="cv-meta">Tehran, Iran · GPA: 3.95/4.0 · Rank: 13</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cv-section" id="research-experience">
+      <p class="eyebrow">RESEARCH & ACADEMIC APPOINTMENTS</p>
+      <h2>Research experience</h2>
+      <div class="cv-list">
+        <article class="cv-entry">
+          <div class="cv-date">2024–Present</div>
+          <div>
+            <h3>Columbia University</h3>
+            <p class="cv-role">Ph.D. Researcher · Electrical Engineering</p>
+            <p class="cv-meta">Advisor: Prof. James Anderson</p>
+            <p class="cv-detail">Research on learning and optimization in control, LQG policy gradient, multitask and adaptive control, robust steering of learned representations, constrained generative inference, and predictive control.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">Summer 2026</div>
+          <div>
+            <h3>UT Southwestern Medical Center</h3>
+            <p class="cv-role">Research Fellow</p>
+            <p class="cv-meta">Mentors: Prof. Wenhao Zhang and Dr. Erfan Zabeh</p>
+            <p class="cv-detail">Worked at the interface of control theory and neuroscience on neural time-series analysis, LFP manifold reconstruction, recurrent neural dynamics, and accelerated sampling in continuous-attractor network subspaces.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2022–2024</div>
+          <div>
+            <h3>University of Waterloo</h3>
+            <p class="cv-role">Research Assistant</p>
+            <p class="cv-meta">Supervisor: Prof. Ravi R. Mazumdar</p>
+            <p class="cv-detail">Research in information theory and stochastic processes, including mutual-information computation for communication channels with Gauss-Markov noise.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cv-section" id="industry">
+      <p class="eyebrow">INDUSTRY EXPERIENCE</p>
+      <h2>Engineering & internships</h2>
+      <div class="cv-list">
+        <article class="cv-entry">
+          <div class="cv-date">Jul 2021–Sep 2022</div>
+          <div>
+            <h3>MCI Lab</h3>
+            <p class="cv-role">Research / Engineering Intern</p>
+            <p class="cv-detail">Worked with software-defined radio platforms including bladeRF, GNU Radio, MATLAB/Simulink, signal-processing pipelines, and 30 GHz 5G mmWave experimentation.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">May–Sep 2021</div>
+          <div>
+            <h3>Telecommunication Company of Iran</h3>
+            <p class="cv-role">R&amp;D Intern</p>
+            <p class="cv-detail">Developed Python and MATLAB simulations for switching, traffic modeling, and communication-network optimization.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cv-section" id="teaching">
+      <p class="eyebrow">TEACHING</p>
+      <h2>Teaching experience</h2>
+      <div class="cv-list">
+        <article class="cv-entry">
+          <div class="cv-date">2024–2025</div>
+          <div>
+            <h3>Columbia University</h3>
+            <p class="cv-role">Head Teaching Assistant</p>
+            <p class="cv-detail">EEME E6601 Introduction to Control Theory and EEME E6602 Modern Control Theory.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2023</div>
+          <div>
+            <h3>University of Waterloo</h3>
+            <p class="cv-role">Head Teaching Assistant</p>
+            <p class="cv-detail">ECE 307.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2019–2022</div>
+          <div>
+            <h3>Sharif University of Technology</h3>
+            <p class="cv-role">Teaching Assistant / Head Teaching Assistant</p>
+            <p class="cv-detail">Signals and Systems, Electric Circuits, Numerical Calculations, and Engineering Mathematics.</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2017–2022</div>
+          <div>
+            <h3>Physics Olympiad Training</h3>
+            <p class="cv-role">Olympiad Tutor / Coach</p>
+            <p class="cv-detail">Physics Olympiad instruction through the Young Scholars Club and high-school programs.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cv-section" id="honors">
+      <p class="eyebrow">HONORS & AWARDS</p>
+      <h2>Honors & awards</h2>
+      <div class="cv-list">
+        <article class="cv-entry">
+          <div class="cv-date">2024</div>
+          <div>
+            <h3>Columbia Ph.D. Graduate Studies Fellowship</h3>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2023</div>
+          <div>
+            <h3>Xuemin Shen Graduate Scholarship in Telecommunication</h3>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2022 & 2023</div>
+          <div>
+            <h3>International Master’s Award of Excellence</h3>
+            <p class="cv-meta">University of Waterloo</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">Graduate study</div>
+          <div>
+            <h3>Graduate Research Studentship</h3>
+            <p class="cv-meta">University of Waterloo</p>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2017</div>
+          <div>
+            <h3>Gold Medal · National Physics Olympiad</h3>
+          </div>
+        </article>
+
+        <article class="cv-entry">
+          <div class="cv-date">2015</div>
+          <div>
+            <h3>Gold Medal · National RoboCup Competition</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <span>Kasra Fallah</span>
+      <span>Academic CV · Columbia University</span>
+    </footer>
+  </main>
+
+  <script src="cv.js?v=20260929b"></script>
+</body>
+</html>
