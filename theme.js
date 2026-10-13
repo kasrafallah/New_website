@@ -42,11 +42,17 @@
   applyTheme(storedTheme() || systemTheme());
 
   function mountToggle() {
+    if (document.querySelector(".theme-control")) return;
+
+    const topbarActions = document.querySelector(".topbar-actions");
     const nav = document.querySelector(".nav");
-    if (!nav || document.querySelector(".theme-control")) return;
+    const mount = topbarActions || nav;
+    if (!mount) return;
 
     const control = document.createElement("div");
-    control.className = "theme-control";
+    control.className = topbarActions
+      ? "theme-control theme-control-topbar"
+      : "theme-control";
 
     const button = document.createElement("button");
     button.type = "button";
@@ -62,9 +68,14 @@
     });
 
     control.appendChild(button);
-    nav.insertAdjacentElement("afterend", control);
-    updateButton(root.dataset.theme || systemTheme());
 
+    if (topbarActions) {
+      topbarActions.appendChild(control);
+    } else {
+      nav.insertAdjacentElement("afterend", control);
+    }
+
+    updateButton(root.dataset.theme || systemTheme());
     requestAnimationFrame(() => root.classList.add("theme-transition-ready"));
   }
 
