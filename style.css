@@ -2255,3 +2255,73 @@ html[data-theme="dark"] .control-panel {
     margin-right: 0;
   }
 }
+
+
+/* Compact dark-mode toggle in the homepage top bar */
+.topbar .theme-control-topbar {
+  margin: 0 0 0 2px;
+}
+
+.topbar .theme-toggle {
+  width: auto;
+  min-width: 0;
+  min-height: 34px;
+  grid-template-columns: 16px auto;
+  gap: 7px;
+  padding: 6px 9px;
+  border-radius: 9px;
+  background: transparent;
+  font-size: .68rem;
+  white-space: nowrap;
+}
+
+.topbar .theme-toggle-track {
+  display: none;
+}
+
+.topbar .theme-toggle-icon {
+  font-size: .9rem;
+}
+
+.topbar .theme-toggle-label {
+  line-height: 1;
+}
+
+html[data-theme="dark"] .topbar .theme-toggle {
+  background: transparent;
+}
+
+html[data-theme="dark"] .topbar .theme-toggle:hover,
+.topbar .theme-toggle:hover {
+  background: var(--soft);
+}
+
+@media (max-width: 1180px) {
+  .topbar-actions {
+    display: flex;
+  }
+
+  .topbar-actions > a {
+    display: none;
+  }
+
+  .topbar .theme-toggle-label {
+    display: none;
+  }
+
+  .topbar .theme-toggle {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .topbar-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+}
