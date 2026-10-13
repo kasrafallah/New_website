@@ -2429,3 +2429,65 @@ html[data-theme="dark"] .news-item:first-child::before {
     background: rgba(125,159,255,.035);
   }
 }
+
+
+/* Additional news badge families */
+.venue-ojcs {
+  color: #31536f;
+  background: #edf3f7;
+  border-color: #cbd9e3;
+}
+
+.venue-talk {
+  color: #8b4c74;
+  background: #faeef6;
+  border-color: #e8c9dc;
+}
+
+.venue-utsw {
+  color: #8f401f;
+  background: #fff0e9;
+  border-color: #efc8b5;
+}
+
+.venue-fds {
+  color: #376944;
+  background: #edf7ef;
+  border-color: #c9e1ce;
+}
+
+.venue-milestone {
+  color: #5b5f66;
+  background: #f1f2f4;
+  border-color: #d7d9dd;
+}
+
+html[data-theme="dark"] .venue-ojcs {
+  color: #a8c7df;
+  background: #182938;
+  border-color: #35516a;
+}
+
+html[data-theme="dark"] .venue-talk {
+  color: #e0a8ca;
+  background: #321f2c;
+  border-color: #62445a;
+}
+
+html[data-theme="dark"] .venue-utsw {
+  color: #e6ad8c;
+  background: #382116;
+  border-color: #68422f;
+}
+
+html[data-theme="dark"] .venue-fds {
+  color: #a9d6b2;
+  background: #182d1d;
+  border-color: #36573d;
+}
+
+html[data-theme="dark"] .venue-milestone {
+  color: #bdc3ca;
+  background: #20242a;
+  border-color: #3b4148;
+}
