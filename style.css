@@ -2736,3 +2736,75 @@ html[data-theme="dark"] .about-profile-photo {
   .about-biography { padding-top: 20px; }
   .about-hero .academic-bio { font-size: .91rem; line-height: 1.72; }
 }
+
+
+/* Compact research identity; site links for ConicFlow */
+.about-hero .home-research-interests {
+  margin-top: 27px;
+  padding-top: 19px;
+}
+.about-hero .home-research-interests .eyebrow {
+  margin: 0 0 9px;
+}
+.about-hero .research-summary {
+  max-width: 730px;
+  margin: 0;
+  color: #495c6f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(.95rem, 1.04vw, 1.07rem);
+  font-weight: 400;
+  line-height: 1.7;
+}
+.project-paper-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 12px;
+}
+.project-paper-links .project-site-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  border-radius: 8px;
+  padding: 5px 8px;
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .7rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+.project-paper-links .project-site-link:hover {
+  border-color: var(--accent);
+  background: var(--panel);
+  text-decoration: none;
+}
+.project-link-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+}
+.project-link-arrow {
+  padding-left: 2px;
+  font-size: .8rem;
+}
+html[data-theme="dark"] .about-hero .research-summary {
+  color: #bfccd9;
+}
+html[data-theme="dark"] .project-paper-links .project-site-link {
+  border-color: #33485c;
+  background: #172331;
+  color: var(--accent);
+}
+html[data-theme="dark"] .project-paper-links .project-site-link:hover {
+  border-color: var(--accent);
+  background: #1b2a3c;
+}
+@media (max-width: 900px) {
+  .about-hero .research-summary {
+    font-size: .99rem;
+  }
+}
