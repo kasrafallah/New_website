@@ -6,7 +6,7 @@
   <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
   <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
   <script src="theme.js?v=20261013a"></script>
-  <link rel="stylesheet" href="style.css?v=20261018layout2" />
+  <link rel="stylesheet" href="style.css?v=20261018nav3" />
 </head>
 <body>
   <header class="topbar">
@@ -19,12 +19,18 @@
 
     <nav class="topnav" aria-label="Primary navigation">
       <a href="#home" data-payload="none">Home</a>
-      <a href="#control" data-payload="controller">Control</a>
-      <a href="#learned" data-payload="latent">Learned Systems</a>
-      <a href="#neural" data-payload="brain">Neural Dynamics</a>
-      <a href="#physical" data-payload="motor">Physical Systems</a>
+      <details class="research-menu">
+        <summary>Research Areas <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></svg></summary>
+        <div class="research-subnav" aria-label="Research areas">
+          <a href="#control" data-payload="controller">Learning for Control</a>
+          <a href="#learned" data-payload="latent">Steering Learned Systems</a>
+          <a href="#neural" data-payload="brain">Neural Dynamics</a>
+          <a href="#physical" data-payload="motor">Physical Systems</a>
+        </div>
+      </details>
       <a href="#publications" data-payload="papers">Publications</a>
-      <a href="cv.html">Academic CV</a>
+      <a href="collaborators.html">Collaborators</a>
+      <a href="https://kasrafallah.github.io/files/KFallah_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="CV PDF (opens in new tab)">CV <span class="topnav-external" aria-hidden="true">↗</span></a>
     </nav>
 
     <div class="topbar-actions">
@@ -612,6 +618,6 @@
     </footer>
   </main>
 
-  <script src="script.js?v=20261018layout2"></script>
+  <script src="script.js?v=20261018nav3"></script>
 </body>
 </html>
