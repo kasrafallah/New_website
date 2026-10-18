@@ -88,7 +88,7 @@
   ];
 
   let countries = null;
-  let yaw = -0.42;
+  let yaw = -0.95;
   let pitch = -0.2;
   let zoom = 1;
   let dragging = false;
@@ -126,11 +126,10 @@
   function project(lat, lon, cx, cy, r) {
     const p = rotate(lat, lon);
 
-    // Canvas x-axis correction:
-    // geographic east must appear on the right side of the globe.
-    // The previous projection used the opposite screen-space handedness,
-    // which mirrored all countries and labels horizontally.
-    return {x:cx-p.x*r, y:cy-p.y*r, z:p.z};
+    // Conventional orthographic globe: increasing longitude (east)
+    // goes to the right when the prime meridian is centered.
+    // Do not negate projected x: that would mirror all landmasses.
+    return {x:cx+p.x*r, y:cy-p.y*r, z:p.z};
   }
 
   function resize() {
@@ -404,7 +403,7 @@
     const dx=e.clientX-lastX;
     const dy=e.clientY-lastY;
     moved+=Math.hypot(dx,dy);
-    yaw+=dx*.007;
+    yaw-=dx*.007;
     pitch=Math.max(-1.1,Math.min(1.1,pitch+dy*.006));
     lastX=e.clientX;
     lastY=e.clientY;
@@ -431,7 +430,7 @@
     updateZoom(1.08);
   }
 
-  resetButton.addEventListener("click",()=>{yaw=-.42;pitch=-.2;updateZoom(1);});
+  resetButton.addEventListener("click",()=>{yaw=-.95;pitch=-.2;updateZoom(1);});
   if (zoomInButton) zoomInButton.addEventListener("click",()=>updateZoom(zoom*1.18));
   if (zoomOutButton) zoomOutButton.addEventListener("click",()=>updateZoom(zoom/1.18));
   if (journeyButton) journeyButton.addEventListener("click",focusJourney);
@@ -477,6 +476,19 @@
     section.appendChild(list);
     roster.appendChild(section);
   });
+
+  const researchMenu = document.querySelector(".research-menu");
+  if (researchMenu) {
+    document.addEventListener("click", (event) => {
+      if (researchMenu.open && !researchMenu.contains(event.target)) researchMenu.open = false;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && researchMenu.open) {
+        researchMenu.open = false;
+        researchMenu.querySelector("summary")?.focus();
+      }
+    });
+  }
 
   selectPerson(0);
   updateZoom(1);
