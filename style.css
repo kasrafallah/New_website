@@ -3560,3 +3560,42 @@ html[data-theme="dark"] .collab-page .collab-group-list .collab-person.selected 
     min-height: 55px;
   }
 }
+
+
+/* Reserve a blog tab without implying published posts or an active page. */
+.topnav .topnav-coming-soon {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  color: #8995a2;
+  font-size: .72rem;
+  font-weight: 610;
+  line-height: 1.6;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+}
+.topnav .topnav-soon-note {
+  font-size: .6rem;
+  font-weight: 500;
+  color: #9eabb6;
+}
+html[data-theme="dark"] .topnav .topnav-coming-soon {
+  color: #758697;
+}
+html[data-theme="dark"] .topnav .topnav-soon-note {
+  color: #687b8e;
+}
+@media (max-width: 1180px) and (min-width: 901px) {
+  .topnav .topnav-coming-soon {
+    padding: 7px 6px;
+    font-size: .68rem;
+  }
+}
+@media (max-width: 900px) {
+  .topnav .topnav-coming-soon {
+    padding: 7px 9px;
+  }
+}
