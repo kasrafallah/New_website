@@ -6,7 +6,7 @@
   <meta name="description" content="Kasra Fallah — research in control, learning, neural dynamics, and optimization." />
   <title>Kasra Fallah — Control, Learning & Dynamical Systems</title>
   <script src="theme.js?v=20261013a"></script>
-  <link rel="stylesheet" href="style.css?v=20261018paperlinks1" />
+  <link rel="stylesheet" href="style.css?v=20261018layout2" />
 </head>
 <body>
   <header class="topbar">
@@ -18,7 +18,7 @@
     </div>
 
     <nav class="topnav" aria-label="Primary navigation">
-      <a href="./index.html" data-payload="none">Home</a>
+      <a href="#home" data-payload="none">Home</a>
       <a href="#control" data-payload="controller">Control</a>
       <a href="#learned" data-payload="latent">Learned Systems</a>
       <a href="#neural" data-payload="brain">Neural Dynamics</a>
@@ -43,7 +43,7 @@
         <span class="news-live-dot" aria-hidden="true"></span>
       </div>
 
-      <div class="news-list">
+      <div class="news-list" id="news-list">
         <article class="news-item">
           <div class="news-meta">
             <time datetime="2026-10">Oct 2026</time>
@@ -220,6 +220,9 @@
           <p>Started my <strong>M.A.Sc. in Electrical Engineering</strong> at the University of Waterloo.</p>
         </article>
       </div>
+      <button class="news-toggle" type="button" aria-controls="news-list" aria-expanded="false">
+        <span class="news-toggle-label">View all updates</span><span aria-hidden="true"> ↓</span>
+      </button>
     </section>
   </aside>
 
@@ -598,11 +601,9 @@
 
 <section id="contact" class="contact observed-section" data-payload="none" data-target="0">
       <p class="eyebrow">CONTACT</p>
-      <h2>Let’s talk about control, learning, or dynamical systems.</h2>
-      <p>
-        This prototype intentionally keeps contact details minimal while we design the final
-        information architecture.
-      </p>
+      <h2>Get in touch</h2>
+      <p>For research questions or potential collaborations, feel free to reach out.</p>
+      <a class="contact-email" href="mailto:kasra.fallah@columbia.edu">kasra.fallah@columbia.edu ↗</a>
     </section>
 
     <footer>
@@ -611,6 +612,6 @@
     </footer>
   </main>
 
-  <script src="script.js?v=20261012b"></script>
+  <script src="script.js?v=20261018layout2"></script>
 </body>
 </html>
