@@ -2940,3 +2940,206 @@ html[data-theme="dark"] .project-paper-links .project-code-link {
 html[data-theme="dark"] .project-paper-links .project-code-link:hover {
   color: var(--accent);
 }
+
+
+/* 2026-10-18: restrained academic typography and responsive page hierarchy */
+
+/* More readable center column on three-column desktop. */
+main > .about-hero,
+main > .research,
+main > .publications,
+main > .contact {
+  padding-left: clamp(25px, 3.1vw, 48px);
+  padding-right: clamp(25px, 3.1vw, 48px);
+}
+
+/* Research titles are labels for the work below, not large splash headlines. */
+main > .research h2 {
+  max-width: 800px;
+  margin: 0 0 13px;
+  font-size: clamp(1.47rem, 1.85vw, 1.9rem);
+  font-weight: 660;
+  line-height: 1.27;
+  letter-spacing: -.028em;
+}
+main > .research .eyebrow {
+  margin-bottom: 8px;
+  font-size: .62rem;
+  letter-spacing: .12em;
+}
+main > .research .question {
+  max-width: 740px;
+  margin-bottom: 22px;
+  font-size: .9rem;
+  line-height: 1.65;
+}
+main > .research .publication-body h3 {
+  font-size: clamp(1.06rem, 1.14vw, 1.16rem);
+  line-height: 1.34;
+}
+main > .research .publication-entry {
+  gap: 11px;
+  padding-top: 18px;
+  padding-bottom: 19px;
+}
+main > .research .contribution,
+main > .research .authors,
+main > .research .venue {
+  line-height: 1.58;
+}
+
+/* Publications and contact should inherit the same academic scale. */
+main > .publications h2,
+main > .contact h2 {
+  font-size: clamp(1.65rem, 2vw, 2.12rem);
+  line-height: 1.24;
+  margin-bottom: 12px;
+}
+main > .publications .bibliography-entry h3 {
+  font-size: clamp(1.03rem, 1.12vw, 1.16rem);
+  line-height: 1.36;
+}
+main > .contact p:not(.eyebrow) {
+  max-width: 590px;
+  color: var(--muted);
+  font-size: .95rem;
+  margin: 0 0 13px;
+}
+main > .contact .contact-email {
+  display: inline-flex;
+  color: var(--accent);
+  font-size: .89rem;
+  font-weight: 650;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+}
+main > .contact .contact-email:hover {
+  opacity: .8;
+}
+
+/* Keep navigation and dark-mode toggle in a single top row on tablets. */
+@media (max-width: 1180px) and (min-width: 901px) {
+  .topbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 36px;
+    gap: 12px;
+    padding-left: 18px;
+    padding-right: 14px;
+    min-height: 76px;
+  }
+  .topbar-identity {
+    min-width: 0;
+  }
+  .topbar-identity span {
+    font-size: .59rem;
+  }
+  .topnav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    min-width: 0;
+  }
+  .topnav::-webkit-scrollbar {
+    display: none;
+  }
+  .topnav a {
+    padding: 7px 7px;
+    flex: 0 0 auto;
+    font-size: .68rem;
+  }
+  .topbar-actions {
+    position: static;
+    display: flex;
+    align-items: center;
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+@media (max-width: 1050px) and (min-width: 901px) {
+  .topbar-identity span {
+    display: none;
+  }
+}
+
+/* The long news archive never blocks the About section on mobile. */
+.news-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    display: contents;
+  }
+  .topbar {
+    order: 0;
+    width: 100%;
+  }
+  #home { order: 1; }
+  .news-rail { order: 2; }
+  .control-panel { order: 3; }
+  #control { order: 4; }
+  #learned { order: 5; }
+  #neural { order: 6; }
+  #physical { order: 7; }
+  #publications { order: 8; }
+  #contact { order: 9; }
+  main > footer { order: 10; }
+
+  main > .about-hero,
+  main > .research,
+  main > .publications,
+  main > .contact {
+    padding-left: clamp(20px, 5vw, 38px);
+    padding-right: clamp(20px, 5vw, 38px);
+    width: 100%;
+  }
+  .news-rail {
+    width: 100%;
+  }
+  .news-rail:not(.news-expanded) .news-list .news-item:nth-child(n+5) {
+    display: none;
+  }
+  .news-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 14px;
+    padding: 8px 0;
+    color: var(--accent);
+    border: 0;
+    background: transparent;
+    font: 650 .74rem Inter, ui-sans-serif, sans-serif;
+    text-align: left;
+    cursor: pointer;
+  }
+  .news-toggle:hover {
+    text-decoration: underline;
+  }
+  main > .research h2 {
+    font-size: clamp(1.46rem, 3.1vw, 1.79rem);
+  }
+  main > .research .publication-body h3 {
+    font-size: 1.12rem;
+  }
+}
+
+@media (max-width: 520px) {
+  main > .research h2 {
+    font-size: 1.45rem;
+  }
+  main > .research .question {
+    font-size: .91rem;
+  }
+}
+
+/* Consistent quiet contrast in dark mode. */
+html[data-theme="dark"] main > .research .question,
+html[data-theme="dark"] main > .contact p:not(.eyebrow) {
+  color: #aab7c4;
+}
