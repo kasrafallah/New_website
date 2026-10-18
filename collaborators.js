@@ -11,50 +11,53 @@
   const affiliationEl = document.getElementById("collabAffiliation");
   const areaEl = document.getElementById("collabArea");
   const cityEl = document.getElementById("collabCity");
+  const papersEl = document.getElementById("collabPapers");
+  let listedPublications = null;
+  let publicationLookupFailed = false;
 
   const groups = [
     {
       label: "Professors",
       people: [
-        {name:"James Anderson", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.81, lon:-73.96, role:"Professor", papers:"Coauthor on [2], [3], [5], [6], [7], [8], [9]"},
-        {name:"George J. Pappas", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:39.95, lon:-75.19, role:"Professor", papers:"Coauthor on [6]"},
-        {name:"Alejandro Ribeiro", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:40.05, lon:-75.10, role:"Professor", papers:"Coauthor on [9]"},
-        {name:"Matthias Preindl", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.65, lon:-73.90, role:"Professor", papers:"Coauthor on [5], [7]"},
-        {name:"Paul Sajda", affiliation:"Department of Biomedical Engineering, Columbia University", city:"New York", country:"USA", lat:40.93, lon:-74.04, role:"Professor", papers:"Coauthor on [8]"},
-        {name:"Attila Losonczy", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.81, lon:-96.84, role:"Professor", papers:"Coauthor on [4]"},
-        {name:"Gergely Turi", affiliation:"University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.94, lon:-96.73, role:"Professor", papers:"Coauthor on [4]"}
+        {name:"James Anderson", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.81, lon:-73.96, role:"Professor"},
+        {name:"George J. Pappas", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:39.95, lon:-75.19, role:"Professor"},
+        {name:"Alejandro Ribeiro", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:40.05, lon:-75.10, role:"Professor"},
+        {name:"Matthias Preindl", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.65, lon:-73.90, role:"Professor"},
+        {name:"Paul Sajda", affiliation:"Department of Biomedical Engineering, Columbia University", city:"New York", country:"USA", lat:40.93, lon:-74.04, role:"Professor"},
+        {name:"Attila Losonczy", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.81, lon:-96.84, role:"Professor"},
+        {name:"Gergely Turi", affiliation:"University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.94, lon:-96.73, role:"Professor"}
       ]
     },
     {
       label: "Postdoctoral Researchers",
       people: [
-        {name:"Erfan Zabeh", affiliation:"Mortimer B. Zuckerman Mind Brain Behavior Institute, Columbia University", city:"New York", country:"USA", lat:40.76, lon:-74.12, role:"Postdoctoral Researcher", papers:"Coauthor on [4], [8]"},
-        {name:"Eunji Kong", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.68, lon:-96.72, role:"Postdoctoral Researcher", papers:"Coauthor on [4]"},
-        {name:"Peng Wang", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.52, lon:-73.84, role:"Postdoctoral Researcher", papers:"Coauthor on [7]"}
+        {name:"Erfan Zabeh", affiliation:"Mortimer B. Zuckerman Mind Brain Behavior Institute, Columbia University", city:"New York", country:"USA", lat:40.76, lon:-74.12, role:"Postdoctoral Researcher"},
+        {name:"Eunji Kong", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.68, lon:-96.72, role:"Postdoctoral Researcher"},
+        {name:"Peng Wang", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.52, lon:-73.84, role:"Postdoctoral Researcher"}
       ]
     },
     {
       label: "Research Scientists",
       people: [
-        {name:"Navid Rahbariasr", affiliation:"Associate Research Scientist, Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.97, lon:-73.83, role:"Research Scientist", papers:"Coauthor on [5], [7]"}
+        {name:"Navid Rahbariasr", affiliation:"Associate Research Scientist, Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.97, lon:-73.83, role:"Research Scientist"}
       ]
     },
     {
       label: "PhD Students",
       people: [
-        {name:"Leonardo F. Toso", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.70, lon:-73.72, role:"PhD Student", papers:"Coauthor on [2], [3], [6]"},
-        {name:"Shervin Khalafi", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:39.84, lon:-75.08, role:"PhD Student", papers:"Coauthor on [9]"},
-        {name:"Maxfield Parson-Scherban", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.86, lon:-73.70, role:"PhD Student", papers:"Coauthor on [5], [7]"},
-        {name:"Charis Stamouli", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:40.08, lon:-75.28, role:"PhD Student", papers:"Coauthor on [6]"},
-        {name:"Bernard Steyaert", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.58, lon:-74.08, role:"PhD Student", papers:"Coauthor on [5], [7]"}
+        {name:"Leonardo F. Toso", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.70, lon:-73.72, role:"PhD Student"},
+        {name:"Shervin Khalafi", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:39.84, lon:-75.08, role:"PhD Student"},
+        {name:"Maxfield Parson-Scherban", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.86, lon:-73.70, role:"PhD Student"},
+        {name:"Charis Stamouli", affiliation:"Department of Electrical and Systems Engineering, University of Pennsylvania", city:"Philadelphia", country:"USA", lat:40.08, lon:-75.28, role:"PhD Student"},
+        {name:"Bernard Steyaert", affiliation:"Department of Electrical Engineering, Columbia University", city:"New York", country:"USA", lat:40.58, lon:-74.08, role:"PhD Student"}
       ]
     },
     {
       label: "Other Collaborators",
       people: [
-        {name:"Hannah Ghanei", affiliation:"School of Computer Science and Electronic Engineering, University of Surrey", city:"Guildford", country:"United Kingdom", lat:51.24, lon:-0.59, role:"Collaborator", papers:"Coauthor on [8]"},
-        {name:"Haoyu Novak Chen", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.73, lon:-96.94, role:"Collaborator", papers:"Coauthor on [4]"},
-        {name:"Rudramani Singha", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.88, lon:-96.93, role:"Collaborator", papers:"Coauthor on [4], [8]"}
+        {name:"Hannah Ghanei", affiliation:"School of Computer Science and Electronic Engineering, University of Surrey", city:"Guildford", country:"United Kingdom", lat:51.24, lon:-0.59, role:"Collaborator"},
+        {name:"Haoyu Novak Chen", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.73, lon:-96.94, role:"Collaborator"},
+        {name:"Rudramani Singha", affiliation:"Peter O’Donnell Jr. Brain Institute, University of Texas Southwestern Medical Center", city:"Dallas", country:"USA", lat:32.88, lon:-96.93, role:"Collaborator"}
       ]
     }
   ];
@@ -346,13 +349,86 @@
     requestAnimationFrame(draw);
   }
 
+  function renderPersonPublications(person) {
+    papersEl.replaceChildren();
+    const label = document.createElement("p");
+    label.className = "collab-papers-kicker";
+    label.textContent = "SELECTED COAUTHORED PUBLICATIONS";
+    papersEl.appendChild(label);
+
+    if (!listedPublications) {
+      const fallback = document.createElement("p");
+      fallback.className = "collab-papers-status";
+      if (publicationLookupFailed) {
+        const link = document.createElement("a");
+        link.href = "./index.html#publications";
+        link.textContent = "Browse publications ↗";
+        fallback.appendChild(link);
+      } else {
+        fallback.textContent = "Loading publication links…";
+      }
+      papersEl.appendChild(fallback);
+      return;
+    }
+
+    const coauthored = listedPublications.filter((paper) =>
+      paper.authors.includes(person.name.toLocaleLowerCase())
+    );
+    if (!coauthored.length) {
+      const note = document.createElement("p");
+      note.className = "collab-papers-status";
+      note.textContent = "No matching papers in the current selected bibliography.";
+      papersEl.appendChild(note);
+      return;
+    }
+
+    const list = document.createElement("ul");
+    list.className = "collab-paper-list";
+    for (const paper of coauthored) {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = "./index.html#" + encodeURIComponent(paper.id);
+      link.textContent = paper.title;
+      link.title = paper.title;
+      item.appendChild(link);
+      list.appendChild(item);
+    }
+    papersEl.appendChild(list);
+  }
+
+  // Read the live site's selected bibliography, rather than maintaining
+  // brittle numeric [1]/[2]/... references in this separate page.
+  async function loadPublications() {
+    try {
+      const response = await fetch("./index.html", {cache: "no-cache"});
+      if (!response.ok) throw new Error("Bibliography fetch failed");
+      const documentCopy = new DOMParser().parseFromString(
+        await response.text(), "text/html"
+      );
+      const entries = [...documentCopy.querySelectorAll(".bibliography-entry[id]")];
+      if (!entries.length) throw new Error("Bibliography entries missing");
+      listedPublications = entries.map((entry) => ({
+        id: entry.id,
+        title: entry.querySelector("h3")?.textContent.trim() || "Untitled work",
+        authors: (entry.querySelector(".authors")?.textContent || "")
+          .split(",")
+          .map((name) => name.replace(/\\*/g, "").trim().toLocaleLowerCase())
+          .filter(Boolean)
+      }));
+    } catch (error) {
+      publicationLookupFailed = true;
+    }
+    renderPersonPublications(people[selected]);
+  }
+
   function selectPerson(i) {
     selected=i;
     const p=people[i];
     nameEl.textContent=p.name;
     affiliationEl.textContent=p.affiliation;
-    areaEl.textContent=p.role+" · "+p.papers;
+    areaEl.textContent=p.role;
     cityEl.textContent=p.city+", "+p.country;
+    renderPersonPublications(p);
     document.querySelectorAll(".collab-person").forEach((el,index)=>{
       const active=index===i;
       el.classList.toggle("selected",active);
@@ -439,8 +515,8 @@
   if (zoomOutButton) zoomOutButton.addEventListener("click",()=>updateZoom(zoom/1.18));
   if (journeyButton) journeyButton.addEventListener("click",focusJourney);
 
-  // The directory stays scannable; department names and publication cross-
-  // references remain available in the detail panel when selecting a person.
+  // The directory stays scannable; department names and publication titles
+  // are shown in the detail panel when selecting a person.
   function institutionName(affiliation) {
     if (affiliation.includes("University of Pennsylvania")) return "University of Pennsylvania";
     if (affiliation.includes("Columbia University")) return "Columbia University";
@@ -511,6 +587,7 @@
   }
 
   selectPerson(0);
+  loadPublications();
   updateZoom(1);
   window.addEventListener("resize",resize);
   draw();
