@@ -3143,3 +3143,121 @@ html[data-theme="dark"] main > .research .question,
 html[data-theme="dark"] main > .contact p:not(.eyebrow) {
   color: #aab7c4;
 }
+
+
+/* Consolidated research navigation: clear top-level IA with four accessible sub-areas */
+.topnav {
+  gap: 5px;
+}
+.topnav .research-menu {
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+.topnav .research-menu > summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  color: #5e6a78;
+  font-size: .72rem;
+  font-weight: 610;
+  line-height: 1.6;
+  cursor: pointer;
+  white-space: nowrap;
+  list-style: none;
+  outline-offset: 3px;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.topnav .research-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.topnav .research-menu > summary svg {
+  display: block;
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+  transition: transform 160ms ease;
+}
+.topnav .research-menu[open] > summary svg {
+  transform: rotate(180deg);
+}
+.topnav .research-menu > summary:hover,
+.topnav .research-menu[open] > summary,
+.topnav .research-menu.active > summary {
+  background: #eef2f6;
+  color: var(--ink);
+}
+.topnav .research-subnav {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 100;
+  width: 254px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(24, 39, 59, .13);
+}
+.topnav .research-subnav a {
+  display: block;
+  padding: 10px 11px;
+  border-radius: 7px;
+  font-size: .76rem;
+  font-weight: 560;
+  line-height: 1.35;
+  white-space: normal;
+}
+.topnav .research-subnav a.active {
+  color: var(--accent);
+  background: var(--soft);
+  font-weight: 700;
+}
+.topnav .topnav-external {
+  font-size: .65rem;
+  color: var(--muted);
+  padding-left: 2px;
+}
+html[data-theme="dark"] .topnav .research-menu > summary {
+  color: #9aa9b8;
+}
+html[data-theme="dark"] .topnav .research-menu > summary:hover,
+html[data-theme="dark"] .topnav .research-menu[open] > summary,
+html[data-theme="dark"] .topnav .research-menu.active > summary {
+  color: var(--ink);
+  background: #172230;
+}
+html[data-theme="dark"] .topnav .research-subnav {
+  background: #111b27;
+  box-shadow: 0 16px 44px rgba(0,0,0,.35);
+}
+html[data-theme="dark"] .topnav .research-subnav a.active {
+  color: var(--accent);
+  background: #17283d;
+}
+@media (max-width: 1180px) {
+  .topnav {
+    overflow: visible;
+  }
+  .topnav .research-menu > summary {
+    padding: 7px;
+    font-size: .68rem;
+  }
+}
+@media (max-width: 900px) {
+  .topnav {
+    overflow: visible;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 3px 5px;
+    padding-right: 38px;
+  }
+  .topnav .research-subnav {
+    width: min(254px, calc(100vw - 92px));
+  }
+}
