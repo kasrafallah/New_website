@@ -966,7 +966,7 @@
   });
 
   const sections = [...document.querySelectorAll(".observed-section")];
-  const navLinks = [...document.querySelectorAll(".nav a")];
+  const navLinks = [...document.querySelectorAll(".topnav a[href^='#'], .nav a[href^='#']")];
 
   function activate(section) {
     const nextPayload = section.dataset.payload || "none";
@@ -1039,6 +1039,19 @@
       if (section) activate(section);
     });
   });
+
+  // Keep the complete academic timeline on desktop while showing a short
+  // preview on narrow screens. No news items are discarded.
+  const newsRail = document.querySelector(".news-rail");
+  const newsToggle = document.querySelector(".news-toggle");
+  if (newsRail && newsToggle) {
+    newsToggle.addEventListener("click", () => {
+      const expanded = newsRail.classList.toggle("news-expanded");
+      newsToggle.setAttribute("aria-expanded", String(expanded));
+      const label = newsToggle.querySelector(".news-toggle-label");
+      if (label) label.textContent = expanded ? "Show fewer updates" : "View all updates";
+    });
+  }
 
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
