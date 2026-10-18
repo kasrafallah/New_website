@@ -2911,3 +2911,32 @@ main > .contact {
     width: 94px;
   }
 }
+
+
+/* Official GitHub code links share the project's subdued link vocabulary. */
+.project-paper-links .project-code-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .67rem;
+  font-weight: 650;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.project-paper-links .project-code-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+.project-paper-links .project-code-link .project-link-icon {
+  width: 12px;
+  height: 12px;
+}
+html[data-theme="dark"] .project-paper-links .project-code-link {
+  color: #abbccc;
+}
+html[data-theme="dark"] .project-paper-links .project-code-link:hover {
+  color: var(--accent);
+}
