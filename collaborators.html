@@ -4,34 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kasra Fallah — Collaborators</title>
-  <script src="theme.js?v=20260929h"></script>
-  <link rel="stylesheet" href="style.css?v=20260929h" />
+  <script src="theme.js?v=20261013a"></script>
+  <link rel="stylesheet" href="style.css?v=20261018collab1" />
 </head>
 <body class="collab-page">
-  <aside class="sidebar">
-    <div class="identity">
-      <img class="profile-photo" src="assets/kasra-fallah.webp" alt="Portrait of Kasra Fallah" />
-      <a class="name" href="./index.html">Kasra Fallah</a>
-      <p>Ph.D. Candidate · Columbia University</p>
+  <header class="topbar">
+    <div class="topbar-identity">
+      <div>
+        <a class="topbar-name" href="./index.html">Kasra Fallah</a>
+        <span>Ph.D. Candidate · Columbia University</span>
+      </div>
     </div>
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="./index.html">Home</a>
-      <a href="./index.html#control">Research Areas</a>
+    <nav class="topnav" aria-label="Primary navigation">
+      <a href="./index.html#home">Home</a>
+      <details class="research-menu">
+        <summary>Research Areas <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></svg></summary>
+        <div class="research-subnav" aria-label="Research areas">
+          <a href="./index.html#control">Learning for Control</a>
+          <a href="./index.html#learned">Steering Learned Systems</a>
+          <a href="./index.html#neural">Neural Dynamics</a>
+          <a href="./index.html#physical">Physical Systems</a>
+        </div>
+      </details>
       <a href="./index.html#publications">Publications</a>
-      <a href="https://kasrafallah.github.io/files/KFallah_Resume.pdf" target="_blank" rel="noopener noreferrer">CV (PDF) ↗</a>
-      <a href="collaborators.html" class="collab-nav-active">Collaborators</a>
+      <a class="active" href="collaborators.html" aria-current="page">Collaborators</a>
+      <a href="https://kasrafallah.github.io/files/KFallah_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="CV PDF (opens in new tab)">CV <span class="topnav-external" aria-hidden="true">↗</span></a>
     </nav>
-  </aside>
+    <div class="topbar-actions">
+      <a href="https://github.com/kasrafallah" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="./index.html#contact">Contact</a>
+    </div>
+  </header>
 
   <main class="collab-main">
     <section class="collab-hero">
       <p class="eyebrow">COLLABORATORS</p>
-      <h1>Research is a distributed system.</h1>
+      <h1>Collaborations across disciplines.</h1>
       <p class="collab-intro">
-        My research focuses on decision-making over stochastic time-series data at the intersection
-        of control theory, optimization, machine learning, motor systems, and neuroscience.
-        I have been fortunate to collaborate with faculty, postdoctoral researchers, students,
-        and research scientists across these areas.
+        My research brings together control theory, machine learning, and neural dynamics.
+        I have been fortunate to work with collaborators across institutions and research communities.
+        Explore the interactive globe or select a name below.
       </p>
     </section>
 
@@ -74,6 +86,6 @@
     </section>
   </main>
 
-  <script src="collaborators.js?v=20260929g"></script>
+  <script src="collaborators.js?v=20261018collab1"></script>
 </body>
 </html>
