@@ -3403,3 +3403,30 @@ html[data-theme="dark"] .collab-page .globe-stage {
     padding-bottom: 42px;
   }
 }
+
+
+/* Compact collaborator detail panel adjacent to the larger globe. */
+.collab-page .collab-detail {
+  border-left: 1px solid var(--line);
+  padding: 14px 0 12px 24px;
+  margin: 8px 0 0;
+}
+.collab-page .collab-detail h2 {
+  font-size: clamp(1.56rem, 2.3vw, 2.07rem);
+  line-height: 1.24;
+  margin: 8px 0 11px;
+}
+.collab-page .collab-area {
+  font-size: .86rem;
+}
+html[data-theme="dark"] .collab-page .collab-area {
+  color: #aab7c4;
+}
+@media (max-width: 900px) {
+  .collab-page .collab-detail {
+    margin: 0;
+    padding: 16px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
