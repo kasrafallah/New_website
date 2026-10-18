@@ -354,7 +354,9 @@
     areaEl.textContent=p.role+" · "+p.papers;
     cityEl.textContent=p.city+", "+p.country;
     document.querySelectorAll(".collab-person").forEach((el,index)=>{
-      el.classList.toggle("selected",index===i);
+      const active=index===i;
+      el.classList.toggle("selected",active);
+      el.setAttribute("aria-pressed",String(active));
     });
   }
 
@@ -437,6 +439,18 @@
   if (zoomOutButton) zoomOutButton.addEventListener("click",()=>updateZoom(zoom/1.18));
   if (journeyButton) journeyButton.addEventListener("click",focusJourney);
 
+  // The directory stays scannable; department names and publication cross-
+  // references remain available in the detail panel when selecting a person.
+  function institutionName(affiliation) {
+    if (affiliation.includes("University of Pennsylvania")) return "University of Pennsylvania";
+    if (affiliation.includes("Columbia University")) return "Columbia University";
+    if (affiliation.includes("UT Southwestern Medical Center") ||
+        affiliation.includes("University of Texas Southwestern Medical Center"))
+      return "UT Southwestern";
+    if (affiliation.includes("University of Surrey")) return "University of Surrey";
+    return affiliation;
+  }
+
   groups.forEach(group=>{
     const section=document.createElement("section");
     section.className="collab-group";
@@ -444,6 +458,10 @@
     const title=document.createElement("h3");
     title.className="collab-group-title";
     title.textContent=group.label;
+    const count=document.createElement("span");
+    count.className="collab-group-count";
+    count.textContent=String(group.people.length).padStart(2, "0");
+    title.appendChild(count);
     section.appendChild(title);
 
     const list=document.createElement("div");
@@ -454,9 +472,12 @@
       const button=document.createElement("button");
       button.type="button";
       button.className="collab-person";
+      button.setAttribute("aria-pressed","false");
+      button.setAttribute("aria-label",person.name + ", " + institutionName(person.affiliation) + ". Show details");
 
       const dot=document.createElement("span");
       dot.className="collab-dot";
+      dot.setAttribute("aria-hidden","true");
 
       const body=document.createElement("span");
       const name=document.createElement("strong");
@@ -464,12 +485,9 @@
       name.textContent=person.name;
       const affiliation=document.createElement("span");
       affiliation.className="collab-person-affiliation";
-      affiliation.textContent=person.affiliation;
-      const papers=document.createElement("span");
-      papers.className="collab-person-papers";
-      papers.textContent=person.papers;
+      affiliation.textContent=institutionName(person.affiliation);
 
-      body.append(name,affiliation,papers);
+      body.append(name,affiliation);
       button.append(dot,body);
       button.addEventListener("click",()=>selectPerson(i));
       list.appendChild(button);
