@@ -3261,3 +3261,145 @@ html[data-theme="dark"] .topnav .research-subnav a.active {
     width: min(254px, calc(100vw - 92px));
   }
 }
+
+
+/* Collaborators now uses the same top navigation and restrained typography as the homepage. */
+.collab-page {
+  min-height: 100vh;
+}
+.collab-page .collab-main {
+  width: min(100%, 1190px);
+  margin: var(--topbar-h) auto 0;
+  padding: 0;
+  overflow: visible;
+}
+.collab-page .collab-main > section {
+  min-height: 0;
+  padding-left: clamp(24px, 4vw, 54px);
+  padding-right: clamp(24px, 4vw, 54px);
+  border-bottom: 1px solid var(--line);
+}
+.collab-page .collab-hero {
+  padding-top: clamp(40px, 5vw, 64px);
+  padding-bottom: 23px;
+}
+.collab-page .collab-hero .eyebrow {
+  margin-bottom: 11px;
+  font-size: .64rem;
+}
+.collab-page .collab-hero h1 {
+  max-width: 750px;
+  margin: 0;
+  font-size: clamp(2rem, 3.05vw, 3.05rem);
+  font-weight: 700;
+  line-height: 1.14;
+}
+.collab-page .collab-intro {
+  max-width: 735px;
+  margin: 13px 0 0;
+  color: #536171;
+  font-size: clamp(.9rem, 1vw, .98rem);
+  line-height: 1.72;
+}
+.collab-page .globe-section {
+  padding-top: 27px;
+  padding-bottom: 39px;
+}
+.collab-page .globe-layout {
+  max-width: none;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, .68fr);
+  gap: clamp(18px, 2.5vw, 30px);
+  align-items: start;
+}
+.collab-page .globe-stage {
+  border-radius: 17px;
+  padding: 13px;
+  background: var(--soft);
+  box-shadow: none;
+}
+.collab-page #collabGlobe {
+  max-height: 620px;
+}
+.collab-page .collab-detail {
+  max-width: 100%;
+}
+.collab-page .globe-controls {
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.collab-page .collab-roster-section {
+  padding-top: 33px;
+  padding-bottom: 55px;
+}
+.collab-page .collab-roster-section > h2 {
+  margin-bottom: 22px;
+  font-size: clamp(1.65rem, 2.1vw, 2rem);
+  line-height: 1.25;
+}
+.collab-page .collab-group {
+  margin-bottom: 26px;
+}
+.collab-page .collab-group-title {
+  font-size: .66rem;
+  margin-bottom: 6px;
+}
+.collab-page .collab-person {
+  padding-top: 15px;
+  padding-bottom: 16px;
+}
+.collab-page .collab-person-name {
+  font-size: .98rem;
+}
+.collab-page .topbar {
+  width: 100%;
+}
+.collab-page .topnav .research-menu > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+html[data-theme="dark"] .collab-page .collab-intro {
+  color: #aab7c4;
+}
+html[data-theme="dark"] .collab-page .globe-stage {
+  background: #131e2b;
+}
+@media (max-width: 900px) {
+  .collab-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .collab-page .collab-main {
+    display: block;
+    order: 1;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  .collab-page .globe-layout {
+    grid-template-columns: 1fr;
+  }
+  .collab-page .collab-main > section {
+    padding-left: clamp(18px, 5vw, 32px);
+    padding-right: clamp(18px, 5vw, 32px);
+  }
+  .collab-page .collab-hero {
+    padding-top: 34px;
+    padding-bottom: 20px;
+  }
+  .collab-page .globe-section {
+    padding-top: 20px;
+    padding-bottom: 32px;
+  }
+}
+@media (max-width: 520px) {
+  .collab-page .collab-hero h1 {
+    font-size: 1.91rem;
+  }
+  .collab-page .globe-stage {
+    padding: 8px;
+    border-radius: 13px;
+  }
+  .collab-page .collab-roster-section {
+    padding-top: 29px;
+    padding-bottom: 42px;
+  }
+}
