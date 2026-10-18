@@ -2541,3 +2541,15 @@ html[data-theme="dark"] .venue-waterloo {
   background: #332f16;
   border-color: #60572b;
 }
+
+
+.equal-contribution {
+  margin: 2px 0 7px;
+  color: #8a95a1;
+  font-size: .72rem;
+  font-style: italic;
+}
+
+html[data-theme="dark"] .equal-contribution {
+  color: #7f8f9f;
+}
