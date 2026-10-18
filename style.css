@@ -2553,3 +2553,186 @@ html[data-theme="dark"] .venue-waterloo {
 html[data-theme="dark"] .equal-contribution {
   color: #7f8f9f;
 }
+
+
+/* Refined academic About — portrait belongs to the biography, not the navigation */
+.about-hero {
+  min-height: calc(100vh - 76px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(52px, 6vh, 84px);
+  padding-bottom: clamp(60px, 7vh, 92px);
+}
+
+.about-profile-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 30px);
+  padding-bottom: 27px;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-profile-photo {
+  display: block;
+  width: clamp(112px, 10vw, 150px);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  flex: 0 0 auto;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(31, 46, 65, 0.07);
+  filter: saturate(.9) contrast(1.01);
+}
+
+.about-profile-intro {
+  min-width: 0;
+}
+
+.about-profile-intro .eyebrow {
+  margin: 0 0 11px;
+  font-size: .65rem;
+}
+
+.about-profile-intro h1 {
+  max-width: 100%;
+  margin: 0 0 13px;
+  font-size: clamp(2.15rem, 3vw, 3.15rem);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+  font-weight: 720;
+}
+
+.about-role {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(.84rem, 1.04vw, 1rem);
+  font-weight: 620;
+  line-height: 1.45;
+}
+
+.about-affiliation {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.about-biography {
+  max-width: 790px;
+  padding-top: 25px;
+}
+
+.about-hero .academic-bio {
+  max-width: 790px;
+  margin: 0;
+  color: #536171;
+  font-size: clamp(.91rem, .98vw, 1rem);
+  line-height: 1.76;
+  letter-spacing: -.003em;
+}
+
+.about-hero .academic-bio + .academic-bio {
+  margin-top: 15px;
+}
+
+.about-hero .profile-links {
+  margin-top: 23px;
+  gap: 8px;
+}
+
+.about-hero .profile-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 31px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: #556576;
+  font-size: .67rem;
+  text-decoration: none;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+
+.about-hero .profile-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--soft);
+}
+
+.about-hero .home-research-interests {
+  max-width: 790px;
+  margin-top: 34px;
+  padding-top: 25px;
+}
+
+.about-hero .home-research-interests .eyebrow {
+  margin-bottom: 8px;
+}
+
+.about-hero .home-research-interests h2 {
+  max-width: 740px;
+  margin: 0 0 12px;
+  font-size: clamp(1.42rem, 2vw, 1.95rem);
+  font-weight: 660;
+  line-height: 1.27;
+}
+
+.about-hero .home-research-interests .lede {
+  max-width: 760px;
+  margin: 0;
+  font-size: .91rem;
+  line-height: 1.7;
+}
+
+.about-hero .interactive-caption {
+  margin-top: 24px;
+  font-size: .7rem;
+}
+
+html[data-theme="dark"] .about-hero .academic-bio,
+html[data-theme="dark"] .about-hero .home-research-interests .lede {
+  color: #aab7c4;
+}
+
+html[data-theme="dark"] .about-hero .profile-links a {
+  color: #a5b6c7;
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .about-hero .profile-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+html[data-theme="dark"] .about-profile-photo {
+  filter: saturate(.86) brightness(.92) contrast(1.02);
+  box-shadow: 0 8px 26px rgba(0,0,0,.2);
+}
+
+@media (max-width: 1160px) {
+  .about-profile-head { gap: 17px; }
+  .about-profile-photo { width: 104px; }
+  .about-profile-intro h1 { font-size: clamp(1.92rem, 3vw, 2.45rem); }
+  .about-role { font-size: .82rem; }
+  .about-hero .academic-bio { font-size: .9rem; }
+}
+
+@media (max-width: 900px) {
+  .about-hero { min-height: auto; padding-top: 70px; }
+  .about-profile-photo { width: 128px; }
+  .about-profile-intro h1 { font-size: clamp(2.2rem, 5vw, 3rem); }
+}
+
+@media (max-width: 520px) {
+  .about-profile-photo { width: 100px; border-radius: 12px; }
+  .about-profile-head { gap: 15px; padding-bottom: 22px; }
+  .about-profile-intro h1 { font-size: clamp(1.85rem, 7vw, 2.4rem); margin-bottom: 8px; }
+  .about-role { font-size: .77rem; }
+  .about-affiliation { font-size: .72rem; }
+  .about-biography { padding-top: 20px; }
+  .about-hero .academic-bio { font-size: .91rem; line-height: 1.72; }
+}
