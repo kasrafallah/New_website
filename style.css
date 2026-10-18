@@ -3599,3 +3599,73 @@ html[data-theme="dark"] .topnav .topnav-soon-note {
     padding: 7px 9px;
   }
 }
+
+
+/* Linkable, descriptive bibliography anchors used by collaborator profiles. */
+.bibliography-entry[id] {
+  scroll-margin-top: calc(var(--topbar-h) + 20px);
+}
+.bibliography-entry[id]:target {
+  background: rgba(36,87,214,.045);
+  outline: 1px solid rgba(36,87,214,.20);
+  outline-offset: 7px;
+  border-radius: 4px;
+}
+html[data-theme="dark"] .bibliography-entry[id]:target {
+  background: rgba(100,145,233,.11);
+  outline-color: rgba(100,145,233,.26);
+}
+
+/* Full paper titles appear only for the selected collaborator. */
+.collab-page .collab-paper-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.collab-page .collab-papers-kicker {
+  margin: 0 0 9px;
+  color: var(--muted);
+  font: 730 .62rem Inter, ui-sans-serif, sans-serif;
+  letter-spacing: .09em;
+}
+.collab-page .collab-paper-list {
+  margin: 0;
+  padding: 0 4px 0 0;
+  max-height: 325px;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: thin;
+}
+.collab-page .collab-paper-list li {
+  margin: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+.collab-page .collab-paper-list li:last-child {
+  border-bottom: none;
+}
+.collab-page .collab-paper-list a {
+  display: block;
+  color: var(--accent);
+  font-size: .8rem;
+  font-weight: 540;
+  line-height: 1.42;
+  text-decoration: none;
+}
+.collab-page .collab-paper-list a:hover {
+  text-decoration: underline;
+}
+.collab-page .collab-papers-status {
+  margin: 0;
+  font-size: .79rem;
+  color: var(--muted);
+}
+.collab-page .collab-papers-status a {
+  color: var(--accent);
+  text-decoration: none;
+}
+@media (max-width: 900px) {
+  .bibliography-entry[id] {
+    scroll-margin-top: 18px;
+  }
+}
