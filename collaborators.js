@@ -155,7 +155,8 @@
 
   function drawCountries(cx,cy,r) {
     if (!countries) return;
-    ctx.strokeStyle = "rgba(83,104,125,.38)";
+    ctx.strokeStyle = document.documentElement.dataset.theme === "dark"
+      ? "rgba(152,176,199,.49)" : "rgba(83,104,125,.38)";
     ctx.lineWidth = .75;
 
     countries.features.forEach(feature => {
@@ -186,17 +187,18 @@
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
     const cx = w/2, cy = h/2, r = Math.min(w,h)*.43*zoom;
+    const dark = document.documentElement.dataset.theme === "dark";
     ctx.clearRect(0,0,w,h);
 
     const g = ctx.createRadialGradient(cx-r*.3,cy-r*.3,r*.1,cx,cy,r);
-    g.addColorStop(0,"#ffffff");
-    g.addColorStop(.72,"#f5f8fb");
-    g.addColorStop(1,"#e7edf3");
+    g.addColorStop(0,dark ? "#293f56" : "#ffffff");
+    g.addColorStop(.72,dark ? "#1d3044" : "#f5f8fb");
+    g.addColorStop(1,dark ? "#101e2f" : "#e7edf3");
     ctx.fillStyle = g;
     ctx.beginPath();
     ctx.arc(cx,cy,r,0,Math.PI*2);
     ctx.fill();
-    ctx.strokeStyle = "#c8d2dc";
+    ctx.strokeStyle = dark ? "#50687e" : "#c8d2dc";
     ctx.lineWidth = 1.2;
     ctx.stroke();
 
@@ -205,7 +207,7 @@
     ctx.arc(cx,cy,r,0,Math.PI*2);
     ctx.clip();
 
-    ctx.strokeStyle = "rgba(110,128,146,.13)";
+    ctx.strokeStyle = dark ? "rgba(159,186,214,.18)" : "rgba(110,128,146,.13)";
     ctx.lineWidth = .7;
     for(let lat=-60;lat<=60;lat+=30){
       ctx.beginPath();
@@ -234,7 +236,7 @@
       const p = project(country.lat,country.lon,cx,cy,r);
       drawLabel(country.name,p,{
         font:'600 8px ui-monospace, SFMono-Regular, Menlo, monospace',
-        color:"rgba(76,94,112,.48)"
+        color:dark ? "rgba(190,209,227,.58)" : "rgba(76,94,112,.48)"
       });
     });
 
@@ -243,10 +245,10 @@
       if(p.z<.04) return;
       ctx.beginPath();
       ctx.arc(p.x,p.y,2.2,0,Math.PI*2);
-      ctx.fillStyle="#102033";
+      ctx.fillStyle=dark ? "#e2efff" : "#102033";
       ctx.fill();
       ctx.font='700 9px ui-monospace, SFMono-Regular, Menlo, monospace';
-      ctx.fillStyle="#33485d";
+      ctx.fillStyle=dark ? "#c3d5e6" : "#33485d";
       ctx.textAlign="left";
       ctx.textBaseline="middle";
       ctx.fillText(city.name+" · "+city.country,p.x+6,p.y-1);
