@@ -967,6 +967,8 @@
 
   const sections = [...document.querySelectorAll(".observed-section")];
   const navLinks = [...document.querySelectorAll(".topnav a[href^='#'], .nav a[href^='#']")];
+  const researchMenu = document.querySelector(".research-menu");
+
 
   function activate(section) {
     const nextPayload = section.dataset.payload || "none";
@@ -989,6 +991,12 @@
       const active = link.getAttribute("href") === "#" + section.id;
       link.classList.toggle("active", active);
     });
+    if (researchMenu) {
+      researchMenu.classList.toggle(
+        "active",
+        ["control", "learned", "neural", "physical"].includes(section.id)
+      );
+    }
   }
 
   const educationEntries = [...document.querySelectorAll(".education-entry[data-education-stage]")];
@@ -1039,6 +1047,27 @@
       if (section) activate(section);
     });
   });
+
+  // Native details provides keyboard-accessible research navigation.
+  // Close the submenu after selecting a section or clicking outside it.
+  if (researchMenu) {
+    researchMenu.querySelectorAll(".research-subnav a").forEach((link) => {
+      link.addEventListener("click", () => {
+        researchMenu.open = false;
+      });
+    });
+    document.addEventListener("click", (event) => {
+      if (researchMenu.open && !researchMenu.contains(event.target)) {
+        researchMenu.open = false;
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && researchMenu.open) {
+        researchMenu.open = false;
+        researchMenu.querySelector("summary")?.focus();
+      }
+    });
+  }
 
   // Keep the complete academic timeline on desktop while showing a short
   // preview on narrow screens. No news items are discarded.
