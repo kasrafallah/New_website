@@ -412,7 +412,7 @@
         title: entry.querySelector("h3")?.textContent.trim() || "Untitled work",
         authors: (entry.querySelector(".authors")?.textContent || "")
           .split(",")
-          .map((name) => name.replace(/\\*/g, "").trim().toLocaleLowerCase())
+          .map((name) => name.split("*").join("").trim().toLocaleLowerCase())
           .filter(Boolean)
       }));
     } catch (error) {
