@@ -2109,7 +2109,7 @@ html[data-theme="dark"] .topbar-photo {
 
 /* 2026-10-12 correction: News on LEFT, cart-pole restored on RIGHT */
 :root {
-  --news-rail: 285px;
+  --news-rail: 342px;
   --control-panel: 430px;
 }
 
@@ -2184,7 +2184,7 @@ html[data-theme="dark"] .control-panel {
 
 @media (max-width: 1380px) {
   :root {
-    --news-rail: 245px;
+    --news-rail: 294px;
     --control-panel: 350px;
   }
 
@@ -2203,7 +2203,7 @@ html[data-theme="dark"] .control-panel {
 
 @media (max-width: 1080px) {
   :root {
-    --news-rail: 220px;
+    --news-rail: 264px;
     --control-panel: 315px;
   }
 
